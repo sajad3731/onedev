@@ -42,27 +42,3 @@ export const darkThemeRTL = createTheme(
   },
   faIR
 );
-
-// "use client";
-// import createCache from "@emotion/cache";
-// import { createTheme, Theme } from "@mui/material/styles";
-// import rtlPlugin from "stylis-plugin-rtl";
-// import { prefixer } from "stylis";
-
-// const theme = (outerTheme: Theme) =>
-//   createTheme({
-//     typography: {
-//       fontFamily: outerTheme.typography.fontFamily,
-//     },
-//     direction: outerTheme.direction,
-//     palette: {
-//       mode: outerTheme.palette.mode,
-//     },
-//   });
-
-// export const cacheRtl = createCache({
-//   key: "muirtl",
-//   stylisPlugins: [prefixer, rtlPlugin],
-// });
-
-// export default theme;

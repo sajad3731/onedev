@@ -2,5 +2,10 @@
   "HomePage": {
     "title": "سلام دنیا!",
     "about": "رفتن به صفحه درباره ما"
+  },
+  "Metadata": {
+    "HomePage": {
+      "title": "خانه"
+    }
   }
 }

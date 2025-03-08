@@ -7,19 +7,34 @@ import { routing } from "@/i18n/routing";
 import { getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
-import { Roboto } from "next/font/google";
+
+import "@/styles/globals.css";
 
 export const generateStaticParams = () =>
   routing.locales.map((locale) => ({ locale }));
 
-const roboto = Roboto({
-  weight: ["300", "400", "500", "700"],
-  subsets: ["latin"],
-  display: "swap",
+const roboto = localFont({
+  src: [
+    {
+      path: "../../../public/fonts/roboto-v47-latin-300.woff2",
+      weight: "300",
+    },
+    {
+      path: "../../../public/fonts/roboto-v47-latin-regular.woff2",
+      weight: "400",
+    },
+    {
+      path: "../../../public/fonts/roboto-v47-latin-500.woff2",
+      weight: "500",
+    },
+    {
+      path: "../../../public/fonts/roboto-v47-latin-700.woff2",
+      weight: "700",
+    },
+  ],
   variable: "--font-roboto",
+  display: "swap",
 });
-
-import "@/styles/globals.css";
 
 const iransans = localFont({
   src: [
@@ -57,14 +72,13 @@ export default async function RootLayout({
   setRequestLocale(locale);
 
   // Providing all messages to the client
-  // side is the easiest way to get started
   const messages = await getMessages();
 
   return (
     <html lang={locale} dir={locale === "fa" ? "rtl" : "ltr"}>
       <body className={`${iransans.variable} ${roboto.variable} antialiased`}>
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
-          <CustomMuiThemeProvider>
+          <CustomMuiThemeProvider params={{ locale }}>
             <NextIntlClientProvider messages={messages}>
               {children}
             </NextIntlClientProvider>

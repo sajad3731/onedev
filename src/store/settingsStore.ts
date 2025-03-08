@@ -1,18 +1,18 @@
 import { create } from "zustand";
 
-type ColorMode = "light" | "dark" | "system";
+type ThemeMode = "light" | "dark" | "system";
 type Locale = "en" | "fa";
 
 interface SettingsStore {
-  colorMode: ColorMode;
+  themeMode: ThemeMode;
   locale: Locale;
-  setTheme: (colorMode: ColorMode) => void;
+  setThemeMode: (themeMode: ThemeMode) => void;
   setLocale: (locale: Locale) => void;
 }
 
 export const useSettingsStore = create<SettingsStore>((set) => ({
-  colorMode: "system",
+  themeMode: "system",
   locale: "en",
-  setTheme: (colorMode) => set({ colorMode }),
+  setThemeMode: (themeMode) => set({ themeMode }),
   setLocale: (locale) => set({ locale }),
 }));

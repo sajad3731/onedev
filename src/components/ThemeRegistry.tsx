@@ -1,13 +1,22 @@
 "use client";
-import * as React from "react";
+
+import { useSettingsStore } from "@/store/settingsStore";
+import {
+  darkTheme,
+  darkThemeRTL,
+  lightTheme,
+  lightThemeRTL,
+} from "@/styles/theme";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
-import { useServerInsertedHTML } from "next/navigation";
+import { useMediaQuery } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
-import { lightTheme } from "@/styles/theme";
+import { useServerInsertedHTML } from "next/navigation";
+import * as React from "react";
 
-interface Props {
+interface ThemeRegistryProps {
   children: React.ReactNode;
+  params: { locale: "fa" | "en" };
 }
 
 // Create an Emotion cache instance
@@ -17,7 +26,10 @@ const createEmotionCache = () => {
   return cache;
 };
 
-export default function ThemeRegistry({ children }: Props) {
+export default function ThemeRegistry({
+  children,
+  params: { locale },
+}: ThemeRegistryProps) {
   const [cache] = React.useState(createEmotionCache);
   // Inject styles first in the <head> during SSR
   useServerInsertedHTML(() => {
@@ -35,9 +47,31 @@ export default function ThemeRegistry({ children }: Props) {
     );
   });
 
-  // Determine current theme from Zustand store or system (we will connect this soon)
-  // For now, default to lightTheme as a placeholder; we'll dynamically choose later
-  const currentTheme = lightTheme;
+  const { themeMode, setThemeMode } = useSettingsStore();
+  const isDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+
+  React.useEffect(() => {
+    setThemeMode(isDarkMode ? "dark" : "light");
+  }, [isDarkMode, setThemeMode]);
+
+  console.log("themeMode: ", themeMode);
+
+  const currentTheme = React.useMemo(() => {
+    const isRtl = locale === "fa";
+    if (themeMode === "dark") {
+      if (isRtl) {
+        return darkThemeRTL;
+      } else {
+        return darkTheme;
+      }
+    } else {
+      if (isRtl) {
+        return lightThemeRTL;
+      } else {
+        return lightTheme;
+      }
+    }
+  }, [locale, themeMode]);
 
   return (
     <CacheProvider value={cache}>
