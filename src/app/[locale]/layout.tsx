@@ -1,4 +1,5 @@
-import type { Metadata } from "next";
+// layout.tsx
+import { Metadata } from "next";
 import localFont from "next/font/local";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import CustomMuiThemeProvider from "@/components/ThemeRegistry";
@@ -7,6 +8,7 @@ import { routing } from "@/i18n/routing";
 import { getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
+import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 
 import "@/styles/globals.css";
 
@@ -77,6 +79,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} dir={locale === "fa" ? "rtl" : "ltr"}>
       <body className={`${iransans.variable} ${roboto.variable} antialiased`}>
+        <InitColorSchemeScript defaultMode="light" />
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <CustomMuiThemeProvider params={{ locale }}>
             <NextIntlClientProvider messages={messages}>

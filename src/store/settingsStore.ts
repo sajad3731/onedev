@@ -1,18 +1,26 @@
 import { create } from "zustand";
 
-type ThemeMode = "light" | "dark" | "system";
-type Locale = "en" | "fa";
+type ThemeMode = "light" | "dark";
 
-interface SettingsStore {
+interface SettingsState {
   themeMode: ThemeMode;
-  locale: Locale;
-  setThemeMode: (themeMode: ThemeMode) => void;
-  setLocale: (locale: Locale) => void;
+  setThemeMode: (mode: ThemeMode) => void;
 }
 
-export const useSettingsStore = create<SettingsStore>((set) => ({
-  themeMode: "system",
-  locale: "en",
-  setThemeMode: (themeMode) => set({ themeMode }),
-  setLocale: (locale) => set({ locale }),
-}));
+export const useSettingsStore = create<SettingsState>((set) => {
+  // Retrieve the initial theme mode from localStorage or default to 'light'
+  const initialThemeMode =
+    ((typeof window !== "undefined" &&
+      localStorage.getItem("themeMode")) as ThemeMode) || "light";
+
+  return {
+    themeMode: initialThemeMode,
+    setThemeMode: (mode: ThemeMode) => {
+      // Update the theme mode in state and localStorage
+      set({ themeMode: mode });
+      if (typeof window !== "undefined") {
+        localStorage.setItem("themeMode", mode);
+      }
+    },
+  };
+});

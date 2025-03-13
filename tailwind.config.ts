@@ -6,6 +6,9 @@ module.exports = {
     "./components/**/*.tsx",
     "./src/**/*.tsx", // In case you use a 'src' directory
   ],
+  corePlugins: {
+    preflight: false, // Disable Tailwind base styles (use MUI CssBaseline instead)&#8203;:contentReference[oaicite:14]{index=14}
+  },
   theme: {
     extend: {},
   },

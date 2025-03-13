@@ -9,10 +9,10 @@ import {
 } from "@/styles/theme";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
-import { useMediaQuery } from "@mui/material";
+import { CssBaseline, useMediaQuery } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { useServerInsertedHTML } from "next/navigation";
-import * as React from "react";
+import { useEffect, useMemo, useState } from "react";
 
 interface ThemeRegistryProps {
   children: React.ReactNode;
@@ -30,7 +30,7 @@ export default function ThemeRegistry({
   children,
   params: { locale },
 }: ThemeRegistryProps) {
-  const [cache] = React.useState(createEmotionCache);
+  const [cache] = useState(createEmotionCache);
   // Inject styles first in the <head> during SSR
   useServerInsertedHTML(() => {
     const styles = cache.inserted;
@@ -50,32 +50,25 @@ export default function ThemeRegistry({
   const { themeMode, setThemeMode } = useSettingsStore();
   const isDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
-  React.useEffect(() => {
+  useEffect(() => {
     setThemeMode(isDarkMode ? "dark" : "light");
   }, [isDarkMode, setThemeMode]);
 
-  console.log("themeMode: ", themeMode);
-
-  const currentTheme = React.useMemo(() => {
+  const currentTheme = useMemo(() => {
     const isRtl = locale === "fa";
     if (themeMode === "dark") {
-      if (isRtl) {
-        return darkThemeRTL;
-      } else {
-        return darkTheme;
-      }
+      return isRtl ? darkThemeRTL : darkTheme;
     } else {
-      if (isRtl) {
-        return lightThemeRTL;
-      } else {
-        return lightTheme;
-      }
+      return isRtl ? lightThemeRTL : lightTheme;
     }
   }, [locale, themeMode]);
 
   return (
     <CacheProvider value={cache}>
-      <ThemeProvider theme={currentTheme}>{children}</ThemeProvider>
+      <ThemeProvider theme={currentTheme}>
+        <CssBaseline />
+        {children}
+      </ThemeProvider>
     </CacheProvider>
   );
 }
