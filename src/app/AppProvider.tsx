@@ -1,6 +1,5 @@
 "use client";
 
-import { useSettingsStore } from "@/store/settingsStore";
 import {
   darkTheme,
   darkThemeRTL,
@@ -9,10 +8,14 @@ import {
 } from "@/styles/theme";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
-import { CssBaseline, useMediaQuery } from "@mui/material";
+import { CssBaseline } from "@mui/material";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
+import { useTheme } from "next-themes";
 import { useServerInsertedHTML } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { FC, useMemo, useState } from "react";
+
+import "@/styles/globals.css";
 
 interface ThemeRegistryProps {
   children: React.ReactNode;
@@ -26,10 +29,14 @@ const createEmotionCache = () => {
   return cache;
 };
 
-export default function ThemeRegistry({
+export const AppProvider: FC<ThemeRegistryProps> = ({
   children,
   params: { locale },
-}: ThemeRegistryProps) {
+}) => {
+  const { theme: themeMode } = useTheme();
+
+  // console.log({ themeMode });
+
   const [cache] = useState(createEmotionCache);
   // Inject styles first in the <head> during SSR
   useServerInsertedHTML(() => {
@@ -47,13 +54,6 @@ export default function ThemeRegistry({
     );
   });
 
-  const { themeMode, setThemeMode } = useSettingsStore();
-  const isDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-
-  useEffect(() => {
-    setThemeMode(isDarkMode ? "dark" : "light");
-  }, [isDarkMode, setThemeMode]);
-
   const currentTheme = useMemo(() => {
     const isRtl = locale === "fa";
     if (themeMode === "dark") {
@@ -63,12 +63,16 @@ export default function ThemeRegistry({
     }
   }, [locale, themeMode]);
 
+  console.log({ currentTheme });
+
   return (
-    <CacheProvider value={cache}>
-      <ThemeProvider theme={currentTheme}>
-        <CssBaseline />
-        {children}
-      </ThemeProvider>
-    </CacheProvider>
+    <AppRouterCacheProvider options={{ enableCssLayer: true }}>
+      <CacheProvider value={cache}>
+        <ThemeProvider theme={currentTheme}>
+          <CssBaseline />
+          {children}
+        </ThemeProvider>
+      </CacheProvider>
+    </AppRouterCacheProvider>
   );
-}
+};

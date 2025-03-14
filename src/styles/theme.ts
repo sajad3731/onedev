@@ -5,7 +5,6 @@ import { blue, grey, pink } from "@mui/material/colors";
 // ============================ EN THEME ============================ //
 export const lightTheme = createTheme(
   {
-    cssVariables: true,
     palette: {
       mode: "light",
       primary: {
@@ -27,7 +26,6 @@ export const lightTheme = createTheme(
 
 export const darkTheme = createTheme(
   {
-    cssVariables: true,
     palette: {
       mode: "dark",
       primary: {
@@ -50,7 +48,6 @@ export const darkTheme = createTheme(
 // ============================ FA THEME ============================ //
 export const lightThemeRTL = createTheme(
   {
-    cssVariables: true,
     palette: {
       mode: "light",
       primary: {
@@ -72,7 +69,6 @@ export const lightThemeRTL = createTheme(
 
 export const darkThemeRTL = createTheme(
   {
-    cssVariables: true,
     palette: {
       mode: "dark",
       primary: {

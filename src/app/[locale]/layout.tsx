@@ -1,15 +1,11 @@
-// layout.tsx
-import { Metadata } from "next";
-import localFont from "next/font/local";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
-import CustomMuiThemeProvider from "@/components/ThemeRegistry";
-import { notFound } from "next/navigation";
+import { AppProvider } from "@/app/AppProvider";
 import { routing } from "@/i18n/routing";
-import { getMessages } from "next-intl/server";
+import { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
-import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
-
+import { getMessages, setRequestLocale } from "next-intl/server";
+import localFont from "next/font/local";
+import { notFound } from "next/navigation";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
 import "@/styles/globals.css";
 
 export const generateStaticParams = () =>
@@ -73,20 +69,20 @@ export default async function RootLayout({
 
   setRequestLocale(locale);
 
-  // Providing all messages to the client
   const messages = await getMessages();
 
   return (
-    <html lang={locale} dir={locale === "fa" ? "rtl" : "ltr"}>
+    <html
+      lang={locale}
+      dir={locale === "fa" ? "rtl" : "ltr"}
+      suppressHydrationWarning
+    >
       <body className={`${iransans.variable} ${roboto.variable} antialiased`}>
-        <InitColorSchemeScript defaultMode="light" />
-        <AppRouterCacheProvider options={{ enableCssLayer: true }}>
-          <CustomMuiThemeProvider params={{ locale }}>
-            <NextIntlClientProvider messages={messages}>
-              {children}
-            </NextIntlClientProvider>
-          </CustomMuiThemeProvider>
-        </AppRouterCacheProvider>
+        <NextIntlClientProvider messages={messages}>
+          <NextThemesProvider defaultTheme="light" enableSystem={false}>
+            <AppProvider params={{ locale }}>{children}</AppProvider>
+          </NextThemesProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
