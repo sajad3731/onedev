@@ -34,10 +34,9 @@ export const AppProvider: FC<ThemeRegistryProps> = ({
 }) => {
   const { theme: themeMode } = useTheme();
 
-  // console.log({ themeMode });
-
   const [cache] = useState(createEmotionCache);
-  // Inject styles first in the <head> during SSR
+
+  // Inject styles in SSR
   useServerInsertedHTML(() => {
     const styles = cache.inserted;
     if (!styles) return null;
@@ -61,6 +60,8 @@ export const AppProvider: FC<ThemeRegistryProps> = ({
       return isRtl ? lightThemeRTL : lightTheme;
     }
   }, [locale, themeMode]);
+
+  console.log({ currentTheme });
 
   return (
     <AppRouterCacheProvider options={{ enableCssLayer: true }}>

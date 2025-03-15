@@ -1,21 +1,17 @@
 import { createTheme } from "@mui/material/styles";
 import { faIR, enUS } from "@mui/material/locale"; // MUI locale packs for RTL/LTR if needed
 import { blue, grey, pink } from "@mui/material/colors";
+import { tokens } from "./tokens";
 
 // ============================ EN THEME ============================ //
 export const lightTheme = createTheme(
   {
     palette: {
-      mode: "light",
       primary: {
-        main: blue[500],
+        main: tokens.colors.primary.DEFAULT,
       },
       background: {
-        default: grey[50],
-        paper: grey[100],
-      },
-      text: {
-        primary: grey[900],
+        default: tokens.colors.neutral[50],
       },
     },
     direction: "ltr",
@@ -29,11 +25,10 @@ export const darkTheme = createTheme(
     palette: {
       mode: "dark",
       primary: {
-        main: pink[200],
+        main: tokens.colors.primary.light, // for example
       },
       background: {
-        default: grey[900],
-        paper: grey[800],
+        default: tokens.colors.neutral[900],
       },
       text: {
         primary: "#fff",
@@ -57,9 +52,9 @@ export const lightThemeRTL = createTheme(
         default: grey[50],
         paper: grey[100],
       },
-      text: {
-        primary: grey[900],
-      },
+      // text: {
+      //   primary: grey[900],
+      // },
     },
     direction: "rtl",
     typography: { fontFamily: "var(--font-iransans)" },

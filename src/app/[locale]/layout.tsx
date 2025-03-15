@@ -77,9 +77,15 @@ export default async function RootLayout({
       dir={locale === "fa" ? "rtl" : "ltr"}
       suppressHydrationWarning
     >
-      <body className={`${iransans.variable} ${roboto.variable} antialiased`}>
+      <body
+        className={`${iransans.variable} ${roboto.variable} antialiased min-h-screen bg-white text-black dark:bg-gray-900 dark:text-gray-100"`}
+      >
         <NextIntlClientProvider messages={messages}>
-          <NextThemesProvider defaultTheme="light" enableSystem={false}>
+          <NextThemesProvider
+            defaultTheme="light"
+            enableSystem={false}
+            attribute="class"
+          >
             <AppProvider params={{ locale }}>{children}</AppProvider>
           </NextThemesProvider>
         </NextIntlClientProvider>

@@ -1,10 +1,9 @@
 import { LangSwitchBtn } from "@/components/LangSwitchBtn";
+import { ThemeModeSwitchBtn } from "@/components/ThemeModeSwitchBtn";
 import { Box, Stack, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
-import { type FC, use } from "react";
-import { getTranslations } from "next-intl/server";
-import { ThemeModeSwitchBtn } from "@/components/ThemeModeSwitchBtn";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { type FC } from "react";
 
 export async function generateMetadata(
   params: Promise<{ locale: "fa" | "en" }>
@@ -18,21 +17,28 @@ export async function generateMetadata(
 }
 
 interface HomePageProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  params: any;
+  params: { locale: string };
 }
 
 const HomePage: FC<HomePageProps> = ({ params }) => {
-  const { locale } = use<{ locale: string }>(params);
+  const { locale } = params;
 
   setRequestLocale(locale);
 
   const t = useTranslations("HomePage");
 
   return (
-    <Box className="min-h-screen">
+    <Box
+      // Let MUI define background/text via the palette:
+      sx={{
+        bgcolor: "background.default",
+        color: "text.primary",
+        minHeight: "100vh",
+      }}
+      className="p-4"
+    >
       <header>
-        <Stack direction="row" justifyContent="center" className="gap-x-2 p-2">
+        <Stack direction="row" justifyContent="center" columnGap={2}>
           <LangSwitchBtn />
           <ThemeModeSwitchBtn />
         </Stack>
