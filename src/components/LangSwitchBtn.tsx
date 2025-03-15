@@ -16,9 +16,13 @@ export const LangSwitchBtn = () => {
   };
 
   return (
-    <Stack>
+    <Stack className="gap-y-1">
       {locales.map((locale) => (
-        <Button key={locale} onClick={() => handleLanguageChange(locale)}>
+        <Button
+          variant="contained"
+          key={locale}
+          onClick={() => handleLanguageChange(locale)}
+        >
           {locale === "en" ? "English" : "فارسی"}
         </Button>
       ))}

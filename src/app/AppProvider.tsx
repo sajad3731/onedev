@@ -8,9 +8,8 @@ import {
 } from "@/styles/theme";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
-import { ThemeProvider } from "@mui/material/styles";
 import { useTheme } from "next-themes";
 import { useServerInsertedHTML } from "next/navigation";
 import { FC, useMemo, useState } from "react";
@@ -62,8 +61,6 @@ export const AppProvider: FC<ThemeRegistryProps> = ({
       return isRtl ? lightThemeRTL : lightTheme;
     }
   }, [locale, themeMode]);
-
-  console.log({ currentTheme });
 
   return (
     <AppRouterCacheProvider options={{ enableCssLayer: true }}>

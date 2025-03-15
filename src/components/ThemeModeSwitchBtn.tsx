@@ -1,38 +1,3 @@
-// "use client";
-
-// import { useEffect, useState, useMemo } from "react";
-// import { Button } from "@mui/material";
-// import { useLocale } from "next-intl";
-// import { useTheme } from "next-themes";
-
-// export const ThemeModeSwitchBtn = () => {
-//   const { theme: themeMode, setTheme } = useTheme();
-//   const locale = useLocale();
-//   const [mounted, setMounted] = useState(false);
-
-//   useEffect(() => {
-//     setMounted(true);
-//   }, []);
-
-//   const handleThemeChange = () => {
-//     setTheme(themeMode !== "light" ? "light" : "dark");
-//   };
-
-//   const btnText = useMemo(() => {
-//     if (locale === "fa") {
-//       return themeMode === "dark" ? "روشن" : "تیره";
-//     } else {
-//       return themeMode === "dark" ? "Light" : "Dark";
-//     }
-//   }, [locale, themeMode]);
-
-//   if (!mounted) {
-//     return null;
-//   }
-
-//   return <Button onClick={handleThemeChange}>{btnText}</Button>;
-// };
-
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
@@ -72,9 +37,10 @@ export const ThemeModeSwitchBtn = () => {
   }
 
   return (
-    <Stack>
+    <Stack className="gap-y-1">
       {btnText.map(({ label, value }) => (
         <Button
+          variant="outlined"
           key={label + value}
           onClick={() => handleThemeChange(value as "light" | "dark")}
         >

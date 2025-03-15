@@ -1,5 +1,5 @@
 import { LangSwitchBtn } from "@/components/LangSwitchBtn";
-import { Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { type FC, use } from "react";
@@ -30,9 +30,9 @@ const HomePage: FC<HomePageProps> = ({ params }) => {
   const t = useTranslations("HomePage");
 
   return (
-    <>
+    <Box className="min-h-screen">
       <header>
-        <Stack direction="row" justifyContent="center">
+        <Stack direction="row" justifyContent="center" className="gap-x-2 p-2">
           <LangSwitchBtn />
           <ThemeModeSwitchBtn />
         </Stack>
@@ -40,7 +40,7 @@ const HomePage: FC<HomePageProps> = ({ params }) => {
       <main>
         <Typography>{t("title")}</Typography>
       </main>
-    </>
+    </Box>
   );
 };
 
