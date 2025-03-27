@@ -2,7 +2,7 @@ import { LangSwitchBtn } from "@/components/LangSwitchBtn";
 import { ThemeModeSwitchBtn } from "@/components/ThemeModeSwitchBtn";
 import { Box, Stack, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { type FC } from "react";
 
 export async function generateMetadata(
@@ -16,15 +16,7 @@ export async function generateMetadata(
   };
 }
 
-interface HomePageProps {
-  params: { locale: string };
-}
-
-const HomePage: FC<HomePageProps> = ({ params }) => {
-  const { locale } = params;
-
-  setRequestLocale(locale);
-
+const HomePage: FC = () => {
   const t = useTranslations("HomePage");
 
   return (

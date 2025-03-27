@@ -58,14 +58,14 @@ const VALID_LOCALES = ["en", "fa"];
 
 type RootLayoutPropsType = Readonly<{
   children: React.ReactNode;
-  params: { locale: "fa" | "en" };
+  params: Promise<{ locale: "fa" | "en" }>;
 }>;
 
 export default async function RootLayout({
   children,
   params,
 }: RootLayoutPropsType) {
-  const { locale } = params;
+  const { locale } = await params;
   if (!VALID_LOCALES.includes(locale)) {
     notFound();
   }
