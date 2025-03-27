@@ -6,6 +6,8 @@ import { getMessages, setRequestLocale } from "next-intl/server";
 import localFont from "next/font/local";
 import { notFound } from "next/navigation";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
+import { cookies } from "next/headers";
+
 import "@/styles/globals.css";
 
 export const generateStaticParams = () =>
@@ -52,24 +54,29 @@ export const metadata: Metadata = {
   description: "سایت شخصی سجاد مهدیان",
 };
 
+const VALID_LOCALES = ["en", "fa"];
+
 type RootLayoutPropsType = Readonly<{
   children: React.ReactNode;
-  params: Promise<{ locale: "fa" | "en" }>;
+  params: { locale: "fa" | "en" };
 }>;
 
 export default async function RootLayout({
   children,
   params,
 }: RootLayoutPropsType) {
-  // Ensure that the incoming `locale` is valid
-  const { locale } = await params;
-  if (!routing.locales.includes(locale)) {
+  const { locale } = params;
+  if (!VALID_LOCALES.includes(locale)) {
     notFound();
   }
 
   setRequestLocale(locale);
 
-  const messages = await getMessages();
+  const messages = await getMessages({ locale });
+
+  const cookieStore = await cookies();
+  const themeCookie =
+    (cookieStore.get("theme")?.value as "dark" | "light") || "light";
 
   return (
     <html
@@ -86,7 +93,9 @@ export default async function RootLayout({
             enableSystem={false}
             attribute="class"
           >
-            <AppProvider params={{ locale }}>{children}</AppProvider>
+            <AppProvider params={{ locale, themeCookie }}>
+              {children}
+            </AppProvider>
           </NextThemesProvider>
         </NextIntlClientProvider>
       </body>

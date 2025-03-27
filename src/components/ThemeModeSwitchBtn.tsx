@@ -1,21 +1,17 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
 import { Button, Stack } from "@mui/material";
 import { useLocale } from "next-intl";
-import { useTheme } from "next-themes";
+import { useRouter } from "next/navigation";
+import { useMemo } from "react";
 
 export const ThemeModeSwitchBtn = () => {
-  const { setTheme } = useTheme();
+  const router = useRouter();
   const locale = useLocale();
-  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const handleThemeChange = (newValue: "light" | "dark") => {
-    setTheme(newValue);
+  const handleThemeChange = (newTheme: "light" | "dark") => {
+    document.cookie = `theme=${newTheme}; path=/; max-age=31536000`;
+    router.refresh();
   };
 
   const btnText = useMemo(() => {
@@ -31,10 +27,6 @@ export const ThemeModeSwitchBtn = () => {
       ];
     }
   }, [locale]);
-
-  if (!mounted) {
-    return null;
-  }
 
   return (
     <Stack className="gap-y-1">
