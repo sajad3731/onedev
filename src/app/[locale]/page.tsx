@@ -1,5 +1,5 @@
 import { Header } from "@/components/header/Header";
-import { Box, Typography } from "@mui/material";
+import { Box, Toolbar, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { type FC } from "react";
@@ -29,6 +29,7 @@ const HomePage: FC = () => {
     >
       <Header />
       <main>
+        <Toolbar />
         <Typography>{t("title")}</Typography>
       </main>
     </Box>
