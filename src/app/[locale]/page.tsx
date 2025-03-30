@@ -1,6 +1,5 @@
-import { LangSwitchBtn } from "@/components/LangSwitchBtn";
-import { ThemeModeSwitchBtn } from "@/components/ThemeModeSwitchBtn";
-import { Box, Stack, Typography } from "@mui/material";
+import { Header } from "@/components/header/Header";
+import { Box, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { type FC } from "react";
@@ -27,14 +26,8 @@ const HomePage: FC = () => {
         color: "text.primary",
         minHeight: "100vh",
       }}
-      className="p-4"
     >
-      <header>
-        <Stack direction="row" justifyContent="center" columnGap={2}>
-          <LangSwitchBtn />
-          <ThemeModeSwitchBtn />
-        </Stack>
-      </header>
+      <Header />
       <main>
         <Typography>{t("title")}</Typography>
       </main>

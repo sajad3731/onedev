@@ -7,5 +7,11 @@
     "HomePage": {
       "title": "Home"
     }
+  },
+  "Header": {
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact",
+    "projects": "Projects"
   }
 }

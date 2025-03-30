@@ -7,5 +7,11 @@
     "HomePage": {
       "title": "خانه"
     }
+  },
+  "Header": {
+    "home": "خانه",
+    "about": "درباره",
+    "contact": "ارتباط",
+    "projects": "پروژه‌ها"
   }
 }

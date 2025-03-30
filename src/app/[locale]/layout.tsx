@@ -3,10 +3,10 @@ import { routing } from "@/i18n/routing";
 import { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
-import localFont from "next/font/local";
-import { notFound } from "next/navigation";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
+import localFont from "next/font/local";
 import { cookies } from "next/headers";
+import { notFound } from "next/navigation";
 
 import "@/styles/globals.css";
 
@@ -52,6 +52,24 @@ const iransans = localFont({
 export const metadata: Metadata = {
   title: "ONEDEV",
   description: "سایت شخصی سجاد مهدیان",
+  icons: {
+    icon: [
+      // { url: "/favicon.ico" },
+      {
+        url: "/android-chrome-192x192.png",
+        sizes: "192x192",
+        type: "image/png",
+      },
+      {
+        url: "/android-chrome-512x512.png",
+        sizes: "512x512",
+        type: "image/png",
+      },
+    ],
+    // shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
+  manifest: "/site.webmanifest",
 };
 
 const VALID_LOCALES = ["en", "fa"];
