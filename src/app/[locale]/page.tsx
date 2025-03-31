@@ -4,16 +4,6 @@ import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { type FC } from "react";
 
-// export async function generateMetadata(
-//   params: Promise<{ locale: "fa" | "en" }>
-// ) {
-//   const { locale } = await params;
-//   const t = await getTranslations({ locale, namespace: "Metadata.HomePage" });
-
-//   return {
-//     title: t("title"),
-//   };
-// }
 export async function generateMetadata({
   params,
 }: {
