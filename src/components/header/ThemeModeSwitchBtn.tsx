@@ -4,6 +4,7 @@ import { styled } from "@mui/material/styles";
 import Switch from "@mui/material/Switch";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 57, // 62
@@ -62,6 +63,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 }));
 
 export const ThemeModeSwitchBtn = () => {
+  const [mounted, setMounted] = useState(false);
   const router = useRouter();
   const { theme, setTheme } = useTheme();
 
@@ -70,6 +72,14 @@ export const ThemeModeSwitchBtn = () => {
     document.cookie = `theme=${theme}; path=/; max-age=31536000`;
     router.refresh();
   };
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null; // Or a placeholder
+  }
 
   return (
     <MaterialUISwitch

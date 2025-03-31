@@ -54,7 +54,7 @@ export const metadata: Metadata = {
   description: "سایت شخصی سجاد مهدیان",
   icons: {
     icon: [
-      // { url: "/favicon.ico" },
+      { url: "../favicon.ico" },
       {
         url: "/android-chrome-192x192.png",
         sizes: "192x192",
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
         type: "image/png",
       },
     ],
-    // shortcut: "/favicon.ico",
+    shortcut: "../favicon.ico",
     apple: "/apple-touch-icon.png",
   },
   manifest: "/site.webmanifest",
