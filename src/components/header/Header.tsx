@@ -1,7 +1,7 @@
 "use client";
 
 import MenuIcon from "@mui/icons-material/Menu";
-import { Stack } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
@@ -13,7 +13,6 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import { useTranslations } from "next-intl";
-import Image from "next/image";
 import * as React from "react";
 import { LangSwitchBtn } from "./LangSwitchBtn";
 import { NavItem } from "./NavItems";
@@ -39,14 +38,7 @@ export const Header: React.FC<Props> = ({ window }) => {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <div className="relative h-12 aspect-[16/7] mx-auto my-3">
-        <Image
-          src="/onedev.png"
-          alt="Website navbar logo"
-          fill
-          className="object-cover origin"
-          sizes="(max-width: 768px) 120px, 50px"
-          priority
-        />
+        <Typography className="uppercase">onedev</Typography>
       </div>
       <Divider />
       <List>
@@ -84,15 +76,8 @@ export const Header: React.FC<Props> = ({ window }) => {
               <LangSwitchBtn />
               <ThemeModeSwitchBtn />
             </Stack>
-            <div className="absolute h-8 aspect-[16/7] hidden lg:inline-block left-1/2 top-1/2 -translate-1/2">
-              <Image
-                src="/onedev.png"
-                alt="Website navbar logo"
-                fill
-                className="object-cover origin"
-                sizes="(max-width: 768px) 120px, 50px"
-                priority
-              />
+            <div className="absolute aspect-[3/1] hidden lg:inline-block left-1/2 top-1/2 -translate-1/2">
+              <p className="font-extrabold ">oneDev</p>
             </div>
             <div className="hidden sm:inline-flex items-center gap-x-2">
               {navItems.map((item) => (

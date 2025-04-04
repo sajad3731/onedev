@@ -1,6 +1,13 @@
 import { enUS, faIR } from "@mui/material/locale"; // MUI locale packs for RTL/LTR if needed
-import { createTheme } from "@mui/material/styles";
+import { createTheme, type ThemeOptions } from "@mui/material/styles";
 import { tokens } from "./tokens";
+
+const sharedValues: Omit<ThemeOptions, "components"> = {
+  breakpoints: {
+    values: tokens.breakpoints,
+  },
+  spacing: (factor: number) => tokens.spacing[factor] || factor * 8,
+};
 
 // ============================ EN THEME ============================ //
 export const lightTheme = createTheme(
@@ -15,6 +22,7 @@ export const lightTheme = createTheme(
     },
     direction: "ltr",
     typography: { fontFamily: "var(--font-roboto)" },
+    ...sharedValues,
   },
   enUS // apply English localizations (ltr)
 );
@@ -35,6 +43,7 @@ export const darkTheme = createTheme(
     },
     direction: "ltr",
     typography: { fontFamily: "var(--font-roboto)" },
+    ...sharedValues,
   },
   enUS
 );
@@ -52,6 +61,7 @@ export const lightThemeRTL = createTheme(
     },
     direction: "rtl",
     typography: { fontFamily: "var(--font-iransans)" },
+    ...sharedValues,
   },
   faIR // apply Persian (Farsi) localizations (rtl)
 );
@@ -72,6 +82,7 @@ export const darkThemeRTL = createTheme(
     },
     direction: "rtl",
     typography: { fontFamily: "var(--font-iransans)" },
+    ...sharedValues,
   },
   faIR
 );

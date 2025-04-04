@@ -1,7 +1,12 @@
 {
   "HomePage": {
     "title": "Hello world!",
-    "about": "Go to the about page"
+    "about": "Go to the about page",
+    "Introduce": {
+      "welcome": "Welcome to my personal website",
+      "my-name": "My name is Sajad Mahdian",
+      "carrie": "I'm a frontend developer"
+    }
   },
   "Metadata": {
     "HomePage": {
