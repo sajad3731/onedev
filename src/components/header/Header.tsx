@@ -29,7 +29,7 @@ export const Header: React.FC<Props> = ({ window }) => {
 
   const t = useTranslations("Header");
 
-  const navItems = [t("home"), t("about"), t("contact")];
+  const navItems = [t("contact"), t("about"), t("home")];
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);

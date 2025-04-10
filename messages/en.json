@@ -6,6 +6,16 @@
       "welcome": "Welcome to my personal website",
       "my-name": "My name is Sajad Mahdian",
       "carrie": "I'm a frontend developer"
+    },
+    "Projects": {
+      "my-projects": "My Projects",
+      "launched-projects": "Launched Projects",
+      "view-images": "View Images",
+      "visit-project": "Visit Project",
+      "view-gallery": "View Gallery",
+      "view-concept": "View Concept",
+      "launching": "Launching",
+      "coming-soon": "Coming Soon"
     }
   },
   "Metadata": {

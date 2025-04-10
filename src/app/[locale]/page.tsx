@@ -1,5 +1,7 @@
 import { Header } from "@/components/header/Header";
 import { Introduce } from "@/components/sections/Introduce";
+import { Projects } from "@/components/sections/projects/Projects";
+import { projectsData } from "@/data/projects";
 import { Box, Toolbar } from "@mui/material";
 // import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
@@ -39,7 +41,9 @@ const HomePage: FC = () => {
             <Introduce />
           </div>
         </section>
-        <section></section>
+        <section id="projects" className="py-16 bg-gray-50">
+          <Projects projectsData={projectsData} />
+        </section>
       </main>
     </Box>
   );
