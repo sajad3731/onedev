@@ -41,7 +41,7 @@ const HomePage: FC = () => {
             <Introduce />
           </div>
         </section>
-        <section id="projects" className="py-16 bg-gray-50">
+        <section id="projects" className="py-16">
           <Projects projectsData={projectsData} />
         </section>
       </main>

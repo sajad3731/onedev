@@ -8,10 +8,16 @@ interface IntroduceProps {}
 export const Introduce: React.FC<IntroduceProps> = () => {
   const t = useTranslations("HomePage");
   return (
-    <div className="">
-      <Typography variant="h4">{t("Introduce.welcome")}</Typography>
-      <Typography variant="h5">{t("Introduce.my-name")}</Typography>
-      <Typography variant="h6">{t("Introduce.carrie")}</Typography>
+    <div className="px-10 flex flex-col gap-y-5 justify-center items-center">
+      <Typography variant="h4" className="text-justify">
+        {t("Introduce.welcome")}
+      </Typography>
+      <Typography variant="h5" className="text-justify">
+        {t("Introduce.my-name")}
+      </Typography>
+      <Typography variant="h6" className="text-justify">
+        {t("Introduce.carrie")}
+      </Typography>
     </div>
     // <Image
     //   src="/images/introduce-section-banner.png"

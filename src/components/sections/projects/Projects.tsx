@@ -1,10 +1,10 @@
 "use client";
 
+import { DialogProps, Typography } from "@mui/material";
+import { useTranslations } from "next-intl";
 import { FC, useState } from "react";
 import { ProjectCard } from "./ProjectCard";
 import { ProjectGalleryModal } from "./ProjectGalleryModal";
-import { useTranslations } from "next-intl";
-import { Typography } from "@mui/material";
 
 interface ProjectsProps {
   projectsData: Project[];
@@ -12,7 +12,6 @@ interface ProjectsProps {
 
 export const Projects: FC<ProjectsProps> = ({ projectsData }) => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const t = useTranslations("HomePage.Projects");
 
@@ -23,17 +22,16 @@ export const Projects: FC<ProjectsProps> = ({ projectsData }) => {
     (project) => project.status === "upcoming"
   );
 
-  const handleOpenGallery = (project: Project) => {
+  const handleOpenModal = (project: Project) => {
     setSelectedProject(project);
-    setIsModalOpen(true);
   };
 
-  const handleCloseGallery = () => {
-    setIsModalOpen(false);
+  const handleCloseDialog: DialogProps["onClose"] = () => {
+    setSelectedProject(null);
   };
 
   return (
-    <section id="projectsData" className="py-16 bg-gray-50">
+    <>
       <div className="container mx-auto px-4">
         <Typography variant="h4" className="!font-bold !text-center !mb-12">
           {t("my-projects")}
@@ -53,7 +51,7 @@ export const Projects: FC<ProjectsProps> = ({ projectsData }) => {
                 <ProjectCard
                   key={project.id}
                   project={project}
-                  onOpenGallery={handleOpenGallery}
+                  onOpenGallery={handleOpenModal}
                 />
               ))}
             </div>
@@ -74,7 +72,7 @@ export const Projects: FC<ProjectsProps> = ({ projectsData }) => {
                 <ProjectCard
                   key={project.id}
                   project={project}
-                  onOpenGallery={handleOpenGallery}
+                  onOpenGallery={handleOpenModal}
                 />
               ))}
             </div>
@@ -82,12 +80,11 @@ export const Projects: FC<ProjectsProps> = ({ projectsData }) => {
         )}
       </div>
 
-      {/* Project Gallery Modal */}
       <ProjectGalleryModal
-        project={selectedProject}
-        isOpen={isModalOpen}
-        onClose={handleCloseGallery}
+        open={!!selectedProject}
+        onClose={handleCloseDialog}
+        selectedProject={selectedProject!}
       />
-    </section>
+    </>
   );
 };
