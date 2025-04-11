@@ -4,6 +4,7 @@
   overflow-y: scroll;
   scroll-snap-type: y proximity; /* Changed from mandatory to proximity for more fluid scrolling */
   scroll-behavior: smooth;
+  padding-bottom: 64px; /* Add padding for mobile bottom navigation */
 }
 
 /* Full-height sections (like intro) that should snap completely */
@@ -25,6 +26,11 @@
   position: relative;
   overflow: visible; /* Allow content to flow */
   padding-bottom: 2rem; /* Add padding at bottom */
+}
+
+/* Adjust last section to account for bottom navigation */
+.scroll-snap-section:last-child {
+  padding-bottom: 5rem; /* Extra padding on last section on mobile */
 }
 
 /* Scroll indicator animation */
@@ -71,11 +77,21 @@
     grid-template-columns: 1fr !important; /* Force single column */
     gap: 1.5rem !important; /* Reduced gap */
   }
+
+  /* Add bottom padding to account for bottom navigation */
+  .scroll-snap-container {
+    padding-bottom: 64px;
+  }
 }
 
 /* Adjust for desktop header height */
 @media (min-width: 601px) {
   .scroll-snap-section.full-height:first-child {
     height: calc(100vh - 64px);
+  }
+
+  /* Remove bottom padding on desktop */
+  .scroll-snap-container {
+    padding-bottom: 0;
   }
 }

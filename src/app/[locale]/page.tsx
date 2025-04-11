@@ -1,4 +1,4 @@
-import { Header } from "@/components/header/Header";
+import { Header } from "@/components/navigation/Header";
 import { Introduce } from "@/components/sections/Introduce";
 import { Projects } from "@/components/sections/projects/Projects";
 import { ScrollIndicator } from "@/components/ui/ScrollIndicator";
