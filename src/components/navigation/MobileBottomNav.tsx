@@ -1,18 +1,20 @@
 "use client";
 
-import HomeIcon from "@mui/icons-material/Home";
-import WorkIcon from "@mui/icons-material/Work";
-import InfoIcon from "@mui/icons-material/Info";
-import ContactMailIcon from "@mui/icons-material/ContactMail";
+import {
+  ContactMail as ContactMailIcon,
+  Home as HomeIcon,
+  Info as InfoIcon,
+  Work as WorkIcon,
+} from "@mui/icons-material";
 import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { FC, SyntheticEvent, useEffect, useState } from "react";
 
 interface MobileBottomNavProps {
   activeSection?: string;
 }
 
-export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
+export const MobileBottomNav: FC<MobileBottomNavProps> = ({
   activeSection = "home",
 }) => {
   const [value, setValue] = useState(activeSection);
@@ -26,7 +28,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
     { label: t("contact"), value: "contact", icon: <ContactMailIcon /> },
   ];
 
-  const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
+  const handleChange = (_event: SyntheticEvent, newValue: string) => {
     setValue(newValue);
 
     // Handle navigation to section
@@ -113,7 +115,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
           },
         }}
       >
-        {navItems.map((item) => (
+        {navItems.reverse().map((item) => (
           <BottomNavigationAction
             key={item.value}
             label={item.label}
