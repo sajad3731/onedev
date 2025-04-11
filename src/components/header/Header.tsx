@@ -64,6 +64,7 @@ export const Header: FC = () => {
             top: offsetTop,
             behavior: "smooth",
           });
+          handleDrawerToggle();
         }
       }
     }
@@ -140,7 +141,6 @@ export const Header: FC = () => {
         {/* Only render the drawer when mounted (client-side) */}
         {mounted && (
           <Drawer
-            // Remove document.body reference
             variant="temporary"
             open={mobileOpen}
             onClose={handleDrawerToggle}
