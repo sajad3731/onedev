@@ -32,7 +32,7 @@ const HomePage: FC = () => {
       }}
     >
       <Header />
-      <Toolbar />
+      <Toolbar className="!hidden sm:!block" />
       <main className="scroll-snap-container">
         {/* First section - Intro - keeps full height */}
         <section id="home" className="scroll-snap-section full-height">

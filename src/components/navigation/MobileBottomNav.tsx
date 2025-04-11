@@ -1,14 +1,23 @@
-"use client";
-
 import {
   ContactMail as ContactMailIcon,
   Home as HomeIcon,
   Info as InfoIcon,
   Work as WorkIcon,
+  Brightness4 as ThemeIcon,
+  Translate as LanguageIcon,
 } from "@mui/icons-material";
-import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
+import {
+  BottomNavigation,
+  BottomNavigationAction,
+  Paper,
+  Menu,
+  MenuItem,
+} from "@mui/material";
 import { useTranslations } from "next-intl";
 import { FC, SyntheticEvent, useEffect, useState } from "react";
+import { useLocale } from "next-intl";
+import { usePathname, useRouter } from "next/navigation";
+import { useTheme } from "next-themes";
 
 interface MobileBottomNavProps {
   activeSection?: string;
@@ -18,9 +27,16 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
   activeSection = "home",
 }) => {
   const [value, setValue] = useState(activeSection);
+  const [langMenuAnchor, setLangMenuAnchor] = useState<null | HTMLElement>(
+    null
+  );
+  const locale = useLocale();
+  const pathname = usePathname();
+  const router = useRouter();
+  const { theme, setTheme } = useTheme();
   const t = useTranslations("Header");
 
-  // Navigation items with icons
+  // Main navigation items
   const navItems = [
     { label: t("home"), value: "home", icon: <HomeIcon /> },
     { label: t("projects"), value: "projects", icon: <WorkIcon /> },
@@ -28,21 +44,51 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
     { label: t("contact"), value: "contact", icon: <ContactMailIcon /> },
   ];
 
+  // Handle language menu
+  const handleLangMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setLangMenuAnchor(event.currentTarget);
+  };
+
+  const handleLangMenuClose = () => {
+    setLangMenuAnchor(null);
+  };
+
+  const handleLanguageChange = (newLocale: string) => {
+    const currentLocale = pathname.split("/")[1];
+    const newPathname = pathname.replace(`/${currentLocale}`, `/${newLocale}`);
+    router.push(newPathname);
+    handleLangMenuClose();
+  };
+
+  // Handle theme switch
+  const handleThemeChange = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+    document.cookie = `theme=${theme}; path=/; max-age=31536000`;
+    router.refresh();
+  };
+
+  // Handle navigation change
   const handleChange = (_event: SyntheticEvent, newValue: string) => {
+    // Special handling for settings buttons
+    if (newValue === "language") {
+      return; // Don't change active tab, just show menu
+    }
+
+    if (newValue === "theme") {
+      handleThemeChange();
+      return; // Don't change active tab
+    }
+
     setValue(newValue);
 
     // Handle navigation to section
     if (typeof window !== "undefined") {
       const section = document.getElementById(newValue);
       if (section) {
-        // Get the header height based on viewport width
         const headerHeight = window.innerWidth <= 600 ? 56 : 64;
-
-        // Calculate the position to scroll to
         const sectionTop = section.offsetTop;
         const offsetTop = sectionTop - headerHeight;
 
-        // Use scrollTo with the container element
         const container = document.querySelector(".scroll-snap-container");
         if (container) {
           container.scrollTo({
@@ -115,7 +161,23 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
           },
         }}
       >
-        {navItems.reverse().map((item) => (
+        {/* Add language selector */}
+        <BottomNavigationAction
+          label={locale === "en" ? "Lang" : "زبان"}
+          value="language"
+          icon={<LanguageIcon />}
+          onClick={handleLangMenuOpen}
+        />
+
+        {/* Add theme toggle */}
+        <BottomNavigationAction
+          label={theme === "light" ? "Dark" : "Light"}
+          value="theme"
+          icon={<ThemeIcon />}
+        />
+
+        {/* Main navigation items */}
+        {navItems.map((item) => (
           <BottomNavigationAction
             key={item.value}
             label={item.label}
@@ -124,6 +186,34 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
           />
         ))}
       </BottomNavigation>
+
+      {/* Language menu */}
+      <Menu
+        anchorEl={langMenuAnchor}
+        open={Boolean(langMenuAnchor)}
+        onClose={handleLangMenuClose}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+      >
+        <MenuItem
+          onClick={() => handleLanguageChange("en")}
+          selected={locale === "en"}
+        >
+          English
+        </MenuItem>
+        <MenuItem
+          onClick={() => handleLanguageChange("fa")}
+          selected={locale === "fa"}
+        >
+          فارسی
+        </MenuItem>
+      </Menu>
     </Paper>
   );
 };

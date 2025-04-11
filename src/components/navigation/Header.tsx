@@ -1,6 +1,6 @@
 "use client";
 
-import { Stack, Typography } from "@mui/material";
+import { Container, Stack, Typography } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -68,61 +68,63 @@ export const Header: FC = () => {
 
   return (
     <Box sx={{ display: "flex", direction: "ltr" }}>
-      <AppBar component="nav">
+      <AppBar component="nav" className="!hidden sm:!block">
         <Toolbar className="px-4">
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            className="w-full relative"
-          >
-            {/* Logo for mobile - centered */}
-            <Box
-              sx={{
-                display: { xs: "flex", sm: "none" },
-                position: "absolute",
-                left: "50%",
-                transform: "translateX(-50%)",
-              }}
+          <Container maxWidth="xl">
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              className="w-full relative"
             >
-              <Typography
-                variant="h6"
-                className="!font-extrabold cursor-default"
+              {/* Logo for mobile - centered */}
+              <Box
+                sx={{
+                  display: { xs: "flex", sm: "none" },
+                  position: "absolute",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                }}
               >
-                oneDev
-              </Typography>
-            </Box>
-
-            {/* Settings group (language & theme) */}
-            <Stack direction="row" alignItems="center">
-              <LangSwitchBtn />
-              <ThemeModeSwitchBtn />
-            </Stack>
-
-            {/* Logo for desktop - centered */}
-            <div className="absolute aspect-[3/1] hidden lg:inline-block left-1/2 top-1/2 -translate-1/2">
-              <Typography
-                variant="h6"
-                className="!font-extrabold cursor-default"
-              >
-                oneDev
-              </Typography>
-            </div>
-
-            {/* Desktop navigation */}
-            <div className="hidden sm:inline-flex items-center gap-x-2">
-              {navItems.map((item) => (
-                <NavItem
-                  color="inherit"
-                  key={item.label}
-                  disableElevation
-                  disableRipple
-                  sectionId={item.sectionId}
+                <Typography
+                  variant="h6"
+                  className="!font-extrabold cursor-default"
                 >
-                  {item.label}
-                </NavItem>
-              ))}
-            </div>
-          </Stack>
+                  oneDev
+                </Typography>
+              </Box>
+
+              {/* Settings group (language & theme) */}
+              <Stack direction="row" alignItems="center">
+                <LangSwitchBtn />
+                <ThemeModeSwitchBtn />
+              </Stack>
+
+              {/* Logo for desktop - centered */}
+              <div className="absolute aspect-[3/1] hidden lg:inline-block left-1/2 top-1/2 -translate-1/2">
+                <Typography
+                  variant="h6"
+                  className="!font-extrabold cursor-default"
+                >
+                  oneDev
+                </Typography>
+              </div>
+
+              {/* Desktop navigation */}
+              <div className="hidden sm:inline-flex items-center gap-x-2">
+                {navItems.map((item) => (
+                  <NavItem
+                    color="inherit"
+                    key={item.label}
+                    disableElevation
+                    disableRipple
+                    sectionId={item.sectionId}
+                  >
+                    {item.label}
+                  </NavItem>
+                ))}
+              </div>
+            </Stack>
+          </Container>
         </Toolbar>
       </AppBar>
 

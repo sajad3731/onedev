@@ -2,9 +2,11 @@
 .scroll-snap-container {
   height: 100vh;
   overflow-y: scroll;
-  scroll-snap-type: y proximity; /* Changed from mandatory to proximity for more fluid scrolling */
+  scroll-snap-type: y proximity;
+  /* Changed from mandatory to proximity for more fluid scrolling */
   scroll-behavior: smooth;
-  padding-bottom: 64px; /* Add padding for mobile bottom navigation */
+  padding-bottom: 64px;
+  /* Add padding for mobile bottom navigation */
 }
 
 /* Full-height sections (like intro) that should snap completely */
@@ -14,27 +16,34 @@
   width: 100%;
   position: relative;
   overflow: hidden;
-  scroll-snap-stop: always; /* Forces stopping at these sections */
+  scroll-snap-stop: always;
+  /* Forces stopping at these sections */
 }
 
 /* Content-rich sections that need to be fully visible */
 .scroll-snap-section.content-height {
   scroll-snap-align: start;
-  min-height: 100vh; /* Minimum height instead of fixed height */
-  max-height: unset; /* Allow expansion based on content */
+  min-height: 100vh;
+  /* Minimum height instead of fixed height */
+  max-height: unset;
+  /* Allow expansion based on content */
   width: 100%;
   position: relative;
-  overflow: visible; /* Allow content to flow */
-  padding-bottom: 2rem; /* Add padding at bottom */
+  overflow: visible;
+  /* Allow content to flow */
+  padding-bottom: 2rem;
+  /* Add padding at bottom */
 }
 
 /* Adjust last section to account for bottom navigation */
 .scroll-snap-section:last-child {
-  padding-bottom: 5rem; /* Extra padding on last section on mobile */
+  padding-bottom: 5rem;
+  /* Extra padding on last section on mobile */
 }
 
 /* Scroll indicator animation */
 @keyframes bounce {
+
   0%,
   20%,
   50%,
@@ -42,9 +51,11 @@
   100% {
     transform: translateY(0);
   }
+
   40% {
     transform: translateY(-20px);
   }
+
   60% {
     transform: translateY(-10px);
   }
@@ -65,17 +76,25 @@
 /* Adjust for mobile header height */
 @media (max-width: 600px) {
   .scroll-snap-section.full-height:first-child {
-    height: calc(100vh - 56px);
+    /* height: calc(100vh - 56px); */
+    height: 100vh;
+    /* Full height if no header */
+    /* or */
+    height: calc(100vh - 48px);
+    /* If keeping minimal header */
   }
 
   .scroll-snap-section.content-height {
-    padding: 1rem; /* More compact padding on mobile */
+    padding: 1rem;
+    /* More compact padding on mobile */
   }
 
   /* Make projects display better on mobile */
   .projects-grid {
-    grid-template-columns: 1fr !important; /* Force single column */
-    gap: 1.5rem !important; /* Reduced gap */
+    grid-template-columns: 1fr !important;
+    /* Force single column */
+    gap: 1.5rem !important;
+    /* Reduced gap */
   }
 
   /* Add bottom padding to account for bottom navigation */
