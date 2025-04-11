@@ -1,6 +1,7 @@
 "use client";
 
-import { Dialog, DialogProps } from "@mui/material";
+import { Dialog, DialogProps, Typography } from "@mui/material";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { FC } from "react";
 
@@ -12,12 +13,14 @@ export const ProjectGalleryModal: FC<ProjectGalleryDialog> = ({
   selectedProject,
   ...dialogProps
 }) => {
+  const t = useTranslations("HomePage.Projects");
+
   return (
     <Dialog {...dialogProps}>
       <div className="flex justify-between items-center p-4 border-b">
-        <h3 className="text-xl font-semibold">
-          {selectedProject?.title} - Gallery
-        </h3>
+        <Typography variant="h6">
+          {selectedProject?.title} - {t("gallery")}
+        </Typography>
         {/* <button
           onClick={onClose}
           className="text-gray-500 hover:text-gray-700"
@@ -56,11 +59,11 @@ export const ProjectGalleryModal: FC<ProjectGalleryDialog> = ({
             </div>
           ))}
         </div>
-        <p className="text-gray-600 mb-4">
+        <Typography variant="subtitle1">
           {selectedProject?.status === "launched"
             ? "Detailed view of the selectedProject showing the main features and user interface elements."
             : "Concept designs and mockups for this upcoming selectedProject?."}
-        </p>
+        </Typography>
       </div>
     </Dialog>
   );

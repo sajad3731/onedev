@@ -1,9 +1,17 @@
 @import "tailwindcss";
 
+html,
 body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; /* Prevent scrolling on body */
   font-family: var(--font-iransans), var(--font-roboto), sans-serif;
-  /* overflow: overlay; */
 }
+
+/* Import our scroll-snap styles */
+@import "./scroll-snap.css";
+
 /* 
 * {
   text-decoration: none;
