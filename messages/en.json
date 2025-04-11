@@ -29,5 +29,8 @@
     "about": "About",
     "contact": "Contact",
     "projects": "Projects"
+  },
+  "ScrollIndicator": {
+    "scroll-down": "Scroll Down"
   }
 }

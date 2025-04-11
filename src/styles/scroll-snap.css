@@ -2,29 +2,80 @@
 .scroll-snap-container {
   height: 100vh;
   overflow-y: scroll;
-  scroll-snap-type: y mandatory;
+  scroll-snap-type: y proximity; /* Changed from mandatory to proximity for more fluid scrolling */
   scroll-behavior: smooth;
 }
 
-/* Individual sections that should snap */
-.scroll-snap-section {
+/* Full-height sections (like intro) that should snap completely */
+.scroll-snap-section.full-height {
   scroll-snap-align: start;
   height: 100vh;
   width: 100%;
   position: relative;
   overflow: hidden;
+  scroll-snap-stop: always; /* Forces stopping at these sections */
+}
+
+/* Content-rich sections that need to be fully visible */
+.scroll-snap-section.content-height {
+  scroll-snap-align: start;
+  min-height: 100vh; /* Minimum height instead of fixed height */
+  max-height: unset; /* Allow expansion based on content */
+  width: 100%;
+  position: relative;
+  overflow: visible; /* Allow content to flow */
+  padding-bottom: 2rem; /* Add padding at bottom */
+}
+
+/* Scroll indicator animation */
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Scroll indicator styling */
+.scroll-indicator {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: bounce 2s infinite;
+  z-index: 10;
+  color: var(--mui-palette-primary-main);
+  cursor: pointer;
 }
 
 /* Adjust for mobile header height */
 @media (max-width: 600px) {
-  .scroll-snap-section:first-child {
+  .scroll-snap-section.full-height:first-child {
     height: calc(100vh - 56px);
+  }
+
+  .scroll-snap-section.content-height {
+    padding: 1rem; /* More compact padding on mobile */
+  }
+
+  /* Make projects display better on mobile */
+  .projects-grid {
+    grid-template-columns: 1fr !important; /* Force single column */
+    gap: 1.5rem !important; /* Reduced gap */
   }
 }
 
 /* Adjust for desktop header height */
 @media (min-width: 601px) {
-  .scroll-snap-section:first-child {
+  .scroll-snap-section.full-height:first-child {
     height: calc(100vh - 64px);
   }
 }

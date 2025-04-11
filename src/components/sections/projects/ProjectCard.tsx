@@ -1,48 +1,69 @@
-import { Button, Typography } from "@mui/material";
+import {
+  Button,
+  Typography,
+  Card,
+  CardContent,
+  CardMedia,
+} from "@mui/material";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
+import { PhotoLibrary } from "@mui/icons-material";
 
 interface ProjectCardProps {
   project: Project;
   onOpenGallery: (project: Project) => void;
+  isMobile?: boolean;
 }
 
 export const ProjectCard: FC<ProjectCardProps> = ({
   project,
   onOpenGallery,
+  isMobile = false,
 }) => {
   const { title, description, thumbnailUrl, status, url, launchDate } = project;
   const t = useTranslations("HomePage.Projects");
 
+  // Shorter description for mobile
+  const displayDescription =
+    isMobile && description.length > 80
+      ? `${description.substring(0, 80)}...`
+      : description;
+
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105">
+    <Card className="h-full flex flex-col transition-transform hover:scale-102 hover:shadow-lg">
       <div className="relative h-48 overflow-hidden">
-        <Image
-          src={thumbnailUrl}
-          alt={title}
-          fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        />
-        <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-          <Button
-            disableElevation
-            color="inherit"
-            variant="contained"
-            onClick={() => onOpenGallery(project)}
-          >
-            {status === "launched" ? t("view-images") : t("view-concept")}
-          </Button>
-        </div>
+        <CardMedia component="div" className="relative h-full">
+          <Image
+            src={thumbnailUrl}
+            alt={title}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+          <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+            <Button
+              disableElevation
+              color="inherit"
+              variant="contained"
+              onClick={() => onOpenGallery(project)}
+              startIcon={<PhotoLibrary />}
+            >
+              {status === "launched" ? t("view-images") : t("view-concept")}
+            </Button>
+          </div>
+        </CardMedia>
       </div>
 
-      <div className="p-6">
+      <CardContent className="flex-grow flex flex-col p-4">
         <Typography className="!text-xl !font-semibold !mb-2">
           {title}
         </Typography>
-        <Typography className="!text-gray-600 !mb-4">{description}</Typography>
+        <Typography className="!text-gray-600 !mb-4 flex-grow">
+          {displayDescription}
+        </Typography>
+
         {status === "launched" && url ? (
           <Button
             disableElevation
@@ -51,6 +72,8 @@ export const ProjectCard: FC<ProjectCardProps> = ({
             target="_blank"
             rel="noopener noreferrer"
             variant="contained"
+            fullWidth={isMobile}
+            size={isMobile ? "small" : "medium"}
           >
             {t("visit-project")}
           </Button>
@@ -60,6 +83,8 @@ export const ProjectCard: FC<ProjectCardProps> = ({
             color="secondary"
             onClick={() => onOpenGallery(project)}
             variant="contained"
+            fullWidth={isMobile}
+            size={isMobile ? "small" : "medium"}
           >
             {t("view-gallery")}
           </Button>
@@ -84,7 +109,7 @@ export const ProjectCard: FC<ProjectCardProps> = ({
             </Typography>
           </div>
         )}
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 };

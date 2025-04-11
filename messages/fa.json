@@ -29,5 +29,8 @@
     "about": "درباره",
     "contact": "ارتباط",
     "projects": "پروژه‌ها"
+  },
+  "ScrollIndicator": {
+    "scroll-down": "پیمایش به پایین"
   }
 }

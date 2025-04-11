@@ -2,7 +2,7 @@
 
 import { DialogProps, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import { ProjectCard } from "./ProjectCard";
 import { ProjectGalleryModal } from "./ProjectGalleryModal";
 
@@ -12,8 +12,26 @@ interface ProjectsProps {
 
 export const Projects: FC<ProjectsProps> = ({ projectsData }) => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   const t = useTranslations("HomePage.Projects");
+
+  // Detect mobile viewport
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    // Check on initial load
+    checkMobile();
+
+    // Listen for resize events
+    window.addEventListener("resize", checkMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
 
   const launchedProjects = projectsData.filter(
     (project) => project.status === "launched"
@@ -32,7 +50,7 @@ export const Projects: FC<ProjectsProps> = ({ projectsData }) => {
 
   return (
     <div className="flex flex-col gap-y-10 py-5">
-      <Typography variant="h4" className="!font-bold !text-center">
+      <Typography variant="h4" className="!font-bold !text-center mb-8">
         {t("my-projects")}
       </Typography>
 
@@ -45,12 +63,15 @@ export const Projects: FC<ProjectsProps> = ({ projectsData }) => {
           >
             {t("launched-projects")}
           </Typography>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+          {/* Modified grid with projects-grid class for CSS targeting */}
+          <div className="projects-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {launchedProjects.map((project) => (
               <ProjectCard
                 key={project.id}
                 project={project}
                 onOpenGallery={handleOpenModal}
+                isMobile={isMobile}
               />
             ))}
           </div>
@@ -59,19 +80,22 @@ export const Projects: FC<ProjectsProps> = ({ projectsData }) => {
 
       {/* Upcoming Projects */}
       {upcomingProjects.length > 0 && (
-        <div className="flex flex-col gap-y-1">
+        <div className="flex flex-col gap-y-1 mt-8">
           <Typography
             variant="h5"
             className="!font-semibold !mb-6 text-amber-600"
           >
             {t("coming-soon")}
           </Typography>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+          {/* Same grid class for consistent targeting */}
+          <div className="projects-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {upcomingProjects.map((project) => (
               <ProjectCard
                 key={project.id}
                 project={project}
                 onOpenGallery={handleOpenModal}
+                isMobile={isMobile}
               />
             ))}
           </div>
@@ -81,7 +105,8 @@ export const Projects: FC<ProjectsProps> = ({ projectsData }) => {
       <ProjectGalleryModal
         open={!!selectedProject}
         onClose={handleCloseDialog}
-        selectedProject={selectedProject!}
+        selectedProject={selectedProject}
+        fullScreen={isMobile} // Use fullscreen modal on mobile
       />
     </div>
   );
