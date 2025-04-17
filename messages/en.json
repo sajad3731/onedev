@@ -29,7 +29,12 @@
     "home": "Home",
     "about": "About",
     "contact": "Contact",
-    "projects": "Projects"
+    "projects": "Projects",
+    "settings": "Settings",
+    "select-language": "Select Language",
+    "snap-scrolling": "Snap Scrolling",
+    "light-mode": "Light Mode",
+    "dark-mode": "Dark Mode"
   },
   "ScrollIndicator": {
     "scroll-down": "Scroll Down"

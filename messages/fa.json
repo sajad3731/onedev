@@ -29,7 +29,12 @@
     "home": "خانه",
     "about": "درباره",
     "contact": "ارتباط",
-    "projects": "پروژه‌ها"
+    "projects": "پروژه‌ها",
+    "settings": "تنظیمات",
+    "select-language": "انتخاب زبان",
+    "snap-scrolling": "پیمایش با جهش",
+    "light-mode": "حالت روشن",
+    "dark-mode": "حالت تاریک"
   },
   "ScrollIndicator": {
     "scroll-down": "پیمایش به پایین"

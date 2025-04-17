@@ -7,6 +7,13 @@
   scroll-behavior: smooth;
   padding-bottom: 64px;
   /* Add padding for mobile bottom navigation */
+  transition: scroll-snap-type 0.3s ease;
+  /* Smooth transition when toggling snap scrolling */
+}
+
+/* When snap scrolling is disabled */
+.scroll-snap-disabled {
+  scroll-snap-type: none !important;
 }
 
 /* Full-height sections (like intro) that should snap completely */
