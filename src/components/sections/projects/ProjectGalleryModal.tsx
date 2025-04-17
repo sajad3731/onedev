@@ -36,7 +36,7 @@ export const ProjectGalleryModal: FC<ProjectGalleryDialog> = ({
   return (
     <Dialog {...dialogProps} fullScreen={useFullScreen} maxWidth="md">
       <DialogTitle className="flex justify-between items-center p-4 border-b">
-        <Typography variant="h6">
+        <Typography>
           {selectedProject?.title} - {t("gallery")}
         </Typography>
         <IconButton
@@ -82,6 +82,7 @@ export const ProjectGalleryModal: FC<ProjectGalleryDialog> = ({
             >
               <Close />
               <Typography variant="button" className="ml-2">
+                {t("close-gallery")}
                 Close Gallery
               </Typography>
             </IconButton>

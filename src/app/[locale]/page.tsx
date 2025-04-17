@@ -3,7 +3,7 @@ import { Introduce } from "@/components/sections/Introduce";
 import { Projects } from "@/components/sections/projects/Projects";
 import { ScrollIndicator } from "@/components/ui/ScrollIndicator";
 import { projectsData } from "@/data/projectsData";
-import { Box, Container, Toolbar } from "@mui/material";
+import { Box, Container, Toolbar, Typography } from "@mui/material";
 import { getTranslations } from "next-intl/server";
 import { type FC } from "react";
 import "@/styles/scroll-snap.css";
@@ -58,7 +58,9 @@ const HomePage: FC = () => {
         <section id="about" className="scroll-snap-section content-height">
           <div className="relative z-10 w-full h-full flex items-center justify-center">
             <div className="container mx-auto px-4">
-              <h2 className="text-3xl font-bold mb-6">About Me</h2>
+              <Typography variant="h2" className="font-bold mb-6">
+                About Me
+              </Typography>
               {/* Your about content here */}
             </div>
           </div>
@@ -68,7 +70,9 @@ const HomePage: FC = () => {
         <section id="contact" className="scroll-snap-section full-height">
           <div className="relative z-10 w-full h-full flex items-center justify-center">
             <div className="container mx-auto px-4">
-              <h2 className="text-3xl font-bold mb-6">Contact</h2>
+              <Typography variant="h2" className="font-bold mb-6">
+                Contact
+              </Typography>
               {/* Your contact content here */}
             </div>
           </div>
