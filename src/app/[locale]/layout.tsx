@@ -7,6 +7,7 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 import localFont from "next/font/local";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
+import type { Viewport } from "next";
 
 import "@/styles/globals.css";
 
@@ -50,7 +51,7 @@ const iransans = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "ONEDEV",
+  title: "oneDev",
   description: "سایت شخصی سجاد مهدیان",
   icons: {
     icon: [
@@ -70,6 +71,18 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   manifest: "/site.webmanifest",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#1e1e1e" },
+  ],
 };
 
 const VALID_LOCALES = ["en", "fa"];
