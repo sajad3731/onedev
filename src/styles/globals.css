@@ -5,48 +5,11 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow: hidden; /* Prevent scrolling on body */
+  overflow: hidden;
   font-family: var(--font-iransans), var(--font-roboto), sans-serif;
+  height: 100dvh;
+  min-height: -webkit-fill-available;
 }
 
 /* Import our scroll-snap styles */
 @import "./scroll-snap.css";
-
-/* 
-* {
-  text-decoration: none;
-}
-
-*::-webkit-scrollbar-track {
-  display: none;
-}
-
-*::-webkit-scrollbar-track-piece:start,
-*::-webkit-scrollbar-track-piece:end,
-*::-webkit-scrollbar {
-  background: transparent;
-}
-
-*::-webkit-scrollbar {
-  width: 10px;
-  background-color: transparent;
-  z-index: 1000000;
-}
-
-*::-webkit-scrollbar-thumb {
-  border-radius: 6px;
-  transition: 300ms;
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: rgb(153, 151, 151);
-  z-index: 10;
-  visibility: hidden;
-}
-
-*::-webkit-scrollbar-thumb:hover {
-  visibility: visible;
-}
-
-.Toastify__toast {
-  font-family: var(--font-DanaVF), Tahoma, sans-serif !important;
-} */

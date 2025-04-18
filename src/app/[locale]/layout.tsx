@@ -76,14 +76,15 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
+  maximumScale: 5,
+  userScalable: true,
   viewportFit: "cover",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
     { media: "(prefers-color-scheme: dark)", color: "#1e1e1e" },
   ],
   interactiveWidget: "resizes-visual",
+  height: "device-height",
 };
 
 const VALID_LOCALES = ["en", "fa"];
