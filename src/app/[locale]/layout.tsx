@@ -83,6 +83,7 @@ export const viewport: Viewport = {
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
     { media: "(prefers-color-scheme: dark)", color: "#1e1e1e" },
   ],
+  interactiveWidget: "resizes-visual",
 };
 
 const VALID_LOCALES = ["en", "fa"];
