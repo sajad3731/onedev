@@ -78,12 +78,11 @@ export const ProjectGalleryModal: FC<ProjectGalleryDialog> = ({
             <IconButton
               onClick={dialogProps.onClose as IconProps["onClick"]}
               color="primary"
-              size="large"
+              size="small"
             >
               <Close />
               <Typography variant="button" className="ml-2">
                 {t("close-gallery")}
-                Close Gallery
               </Typography>
             </IconButton>
           </div>
