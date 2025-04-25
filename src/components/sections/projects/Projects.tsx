@@ -36,8 +36,8 @@ export const Projects: FC<ProjectsProps> = ({ projectsData }) => {
   const launchedProjects = projectsData.filter(
     (project) => project.status === "launched"
   );
-  const upcomingProjects = projectsData.filter(
-    (project) => project.status === "upcoming"
+  const removedProjects = projectsData.filter(
+    (project) => project.status === "removed"
   );
 
   const handleOpenModal = (project: Project) => {
@@ -78,8 +78,8 @@ export const Projects: FC<ProjectsProps> = ({ projectsData }) => {
         </div>
       )}
 
-      {/* Upcoming Projects */}
-      {upcomingProjects.length > 0 && (
+      {/* Removed Projects */}
+      {removedProjects.length > 0 && (
         <div className="flex flex-col gap-y-1 mt-8">
           <Typography
             variant="h5"
@@ -90,7 +90,7 @@ export const Projects: FC<ProjectsProps> = ({ projectsData }) => {
 
           {/* Same grid class for consistent targeting */}
           <div className="projects-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {upcomingProjects.map((project) => (
+            {removedProjects.map((project) => (
               <ProjectCard
                 key={project.id}
                 project={project}
