@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 
 export function useScrollSettings() {
-  const [snapScrollEnabled, setSnapScrollEnabled] = useState(true);
+  // Change default value to false to disable snap scrolling by default
+  const [snapScrollEnabled, setSnapScrollEnabled] = useState(false);
 
   // Initialize from localStorage if available
   useEffect(() => {
@@ -12,6 +13,7 @@ export function useScrollSettings() {
       if (savedPreference !== null) {
         setSnapScrollEnabled(savedPreference === "true");
       }
+      // If no saved preference exists, the default (false) will be used
     }
   }, []);
 
