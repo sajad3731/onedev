@@ -1,4 +1,3 @@
-// src/components/hooks/useScrollSettings.ts
 "use client";
 
 import { useEffect, useState } from "react";
@@ -16,18 +15,17 @@ export function useScrollSettings() {
     }
   }, []);
 
-  // Apply the scroll settings to the container
+  // Apply the scroll settings to the html element
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const container = document.querySelector(
-        ".scroll-snap-container"
-      ) as HTMLElement;
-      if (container) {
-        if (snapScrollEnabled) {
-          container.style.scrollSnapType = "y proximity";
-        } else {
-          container.style.scrollSnapType = "none";
-        }
+      const htmlElement = document.documentElement;
+
+      if (snapScrollEnabled) {
+        htmlElement.classList.add("snap-enabled");
+        htmlElement.classList.remove("snap-disabled");
+      } else {
+        htmlElement.classList.add("snap-disabled");
+        htmlElement.classList.remove("snap-enabled");
       }
 
       // Save preference

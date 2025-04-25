@@ -39,10 +39,7 @@ export const Header: FC = () => {
 
     // Track scroll position to update active section
     const handleScroll = () => {
-      const container = document.querySelector(".scroll-snap-container");
-      if (!container) return;
-
-      const scrollPosition = container.scrollTop;
+      const scrollPosition = window.scrollY;
       const headerHeight = window.innerWidth <= 600 ? 56 : 64;
 
       // Find which section is currently in view
@@ -61,15 +58,10 @@ export const Header: FC = () => {
       }
     };
 
-    const container = document.querySelector(".scroll-snap-container");
-    if (container) {
-      container.addEventListener("scroll", handleScroll);
-    }
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      if (container) {
-        container.removeEventListener("scroll", handleScroll);
-      }
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 

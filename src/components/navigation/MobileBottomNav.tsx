@@ -94,13 +94,10 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
         const sectionTop = section.offsetTop;
         const offsetTop = sectionTop - headerHeight;
 
-        const container = document.querySelector(".scroll-snap-container");
-        if (container) {
-          container.scrollTo({
-            top: offsetTop,
-            behavior: "smooth",
-          });
-        }
+        window.scrollTo({
+          top: offsetTop,
+          behavior: "smooth",
+        });
       }
     }
   };
@@ -108,10 +105,7 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
   // Update active section based on scroll position
   useEffect(() => {
     const handleScroll = () => {
-      const container = document.querySelector(".scroll-snap-container");
-      if (!container) return;
-
-      const scrollPosition = container.scrollTop;
+      const scrollPosition = window.scrollY;
       const headerHeight = window.innerWidth <= 600 ? 56 : 64;
 
       // Find which section is currently in view
@@ -130,15 +124,10 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
       }
     };
 
-    const container = document.querySelector(".scroll-snap-container");
-    if (container) {
-      container.addEventListener("scroll", handleScroll);
-    }
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      if (container) {
-        container.removeEventListener("scroll", handleScroll);
-      }
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 

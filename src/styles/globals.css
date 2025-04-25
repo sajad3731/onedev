@@ -1,14 +1,16 @@
 @import "tailwindcss";
 
-html,
+html {
+  /* Remove fixed height constraints */
+  min-height: 100%;
+}
+
 body {
   margin: 0;
   padding: 0;
-  height: 100%;
-  overflow: hidden;
+  /* Let the body scroll */
+  min-height: 100%;
   font-family: var(--font-iransans), var(--font-roboto), sans-serif;
-  height: 100dvh;
-  min-height: -webkit-fill-available;
 }
 
 /* Import our scroll-snap styles */

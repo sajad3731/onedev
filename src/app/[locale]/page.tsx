@@ -27,8 +27,7 @@ const HomePage: FC = () => {
       sx={{
         bgcolor: "background.default",
         color: "text.primary",
-        height: "100vh",
-        overflow: "hidden", // Prevent scrolling on the main container
+        // Remove fixed height and overflow: hidden
       }}
     >
       <Header />

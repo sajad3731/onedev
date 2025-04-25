@@ -12,10 +12,7 @@ export const FloatingActionButton = () => {
   // Hide FAB when at contact section
   useEffect(() => {
     const handleScroll = () => {
-      const container = document.querySelector(".scroll-snap-container");
-      if (!container) return;
-
-      const scrollPosition = container.scrollTop;
+      const scrollPosition = window.scrollY;
       const contactSection = document.getElementById("contact");
 
       if (contactSection) {
@@ -30,15 +27,10 @@ export const FloatingActionButton = () => {
       }
     };
 
-    const container = document.querySelector(".scroll-snap-container");
-    if (container) {
-      container.addEventListener("scroll", handleScroll);
-    }
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      if (container) {
-        container.removeEventListener("scroll", handleScroll);
-      }
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -50,13 +42,10 @@ export const FloatingActionButton = () => {
         const headerHeight = window.innerWidth <= 600 ? 56 : 64;
         const contactTop = contactSection.offsetTop - headerHeight;
 
-        const container = document.querySelector(".scroll-snap-container");
-        if (container) {
-          container.scrollTo({
-            top: contactTop,
-            behavior: "smooth",
-          });
-        }
+        window.scrollTo({
+          top: contactTop,
+          behavior: "smooth",
+        });
       }
     }
   };

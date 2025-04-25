@@ -1,14 +1,19 @@
-/* Main scroll container */
+/* Main scroll container - no longer needs to be a scrolling container */
 .scroll-snap-container {
-  height: 100vh;
-  overflow-y: scroll;
+  /* Remove fixed height and overflow */
   scroll-snap-type: y proximity;
-  /* Changed from mandatory to proximity for more fluid scrolling */
   scroll-behavior: smooth;
   padding-bottom: 64px;
-  /* Add padding for mobile bottom navigation */
   transition: scroll-snap-type 0.3s ease;
-  /* Smooth transition when toggling snap scrolling */
+}
+
+/* Apply scroll snap to html element instead */
+html.snap-enabled {
+  scroll-snap-type: y proximity;
+}
+
+html.snap-disabled {
+  scroll-snap-type: none;
 }
 
 /* When snap scrolling is disabled */
@@ -16,41 +21,34 @@
   scroll-snap-type: none !important;
 }
 
-/* Full-height sections (like intro) that should snap completely */
+/* Full-height sections that should snap completely */
 .scroll-snap-section.full-height {
   scroll-snap-align: start;
   height: 100vh;
+  height: 100dvh; /* Use dynamic viewport height */
   width: 100%;
   position: relative;
-  overflow: hidden;
   scroll-snap-stop: always;
-  /* Forces stopping at these sections */
 }
 
-/* Content-rich sections that need to be fully visible */
+/* Content-rich sections */
 .scroll-snap-section.content-height {
   scroll-snap-align: start;
   min-height: 100vh;
-  /* Minimum height instead of fixed height */
+  min-height: 100dvh; /* Use dynamic viewport height */
   max-height: unset;
-  /* Allow expansion based on content */
   width: 100%;
   position: relative;
-  overflow: visible;
-  /* Allow content to flow */
   padding-bottom: 2rem;
-  /* Add padding at bottom */
 }
 
 /* Adjust last section to account for bottom navigation */
 .scroll-snap-section:last-child {
   padding-bottom: 5rem;
-  /* Extra padding on last section on mobile */
 }
 
 /* Scroll indicator animation */
 @keyframes bounce {
-
   0%,
   20%,
   50%,
@@ -58,11 +56,9 @@
   100% {
     transform: translateY(0);
   }
-
   40% {
     transform: translateY(-20px);
   }
-
   60% {
     transform: translateY(-10px);
   }
@@ -80,44 +76,18 @@
   cursor: pointer;
 }
 
-/* Adjust for mobile header height */
+/* Adjust for mobile */
 @media (max-width: 600px) {
-  .scroll-snap-section.full-height:first-child {
-    /* height: calc(100vh - 56px); */
-    height: 100vh;
-    /* Full height if no header */
-    /* or */
-    height: calc(100vh - 48px);
-    /* If keeping minimal header */
+  .scroll-snap-container {
+    padding-bottom: 64px;
   }
 
   .scroll-snap-section.content-height {
     padding: 1rem;
-    /* More compact padding on mobile */
   }
 
-  /* Make projects display better on mobile */
   .projects-grid {
     grid-template-columns: 1fr !important;
-    /* Force single column */
     gap: 1.5rem !important;
-    /* Reduced gap */
-  }
-
-  /* Add bottom padding to account for bottom navigation */
-  .scroll-snap-container {
-    padding-bottom: 64px;
-  }
-}
-
-/* Adjust for desktop header height */
-@media (min-width: 601px) {
-  .scroll-snap-section.full-height:first-child {
-    height: calc(100vh - 64px);
-  }
-
-  /* Remove bottom padding on desktop */
-  .scroll-snap-container {
-    padding-bottom: 0;
   }
 }

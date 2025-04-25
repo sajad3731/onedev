@@ -4,7 +4,7 @@ import React from "react";
 
 const CustomButton = styled(Button)({
   "&:hover": {
-    backgroundColor: "transparent", // Prevents background color change on hover
+    backgroundColor: "transparent",
   },
 });
 
@@ -22,21 +22,15 @@ export const NavItem: React.FC<NavItemProps> = ({
     if (sectionId && typeof window !== "undefined") {
       const section = document.getElementById(sectionId);
       if (section) {
-        // Get the header height based on viewport width
         const headerHeight = window.innerWidth <= 600 ? 56 : 64;
-
-        // Calculate the position to scroll to
         const sectionTop = section.offsetTop;
         const offsetTop = sectionTop - headerHeight;
 
-        // Use scrollTo with the container element
-        const container = document.querySelector(".scroll-snap-container");
-        if (container) {
-          container.scrollTo({
-            top: offsetTop,
-            behavior: "smooth",
-          });
-        }
+        // Use window.scrollTo instead of container
+        window.scrollTo({
+          top: offsetTop,
+          behavior: "smooth",
+        });
       }
     }
   };

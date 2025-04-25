@@ -19,29 +19,25 @@ export const ScrollIndicator: React.FC<ScrollIndicatorProps> = ({
   const handleClick = () => {
     if (targetSectionId && typeof window !== "undefined") {
       const targetSection = document.getElementById(targetSectionId);
-      const container = document.querySelector(".scroll-snap-container");
 
-      if (targetSection && container) {
+      if (targetSection) {
         // Get header height based on viewport
         const headerHeight = window.innerWidth <= 600 ? 56 : 64;
 
         const sectionTop = targetSection.offsetTop;
         const offsetTop = sectionTop - headerHeight;
 
-        container.scrollTo({
+        window.scrollTo({
           top: offsetTop,
           behavior: "smooth",
         });
       }
     } else {
       // If no target specified, scroll down one viewport height
-      const container = document.querySelector(".scroll-snap-container");
-      if (container) {
-        container.scrollBy({
-          top: window.innerHeight,
-          behavior: "smooth",
-        });
-      }
+      window.scrollBy({
+        top: window.innerHeight,
+        behavior: "smooth",
+      });
     }
   };
 
@@ -49,14 +45,11 @@ export const ScrollIndicator: React.FC<ScrollIndicatorProps> = ({
   useEffect(() => {
     const checkScroll = () => {
       if (typeof window !== "undefined") {
-        const container = document.querySelector(".scroll-snap-container");
-        if (container) {
-          // Hide indicator if user has scrolled past first section
-          if (container.scrollTop > window.innerHeight / 2) {
-            setIsVisible(false);
-          } else {
-            setIsVisible(true);
-          }
+        // Hide indicator if user has scrolled past first section
+        if (window.scrollY > window.innerHeight / 2) {
+          setIsVisible(false);
+        } else {
+          setIsVisible(true);
         }
       }
     };
@@ -65,15 +58,10 @@ export const ScrollIndicator: React.FC<ScrollIndicatorProps> = ({
     checkScroll();
 
     // Add scroll listener
-    const container = document.querySelector(".scroll-snap-container");
-    if (container) {
-      container.addEventListener("scroll", checkScroll);
-    }
+    window.addEventListener("scroll", checkScroll);
 
     return () => {
-      if (container) {
-        container.removeEventListener("scroll", checkScroll);
-      }
+      window.removeEventListener("scroll", checkScroll);
     };
   }, []);
 
