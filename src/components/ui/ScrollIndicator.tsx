@@ -69,7 +69,7 @@ export const ScrollIndicator: React.FC<ScrollIndicatorProps> = ({
 
   return (
     <div
-      className="scroll-indicator"
+      className="flex flex-row items-center justify-content min-w-full"
       onClick={handleClick}
       aria-label={t("scroll-down")}
       role="button"

@@ -2,30 +2,26 @@ import {
   ContactMail as ContactMailIcon,
   Home as HomeIcon,
   Info as InfoIcon,
-  Work as WorkIcon,
-  Brightness4 as ThemeIcon,
   Translate as LanguageIcon,
   Settings as SettingsIcon,
-  ViewDay as SnapScrollIcon,
+  Brightness4 as ThemeIcon,
+  Work as WorkIcon,
 } from "@mui/icons-material";
 import {
   BottomNavigation,
   BottomNavigationAction,
-  Paper,
+  Divider,
+  ListItemIcon,
+  ListItemText,
   Menu,
   MenuItem,
-  Switch,
+  Paper,
   Typography,
-  ListItemText,
-  ListItemIcon,
-  Divider,
 } from "@mui/material";
-import { useTranslations } from "next-intl";
-import { FC, SyntheticEvent, useEffect, useState } from "react";
-import { useLocale } from "next-intl";
-import { usePathname, useRouter } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
-import { useScrollSettings } from "@/components/hooks/useScrollSettings";
+import { usePathname, useRouter } from "next/navigation";
+import { FC, SyntheticEvent, useEffect, useState } from "react";
 
 interface MobileBottomNavProps {
   activeSection?: string;
@@ -41,7 +37,6 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
   const pathname = usePathname();
   const router = useRouter();
   const { theme, setTheme } = useTheme();
-  const { snapScrollEnabled, toggleSnapScroll } = useScrollSettings();
   const t = useTranslations("Header");
 
   // Main navigation items
@@ -201,21 +196,6 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
           </ListItemIcon>
           <ListItemText
             primary={theme === "light" ? t("dark-mode") : t("light-mode")}
-          />
-        </MenuItem>
-
-        {/* Snap Scrolling Setting */}
-        <MenuItem onClick={toggleSnapScroll} sx={{ height: "48px" }}>
-          <ListItemIcon>
-            <SnapScrollIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText primary={t("snap-scrolling")} />
-          <Switch
-            edge="end"
-            checked={snapScrollEnabled}
-            size="small"
-            onClick={(e) => e.stopPropagation()}
-            onChange={toggleSnapScroll}
           />
         </MenuItem>
 

@@ -1,22 +1,9 @@
 "use client";
 
-import {
-  Container,
-  Stack,
-  Typography,
-  MenuItem,
-  Menu,
-  ListItemIcon,
-  ListItemText,
-  Switch,
-} from "@mui/material";
+import { Container, Stack, Typography } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import {
-  Settings as SettingsIcon,
-  ViewDay as SnapScrollIcon,
-} from "@mui/icons-material";
 import { useTranslations } from "next-intl";
 import { FC, useEffect, useState } from "react";
 import { LangSwitchBtn } from "./LangSwitchBtn";
@@ -24,14 +11,10 @@ import { NavItem } from "./NavItems";
 import { ThemeModeSwitchBtn } from "./ThemeModeSwitchBtn";
 import { MobileBottomNav } from "./MobileBottomNav";
 import { FloatingActionButton } from "./FloatingActionButton";
-import { useScrollSettings } from "@/components/hooks/useScrollSettings";
 
 export const Header: FC = () => {
   const [mounted, setMounted] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
-  const [settingsMenuAnchor, setSettingsMenuAnchor] =
-    useState<null | HTMLElement>(null);
-  const { snapScrollEnabled, toggleSnapScroll } = useScrollSettings();
 
   // Add useEffect to handle client-side mounting
   useEffect(() => {
@@ -75,14 +58,6 @@ export const Header: FC = () => {
     { label: t("contact"), sectionId: "contact" },
   ];
 
-  const handleSettingsClick = (event: React.MouseEvent<HTMLElement>) => {
-    setSettingsMenuAnchor(event.currentTarget);
-  };
-
-  const handleSettingsClose = () => {
-    setSettingsMenuAnchor(null);
-  };
-
   return (
     <Box sx={{ display: "flex", direction: "ltr" }}>
       <AppBar component="nav" className="!hidden sm:!block">
@@ -114,51 +89,6 @@ export const Header: FC = () => {
               <Stack direction="row" alignItems="center" gap={1}>
                 <LangSwitchBtn />
                 <ThemeModeSwitchBtn />
-                <Box
-                  onClick={handleSettingsClick}
-                  sx={{
-                    cursor: "pointer",
-                    padding: "8px",
-                    borderRadius: "50%",
-                    "&:hover": {
-                      backgroundColor: "rgba(0,0,0,0.05)",
-                    },
-                  }}
-                >
-                  <SettingsIcon />
-                </Box>
-
-                {/* Settings Menu for Desktop */}
-                <Menu
-                  anchorEl={settingsMenuAnchor}
-                  open={Boolean(settingsMenuAnchor)}
-                  onClose={handleSettingsClose}
-                  anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "right",
-                  }}
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                >
-                  <MenuItem
-                    onClick={toggleSnapScroll}
-                    sx={{ height: "48px", minWidth: "200px" }}
-                  >
-                    <ListItemIcon>
-                      <SnapScrollIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText primary={t("snap-scrolling")} />
-                    <Switch
-                      edge="end"
-                      checked={snapScrollEnabled}
-                      size="small"
-                      onClick={(e) => e.stopPropagation()}
-                      onChange={toggleSnapScroll}
-                    />
-                  </MenuItem>
-                </Menu>
               </Stack>
 
               {/* Logo for desktop - centered */}

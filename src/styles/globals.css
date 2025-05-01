@@ -12,6 +12,3 @@ body {
   min-height: 100%;
   font-family: var(--font-iransans), var(--font-roboto), sans-serif;
 }
-
-/* Import our scroll-snap styles */
-@import "./scroll-snap.css";
