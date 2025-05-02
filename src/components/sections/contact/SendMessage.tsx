@@ -1,12 +1,11 @@
 "use client";
 
-import { Send } from "@mui/icons-material";
-import { Button, TextField, Alert, Snackbar, Stack } from "@mui/material";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Alert, Button, Snackbar, Stack, TextField } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { FC, useState } from "react";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 export const SendMessage: FC = () => {
   const t = useTranslations("Contact.form");
@@ -96,7 +95,9 @@ ${data.message}`;
           <TextField
             {...field}
             label={t("name")}
-            variant="outlined"
+            id="name"
+            name="name"
+            autoComplete="name"
             fullWidth
             error={!!errors.name}
             helperText={errors.name?.message}
@@ -113,7 +114,9 @@ ${data.message}`;
           <TextField
             {...field}
             label={t("phone-number")}
-            variant="outlined"
+            id="phoneNumber"
+            name="phoneNumber"
+            autoComplete="tel"
             fullWidth
             error={!!errors.phoneNumber}
             helperText={errors.phoneNumber?.message}
@@ -130,6 +133,9 @@ ${data.message}`;
           <TextField
             {...field}
             label={t("email")}
+            id="email"
+            name="email"
+            autoComplete="email"
             fullWidth
             error={!!errors.email}
             helperText={errors.email?.message}
@@ -150,9 +156,11 @@ ${data.message}`;
             maxRows={10}
             multiline
             label={t("message")}
+            id="message"
+            name="message"
+            autoComplete="off"
             fullWidth
             enterKeyHint="send"
-            tabIndex={4}
             error={!!errors.message}
             helperText={errors.message?.message}
           />
@@ -163,7 +171,7 @@ ${data.message}`;
         type="submit"
         variant="contained"
         size="large"
-        endIcon={<Send />}
+        // endIcon={<Send />}
         fullWidth
         disabled={isSubmitting}
       >
