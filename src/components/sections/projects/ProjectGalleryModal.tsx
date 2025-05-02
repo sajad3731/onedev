@@ -26,7 +26,7 @@ export const ProjectGalleryModal: FC<ProjectGalleryDialog> = ({
   fullScreen = false,
   ...dialogProps
 }) => {
-  const t = useTranslations("HomePage.Projects");
+  const t = useTranslations("Projects");
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 

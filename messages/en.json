@@ -1,23 +1,41 @@
 {
-  "HomePage": {
-    "title": "Hello world!",
-    "about": "Go to the about page",
-    "Introduce": {
-      "welcome": "Welcome to my personal website",
-      "my-name": "My name is Sajad Mahdian",
-      "carrie": "I'm a frontend developer"
-    },
-    "Projects": {
-      "my-projects": "My Projects",
-      "launched-projects": "Launched Projects",
-      "view-images": "View Images",
-      "visit-project": "Visit Project",
-      "view-gallery": "View Gallery",
-      "view-concept": "View Concept",
-      "launching": "Launching",
-      "coming-soon": "Coming Soon",
-      "gallery": "Gallery",
-      "close-gallery": "Close Gallery"
+  "title": "Hello world!",
+  "about": "Go to the about page",
+  "Introduce": {
+    "welcome": "Welcome to my personal website",
+    "my-name": "My name is Sajad Mahdian",
+    "carrie": "I'm a frontend developer",
+    "know-more": "Click here if you want to know me better"
+  },
+  "About": {
+    "description": "Hello again. I am Sajad Mahdian, born in 1994. After my bachelor's degree, I entered the professional field and have been developing web-based applications professionally since 2018. Most of my experience is in working with the React library. In fact, I have developed most of the different dashboards. But this book does not mean that I do not work with other libraries and do not have experience in using them, but rather that I have more experience in developing dashboards. I am interested in using new technologies in my field.",
+    "guiding-to-resume": "Below, to help you become more familiar with my skills, I have provided you with my resume for download. I tried to keep it concise so that it doesn't cause you too much headache.",
+    "download-resume": "Download Resume",
+    "jobinja-link": "Jobinja Link",
+    "jobvision-link": "Jobvision Link"
+  },
+  "Projects": {
+    "my-projects": "My Projects",
+    "launched-projects": "Launched Projects",
+    "view-images": "View Images",
+    "visit-project": "Visit Project",
+    "view-gallery": "View Gallery",
+    "view-concept": "View Concept",
+    "launching": "Launching",
+    "coming-soon": "Coming Soon",
+    "gallery": "Gallery",
+    "close-gallery": "Close Gallery"
+  },
+  "Contact": {
+    "title": "Contact",
+    "contact-me": "If you want to contact me, you can use the following methods.",
+    "send-direct-message": "If you would like to communicate directly from this site, you can also use the message section and send your message directly to me.",
+    "form": {
+      "name": "Name",
+      "phone-number": "Phone",
+      "email": "Email",
+      "message": "Message",
+      "send-message": "Send message"
     }
   },
   "Metadata": {

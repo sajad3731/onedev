@@ -14,7 +14,7 @@ export const Projects: FC<ProjectsProps> = ({ projectsData }) => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isMobile, setIsMobile] = useState(false);
 
-  const t = useTranslations("HomePage.Projects");
+  const t = useTranslations("Projects");
 
   // Detect mobile viewport
   useEffect(() => {

@@ -1,14 +1,15 @@
 "use client";
 
 import { KeyboardArrowDown } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 interface ScrollIndicatorProps {
   targetSectionId?: string;
 }
 
-export const ScrollIndicator: React.FC<ScrollIndicatorProps> = ({
+export const ScrollIndicator: FC<ScrollIndicatorProps> = ({
   targetSectionId,
 }) => {
   const [isVisible, setIsVisible] = useState(true);
@@ -68,14 +69,14 @@ export const ScrollIndicator: React.FC<ScrollIndicatorProps> = ({
   if (!isVisible) return null;
 
   return (
-    <div
-      className="flex flex-row items-center justify-content min-w-full"
-      onClick={handleClick}
-      aria-label={t("scroll-down")}
-      role="button"
-      tabIndex={0}
-    >
-      <KeyboardArrowDown fontSize="large" />
+    <div className="flex flex-row items-center justify-center min-w-full h-[100px]">
+      <IconButton
+        onClick={handleClick}
+        aria-label={t("scroll-down")}
+        tabIndex={0}
+      >
+        <KeyboardArrowDown fontSize="large" />
+      </IconButton>
     </div>
   );
 };

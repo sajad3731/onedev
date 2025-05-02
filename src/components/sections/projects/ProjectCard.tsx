@@ -23,7 +23,7 @@ export const ProjectCard: FC<ProjectCardProps> = ({
   isMobile = false,
 }) => {
   const { title, description, thumbnailUrl, status, url, launchDate } = project;
-  const t = useTranslations("HomePage.Projects");
+  const t = useTranslations("Projects");
 
   // Shorter description for mobile
   const displayDescription =

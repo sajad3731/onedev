@@ -1,4 +1,6 @@
 import { Header } from "@/components/navigation/Header";
+import { About } from "@/components/sections/About";
+import { Contact } from "@/components/sections/contact/Contact";
 import { Introduce } from "@/components/sections/Introduce";
 import { Projects } from "@/components/sections/projects/Projects";
 import { ScrollIndicator } from "@/components/ui/ScrollIndicator";
@@ -38,7 +40,19 @@ const HomePage: FC = () => {
             <Introduce />
           </div>
           {/* Add scroll indicator pointing to projects */}
-          <ScrollIndicator targetSectionId="projects" />
+          <ScrollIndicator targetSectionId="about" />
+        </section>
+
+        {/* About section - content based height */}
+        <section id="about" className="content-height">
+          <div className="relative z-10 w-full h-full flex items-center justify-center">
+            <div className="container mx-auto px-4">
+              <Typography variant="h2" className="font-bold mb-6">
+                <About />
+              </Typography>
+              {/* Your about content here */}
+            </div>
+          </div>
         </section>
 
         {/* Second section - Projects - content based height */}
@@ -51,24 +65,12 @@ const HomePage: FC = () => {
           <Projects projectsData={projectsData} />
         </Container>
 
-        {/* About section - content based height */}
-        <section id="about" className="content-height">
-          <div className="relative z-10 w-full h-full flex items-center justify-center">
-            <div className="container mx-auto px-4">
-              <Typography variant="h2" className="font-bold mb-6">
-                About Me
-              </Typography>
-              {/* Your about content here */}
-            </div>
-          </div>
-        </section>
-
         {/* Contact section - can use full height since it's likely shorter */}
         <section id="contact">
           <div className="relative z-10 w-full h-full flex items-center justify-center">
             <div className="container mx-auto px-4">
               <Typography variant="h2" className="font-bold mb-6">
-                Contact
+                <Contact />
               </Typography>
               {/* Your contact content here */}
             </div>

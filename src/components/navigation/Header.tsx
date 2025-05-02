@@ -60,8 +60,8 @@ export const Header: FC = () => {
 
   return (
     <Box sx={{ display: "flex", direction: "ltr" }}>
-      <AppBar component="nav" className="!hidden sm:!block">
-        <Toolbar className="px-4">
+      <AppBar component="nav" className="!hidden sm:!block" elevation={0}>
+        <Toolbar className="px-4 !bg-transparent">
           <Container maxWidth="xl">
             <Stack
               direction="row"

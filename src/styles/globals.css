@@ -12,3 +12,21 @@ body {
   min-height: 100%;
   font-family: var(--font-iransans), var(--font-roboto), sans-serif;
 }
+
+/* First section (Introduce) fill screen height */
+#home {
+  min-height: calc(100vh - 64px);
+  height: calc(100vh - 64px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* For mobile devices */
+@media (max-width: 600px) {
+  #home {
+    min-height: calc(100vh - 56px);
+    height: calc(100vh - 56px);
+    /* Account for bottom nav on mobile */
+    padding-bottom: 64px;
+  }
+}
