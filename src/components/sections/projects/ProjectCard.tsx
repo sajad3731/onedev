@@ -57,10 +57,10 @@ export const ProjectCard: FC<ProjectCardProps> = ({
       </div>
 
       <CardContent className="flex-grow flex flex-col p-4">
-        <Typography className="!text-xl !font-semibold !mb-2">
+        <Typography className="!text-xl !font-semibold !mb-2 text-justify">
           {title}
         </Typography>
-        <Typography className="!text-gray-600 !mb-4 flex-grow">
+        <Typography className="!text-gray-600 !mb-4 flex-grow text-justify">
           {displayDescription}
         </Typography>
 

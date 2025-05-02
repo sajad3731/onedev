@@ -10,10 +10,16 @@ export const SendMessage: FC = () => {
 
   return (
     <div className="flex flex-col gap-3 w-full">
-      <TextField label={t("name")} name={t("name")} fullWidth />
-      <TextField label={t("phone-number")} name={t("phone-number")} fullWidth />
-      <TextField label={t("email")} name={t("email")} fullWidth />
+      <TextField required label={t("name")} name={t("name")} fullWidth />
       <TextField
+        required
+        label={t("phone-number")}
+        name={t("phone-number")}
+        fullWidth
+      />
+      <TextField required label={t("email")} name={t("email")} fullWidth />
+      <TextField
+        required
         minRows={5}
         rows={10}
         multiline

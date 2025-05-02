@@ -1,13 +1,12 @@
 {
-  "title": "Hello world!",
-  "about": "Go to the about page",
   "Introduce": {
-    "welcome": "Welcome to my personal website",
-    "my-name": "My name is Sajad Mahdian",
-    "carrie": "I'm a frontend developer",
+    "welcome": "Hi Dear, Welcome to my personal website",
+    "my-name": "I'm Sajad Mahdian",
+    "carrie": "A frontend developer",
     "know-more": "Click here if you want to know me better"
   },
   "About": {
+    "title": "About",
     "description": "Hello again. I am Sajad Mahdian, born in 1994. After my bachelor's degree, I entered the professional field and have been developing web-based applications professionally since 2018. Most of my experience is in working with the React library. In fact, I have developed most of the different dashboards. But this book does not mean that I do not work with other libraries and do not have experience in using them, but rather that I have more experience in developing dashboards. I am interested in using new technologies in my field.",
     "guiding-to-resume": "Below, to help you become more familiar with my skills, I have provided you with my resume for download. I tried to keep it concise so that it doesn't cause you too much headache.",
     "download-resume": "Download Resume",
@@ -15,7 +14,7 @@
     "jobvision-link": "Jobvision Link"
   },
   "Projects": {
-    "my-projects": "My Projects",
+    "title": "Projects",
     "launched-projects": "Launched Projects",
     "view-images": "View Images",
     "visit-project": "Visit Project",

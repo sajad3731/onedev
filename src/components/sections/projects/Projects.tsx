@@ -1,6 +1,6 @@
 "use client";
 
-import { DialogProps, Typography } from "@mui/material";
+import { DialogProps, Divider, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { FC, useState, useEffect } from "react";
 import { ProjectCard } from "./ProjectCard";
@@ -50,9 +50,11 @@ export const Projects: FC<ProjectsProps> = ({ projectsData }) => {
 
   return (
     <div className="flex flex-col gap-y-10 py-5">
-      <Typography variant="h4" className="!font-bold !text-center mb-8">
-        {t("my-projects")}
-      </Typography>
+      <Divider className="!my-10">
+        <Typography variant="h4" className="!font-bold">
+          {t("title")}
+        </Typography>
+      </Divider>
 
       {/* Launched Projects */}
       {launchedProjects.length > 0 && (

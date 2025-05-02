@@ -52,10 +52,10 @@ export const Header: FC = () => {
 
   // Define navigation items with their corresponding section IDs
   const navItems = [
-    { label: t("home"), sectionId: "home" },
+    { label: t("contact"), sectionId: "contact" },
     { label: t("projects"), sectionId: "projects" },
     { label: t("about"), sectionId: "about" },
-    { label: t("contact"), sectionId: "contact" },
+    { label: t("home"), sectionId: "home" },
   ];
 
   return (
