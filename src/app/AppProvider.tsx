@@ -4,7 +4,7 @@ import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
-import { FC, useMemo, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { useServerInsertedHTML } from "next/navigation";
 import {
   lightTheme,
@@ -12,6 +12,8 @@ import {
   darkTheme,
   darkThemeRTL,
 } from "@/styles/theme";
+import { prefixer } from "stylis";
+import rtlPlugin from "stylis-plugin-rtl";
 import "@/styles/globals.css";
 
 // 1) Add "themeCookie" to our type so we know which theme to pick
@@ -30,10 +32,28 @@ const createEmotionCache = () => {
   return cache;
 };
 
+const createRtlEmotionCache = () => {
+  const cache = createCache({
+    key: "muirtl",
+    stylisPlugins: [prefixer, rtlPlugin],
+  });
+  cache.compat = true;
+  return cache;
+};
+
 export const AppProvider: FC<ThemeRegistryProps> = ({ children, params }) => {
   const { locale, themeCookie } = params;
 
-  const [cache] = useState(createEmotionCache);
+  const isRtl = locale === "fa";
+
+  const [cache, setCache] = useState(
+    isRtl ? createRtlEmotionCache : createEmotionCache
+  );
+
+  useEffect(() => {
+    if (!isRtl) return;
+    setCache(isRtl ? createRtlEmotionCache : createEmotionCache);
+  }, [isRtl]);
 
   // Inject styles in SSR
   useServerInsertedHTML(() => {
