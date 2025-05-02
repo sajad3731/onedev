@@ -95,8 +95,6 @@ ${data.message}`;
           <TextField
             {...field}
             label={t("name")}
-            id="name"
-            name="name"
             autoComplete="name"
             fullWidth
             error={!!errors.name}
@@ -114,8 +112,6 @@ ${data.message}`;
           <TextField
             {...field}
             label={t("phone-number")}
-            id="phoneNumber"
-            name="phoneNumber"
             autoComplete="tel"
             fullWidth
             error={!!errors.phoneNumber}
@@ -133,8 +129,6 @@ ${data.message}`;
           <TextField
             {...field}
             label={t("email")}
-            id="email"
-            name="email"
             autoComplete="email"
             fullWidth
             error={!!errors.email}
@@ -156,8 +150,6 @@ ${data.message}`;
             maxRows={10}
             multiline
             label={t("message")}
-            id="message"
-            name="message"
             autoComplete="off"
             fullWidth
             enterKeyHint="send"
