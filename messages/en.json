@@ -34,7 +34,9 @@
       "phone-number": "Phone",
       "email": "Email",
       "message": "Message",
-      "send-message": "Send message"
+      "send-message": "Send message",
+      "success": "Message sent successfully!",
+      "error": "Failed to send message. Please try again."
     }
   },
   "Metadata": {

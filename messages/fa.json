@@ -34,7 +34,9 @@
       "phone-number": "شماره تلفن",
       "email": "پست الکترونیکی",
       "message": "پیام",
-      "send-message": "ارسال پیام"
+      "send-message": "ارسال پیام",
+      "success": "پیام با موفقیت ارسال شد!",
+      "error": "ارسال پیام ناموفق بود. لطفا دوباره تلاش کنید."
     }
   },
   "Metadata": {
@@ -57,8 +59,8 @@
     "scroll-down": "پیمایش به پایین"
   },
   "Validation": {
-    "number": "number",
-    "least-character": "{fieldName} حداقل باید شامل {leastCharacter} کارکتر باشد",
+    "number": "عدد",
+    "least-character": "{fieldName} حداقل باید شامل {count} کارکتر باشد",
     "exceed-character": "{fieldName} حداکثر باید شامل {count} کارکتر باشد",
     "least-digit": "{fieldName} حداقل باید شامل {count} شماره باشد",
     "is-required": "تکمیل فیلد {fieldName} الزامی می‌باشد",

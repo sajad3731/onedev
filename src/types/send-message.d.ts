@@ -1,6 +1,6 @@
 declare type ContactForm = {
   name: string;
-  phoneNumber: number;
+  phoneNumber: string;
   email: string;
   message: string;
 };
