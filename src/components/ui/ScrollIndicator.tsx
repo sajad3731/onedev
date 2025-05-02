@@ -14,12 +14,13 @@ export const ScrollIndicator: FC<ScrollIndicatorProps> = ({
 }) => {
   const [isVisible, setIsVisible] = useState(true);
 
-  // Optional translation for accessibility
   const t = useTranslations("ScrollIndicator");
 
   const handleClick = () => {
     if (targetSectionId && typeof window !== "undefined") {
       const targetSection = document.getElementById(targetSectionId);
+
+      console.log({ targetSection });
 
       if (targetSection) {
         // Get header height based on viewport
@@ -69,7 +70,7 @@ export const ScrollIndicator: FC<ScrollIndicatorProps> = ({
   if (!isVisible) return null;
 
   return (
-    <div className="flex flex-row items-center justify-center min-w-full h-[100px]">
+    <div className="flex flex-row items-center justify-center w-full h-[100px]">
       <IconButton
         onClick={handleClick}
         aria-label={t("scroll-down")}

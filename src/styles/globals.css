@@ -24,9 +24,9 @@ body {
 /* For mobile devices */
 @media (max-width: 600px) {
   #home {
-    min-height: calc(100vh - 56px);
-    height: calc(100vh - 56px);
+    min-height: calc(100vh - 64px);
+    height: calc(100vh - 64px);
     /* Account for bottom nav on mobile */
-    padding-bottom: 64px;
+    /* padding-bottom: 64px; */
   }
 }

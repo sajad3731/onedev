@@ -101,6 +101,7 @@ ${data.message}`;
             error={!!errors.name}
             helperText={errors.name?.message}
             required
+            enterKeyHint="next"
           />
         )}
       />
@@ -117,6 +118,7 @@ ${data.message}`;
             error={!!errors.phoneNumber}
             helperText={errors.phoneNumber?.message}
             required
+            enterKeyHint="next"
           />
         )}
       />
@@ -132,6 +134,7 @@ ${data.message}`;
             error={!!errors.email}
             helperText={errors.email?.message}
             required
+            enterKeyHint="next"
           />
         )}
       />
@@ -161,7 +164,6 @@ ${data.message}`;
         variant="contained"
         size="large"
         endIcon={<Send />}
-        tabIndex={5}
         fullWidth
         disabled={isSubmitting}
       >
