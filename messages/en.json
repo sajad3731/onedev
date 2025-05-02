@@ -55,5 +55,14 @@
   },
   "ScrollIndicator": {
     "scroll-down": "Scroll Down"
+  },
+  "Validation": {
+    "number": "number",
+    "least-character": "{fieldName} must be at least {count} characters",
+    "exceed-character": "{fieldName} cannot exceed {count} characters",
+    "least-digit": "{fieldName} must be at least {count} digits",
+    "is-required": "{fieldName} is required",
+    "invalid-type": "{fieldName} must be a {fieldType}",
+    "invalid-email": "Please enter a valid email address"
   }
 }

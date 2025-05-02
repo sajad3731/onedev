@@ -55,5 +55,14 @@
   },
   "ScrollIndicator": {
     "scroll-down": "پیمایش به پایین"
+  },
+  "Validation": {
+    "number": "number",
+    "least-character": "{fieldName} حداقل باید شامل {leastCharacter} کارکتر باشد",
+    "exceed-character": "{fieldName} حداکثر باید شامل {count} کارکتر باشد",
+    "least-digit": "{fieldName} حداقل باید شامل {count} شماره باشد",
+    "is-required": "تکمیل فیلد {fieldName} الزامی می‌باشد",
+    "invalid-type": "{fieldName} باید {fieldType} باشد",
+    "invalid-email": "لطفاً آدرس پست الکترونیکی را درست وارد کنید"
   }
 }
