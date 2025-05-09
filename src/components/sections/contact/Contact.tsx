@@ -15,7 +15,7 @@ export const Contact: FC = () => {
 
   return (
     <div className="flex flex-col gap-y-6 w-full">
-      <Divider className="!my-10">
+      <Divider className="!py-10">
         <Typography variant="h4" className="!font-bold">
           {t("title")}
         </Typography>
