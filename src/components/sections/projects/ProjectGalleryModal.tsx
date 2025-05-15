@@ -16,11 +16,9 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { FC } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-// import required modules
 import { Pagination, Navigation } from "swiper/modules";
 
 interface ProjectGalleryDialog extends DialogProps {
@@ -56,33 +54,38 @@ export const ProjectGalleryModal: FC<ProjectGalleryDialog> = ({
         </IconButton>
       </DialogTitle>
 
-      <DialogContent className="p-4">
-        <Swiper
-          slidesPerView={1}
-          spaceBetween={30}
-          loop={true}
-          pagination={{
-            clickable: true,
-          }}
-          navigation={true}
-          modules={[Pagination, Navigation]}
-          className="mySwiper"
-        >
-          {selectedProject?.images.map((image, index) => (
-            <SwiperSlide
-              key={index}
-              // className="relative h-48 md:h-64 rounded-lg overflow-hidden"
-            >
-              <Image
-                src={image}
-                alt={`${selectedProject?.title} - Image ${index + 1}`}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+      <DialogContent className="p-4 w-full">
+        {selectedProject && selectedProject.images.length > 0 ? (
+          <Swiper
+            slidesPerView={1}
+            spaceBetween={30}
+            pagination={{
+              clickable: true,
+            }}
+            navigation={selectedProject.images.length > 1}
+            modules={[Pagination, Navigation]}
+            className="mySwiper w-full"
+          >
+            {selectedProject?.images.map((image, index) => (
+              <SwiperSlide
+                key={index}
+                className="h-[300px] md:h-[400px] lg:h-[500px] relative"
+              >
+                <Image
+                  src={image}
+                  alt={`${selectedProject?.title} - Image ${index + 1}`}
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        ) : (
+          <Typography variant="body1" className="py-8 text-center">
+            {t("no-images-available")}
+          </Typography>
+        )}
       </DialogContent>
     </Dialog>
   );
