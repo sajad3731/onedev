@@ -39,7 +39,7 @@ export const ProjectGalleryModal: FC<ProjectGalleryDialog> = ({
   const useFullScreen = fullScreen || isMobile;
 
   return (
-    <Dialog {...dialogProps} fullScreen={useFullScreen} maxWidth="md">
+    <Dialog {...dialogProps} fullScreen={useFullScreen} maxWidth="lg">
       <DialogTitle className="flex justify-between items-center p-4 border-b">
         <Typography>
           {selectedProject?.title} - {t("gallery")}
@@ -69,15 +69,29 @@ export const ProjectGalleryModal: FC<ProjectGalleryDialog> = ({
             {selectedProject?.images.map((image, index) => (
               <SwiperSlide
                 key={index}
-                className="h-[300px] md:h-[400px] lg:h-[500px] relative"
+                className="relative"
+                style={{
+                  height: isMobile
+                    ? "300px"
+                    : useFullScreen
+                    ? "400px"
+                    : "800px",
+                  width: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
               >
-                <Image
-                  src={image}
-                  alt={`${selectedProject?.title} - Image ${index + 1}`}
-                  fill
-                  className="object-contain"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
-                />
+                <div className="relative w-full h-full">
+                  <Image
+                    src={image}
+                    alt={`${selectedProject?.title} - Image ${index + 1}`}
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+                    priority={index === 0} // Load first image with priority
+                  />
+                </div>
               </SwiperSlide>
             ))}
           </Swiper>
