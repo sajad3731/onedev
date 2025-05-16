@@ -65,16 +65,7 @@ export const ProjectGalleryModal: FC<ProjectGalleryDialog> = ({
   const useFullScreen = fullScreen || isMobile;
 
   return (
-    <Dialog
-      {...dialogProps}
-      fullScreen={useFullScreen}
-      maxWidth="lg"
-      ref={modalRef}
-      aria-modal="true"
-      disableEnforceFocus={false}
-      disableAutoFocus={false}
-      disableRestoreFocus={false}
-    >
+    <Dialog {...dialogProps} fullScreen={useFullScreen} maxWidth="lg">
       <DialogTitle className="flex justify-between items-center p-4 border-b">
         <Typography>
           {selectedProject?.title} - {t("gallery")}
