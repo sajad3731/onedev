@@ -1,27 +1,27 @@
 "use client";
 
+import { ArrowBackIos, ArrowForwardIos, Close } from "@mui/icons-material";
 import {
+  Button,
+  ButtonProps,
   Dialog,
-  DialogProps,
-  Typography,
-  DialogTitle,
   DialogContent,
-  useTheme,
-  useMediaQuery,
+  DialogProps,
+  DialogTitle,
   IconButton,
   IconProps,
-  ButtonProps,
-  Button,
+  Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
-import { Close, ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { FC } from "react";
+import { FC, useEffect, useRef } from "react";
+import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { Pagination, Navigation } from "swiper/modules";
+import "swiper/css/pagination";
 
 interface ProjectGalleryDialog extends DialogProps {
   selectedProject: Project | null;
@@ -37,11 +37,44 @@ export const ProjectGalleryModal: FC<ProjectGalleryDialog> = ({
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
+  // Add focus management
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const modalRef = useRef<any | null>(null);
+
+  useEffect(() => {
+    // Focus the modal when it opens
+    if (dialogProps.open && modalRef.current) {
+      modalRef.current.focus();
+    }
+
+    // Return focus to the previous element when closing
+    return () => {
+      if (dialogProps.open) {
+        // Find the button that opened the modal and focus it
+        const openButton = document.querySelector(
+          '[aria-label="view-gallery"]'
+        );
+        if (openButton) {
+          (openButton as HTMLElement).focus();
+        }
+      }
+    };
+  }, [dialogProps.open]);
+
   // Determine if we should use fullscreen
   const useFullScreen = fullScreen || isMobile;
 
   return (
-    <Dialog {...dialogProps} fullScreen={useFullScreen} maxWidth="lg">
+    <Dialog
+      {...dialogProps}
+      fullScreen={useFullScreen}
+      maxWidth="lg"
+      ref={modalRef}
+      aria-modal="true"
+      disableEnforceFocus={false}
+      disableAutoFocus={false}
+      disableRestoreFocus={false}
+    >
       <DialogTitle className="flex justify-between items-center p-4 border-b">
         <Typography>
           {selectedProject?.title} - {t("gallery")}

@@ -3,11 +3,15 @@
 import { Fab, Tooltip, Zoom } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import { useTranslations } from "next-intl";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export const FloatingActionButton = () => {
   const [isVisible, setIsVisible] = useState(true);
   const t = useTranslations("Header");
+
+  // Use a ref to manage the button's focus
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const buttonRef = useRef<any | null>(null);
 
   // Hide FAB when at contact section
   useEffect(() => {
@@ -49,6 +53,15 @@ export const FloatingActionButton = () => {
       }
     }
   };
+
+  useEffect(() => {
+    // When hiding the button, make sure it can't receive focus
+    if (!isVisible && buttonRef.current) {
+      buttonRef.current.setAttribute("tabIndex", "-1");
+    } else if (isVisible && buttonRef.current) {
+      buttonRef.current.setAttribute("tabIndex", "0");
+    }
+  }, [isVisible]);
 
   return (
     <Zoom in={isVisible}>
