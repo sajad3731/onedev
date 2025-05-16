@@ -35,6 +35,7 @@ const roboto = localFont({
   ],
   variable: "--font-roboto",
   display: "swap",
+  preload: false,
 });
 
 const iransans = localFont({
@@ -48,6 +49,7 @@ const iransans = localFont({
   ],
   variable: "--font-iransans",
   display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -103,6 +105,8 @@ export default async function RootLayout({
     notFound();
   }
 
+  const fontFace = locale === "fa" ? iransans.variable : roboto.variable;
+
   setRequestLocale(locale);
 
   const messages = await getMessages({ locale });
@@ -118,7 +122,7 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <body
-        className={`${iransans.variable} ${roboto.variable} antialiased min-h-screen bg-white text-black dark:bg-gray-900 dark:text-gray-100"`}
+        className={`${fontFace} antialiased min-h-screen bg-white text-black dark:bg-gray-900 dark:text-gray-100"`}
       >
         <NextIntlClientProvider messages={messages}>
           <NextThemesProvider
