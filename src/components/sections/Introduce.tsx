@@ -3,6 +3,8 @@
 import { Button, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { FC } from "react";
+import Image from "next/image";
+import myPicture from "~/public/images/my-picture.jpeg";
 
 export const Introduce: FC = () => {
   const t = useTranslations("Introduce");
@@ -26,17 +28,27 @@ export const Introduce: FC = () => {
   };
 
   return (
-    <div className="px-5 flex flex-col gap-y-5 justify-center items-center h-[calc(100%-100px)]">
-      <Typography variant="h4" className="text-center">
+    <div className="px-5 flex flex-col gap-y-3 sm:!gap-y-5 justify-center items-center h-[calc(100%-100px)]">
+      <Image
+        src={myPicture}
+        alt="sajad mahdian personal picture"
+        className="w-[180px] sm:w-[250px] md:w-[300px] rounded-full"
+      />
+      <Typography className="text-center text-[20px] sm:!text-[25px] md:!text-[30px]">
         {t("welcome")}
       </Typography>
-      <Typography variant="h5" className="text-center">
+      <Typography className="text-center text-[20px] sm:!text-[25px] md:!text-[30px]">
         {t("my-name")}
       </Typography>
-      <Typography variant="h6" className="text-center">
+      <Typography className="text-center text-[20px] sm:!text-[25px] md:!text-[30px]">
         {t("carrie")}
       </Typography>
-      <Button onClick={handleClick}>{t("know-more")}</Button>
+      <Button
+        onClick={handleClick}
+        className="text-center !text-[13px] sm:!text-[14px] md:!text-[15px]"
+      >
+        {t("know-more")}
+      </Button>
     </div>
   );
 };
