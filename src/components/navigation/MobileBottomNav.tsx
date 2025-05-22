@@ -42,8 +42,8 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
   // Main navigation items
   const navItems = [
     { label: t("home"), value: "home", icon: <HomeIcon /> },
-    { label: t("projects"), value: "projects", icon: <WorkIcon /> },
     { label: t("about"), value: "about", icon: <InfoIcon /> },
+    { label: t("projects"), value: "projects", icon: <WorkIcon /> },
     { label: t("contact"), value: "contact", icon: <ContactMailIcon /> },
   ];
 

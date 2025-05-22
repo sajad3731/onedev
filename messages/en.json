@@ -26,6 +26,10 @@
     "close-gallery": "Close Gallery",
     "no-images-available": "No images available"
   },
+  "Experiences": {
+    "title": "Experiences",
+    "work-experience": "Work Experience"
+  },
   "Contact": {
     "title": "Contact",
     "contact-me": "If you want to contact me, you can use the following methods.",

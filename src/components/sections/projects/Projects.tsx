@@ -36,10 +36,6 @@ export const Projects: FC<ProjectsProps> = ({ projectsData }) => {
   const launchedProjects = projectsData.filter(
     (project) => project.status === "launched"
   );
-  const removedProjects = projectsData.filter(
-    (project) => project.status === "removed"
-  );
-
   const handleOpenModal = (project: Project) => {
     setSelectedProject(project);
   };
@@ -58,49 +54,15 @@ export const Projects: FC<ProjectsProps> = ({ projectsData }) => {
 
       {/* Launched Projects */}
       {launchedProjects.length > 0 && (
-        <div className="flex flex-col gap-y-1">
-          <Typography
-            variant="h5"
-            className="!font-semibold !mb-6 text-green-600"
-          >
-            {t("launched-projects")}
-          </Typography>
-
-          {/* Modified grid with projects-grid class for CSS targeting */}
-          <div className="projects-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {launchedProjects.map((project) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                onOpenGallery={handleOpenModal}
-                isMobile={isMobile}
-              />
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Removed Projects */}
-      {removedProjects.length > 0 && (
-        <div className="flex flex-col gap-y-1 mt-8">
-          <Typography
-            variant="h5"
-            className="!font-semibold !mb-6 text-amber-600"
-          >
-            {t("coming-soon")}
-          </Typography>
-
-          {/* Same grid class for consistent targeting */}
-          <div className="projects-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {removedProjects.map((project) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                onOpenGallery={handleOpenModal}
-                isMobile={isMobile}
-              />
-            ))}
-          </div>
+        <div className="projects-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {launchedProjects.map((project) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              onOpenGallery={handleOpenModal}
+              isMobile={isMobile}
+            />
+          ))}
         </div>
       )}
 

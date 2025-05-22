@@ -1,9 +1,11 @@
 import { Header } from "@/components/navigation/Header";
 import { About } from "@/components/sections/about/About";
 import { Contact } from "@/components/sections/contact/Contact";
+import { Experiences } from "@/components/sections/experiences/Experiences";
 import { Introduce } from "@/components/sections/Introduce";
 import { Projects } from "@/components/sections/projects/Projects";
 import { ScrollIndicator } from "@/components/ui/ScrollIndicator";
+import { experiencesData } from "@/data/experiencesData";
 import { projectsData } from "@/data/projectsData";
 import { Box, Container } from "@mui/material";
 import { getTranslations } from "next-intl/server";
@@ -54,6 +56,17 @@ const HomePage: FC = () => {
           }}
         >
           <About />
+        </Container>
+
+        <Container
+          component="section"
+          maxWidth="lg"
+          id="experience"
+          sx={{
+            paddingTop: { xs: 2, sm: 4 },
+          }}
+        >
+          <Experiences experiencesData={experiencesData} />
         </Container>
 
         <Container
