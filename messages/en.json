@@ -27,8 +27,13 @@
     "no-images-available": "No images available"
   },
   "Experiences": {
-    "title": "Experiences",
-    "work-experience": "Work Experience"
+    "title": "Work Experience",
+    "work-experience": "Work Experience",
+    "visit-company": "Visit Company",
+    "responsibilities": "Key Responsibilities",
+    "present": "Present",
+    "and-more": "+{count} more responsibilities",
+    "no-experiences-available": "No work experiences available"
   },
   "Contact": {
     "title": "Contact",

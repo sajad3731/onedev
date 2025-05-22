@@ -27,8 +27,13 @@
     "no-images-available": "تصویری موجود نیست"
   },
   "Experiences": {
-    "title": "تجربیات",
-    "work-experience": "سوابق کاری"
+    "title": "تجربیات کاری",
+    "work-experience": "سوابق کاری",
+    "visit-company": "بازدید از شرکت",
+    "responsibilities": "مسئولیت‌های کلیدی",
+    "present": "اکنون",
+    "and-more": "+{count} مسئولیت دیگر",
+    "no-experiences-available": "تجربه کاری موجود نیست"
   },
   "Contact": {
     "title": "ارتباط",
