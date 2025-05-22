@@ -22,8 +22,24 @@ export const ProjectCard: FC<ProjectCardProps> = ({
   onOpenGallery,
   isMobile = false,
 }) => {
-  const { title, description, thumbnailUrl, status, url, launchDate } = project;
+  const {
+    titleKey,
+    descriptionKey,
+    thumbnailUrl,
+    status,
+    url,
+    launchDate,
+    title: legacyTitle,
+    description: legacyDescription,
+  } = project;
   const t = useTranslations("Projects");
+  const projectT = useTranslations();
+
+  // Get translated content or fall back to legacy content for backward compatibility
+  const title = titleKey ? projectT(titleKey) : legacyTitle || "";
+  const description = descriptionKey
+    ? projectT(descriptionKey)
+    : legacyDescription || "";
 
   // Shorter description for mobile
   const displayDescription =

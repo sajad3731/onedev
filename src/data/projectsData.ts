@@ -28,9 +28,8 @@ import posChecker6 from "~/public/images/projects/pos-checker/6.png";
 export const projectsData: Project[] = [
   {
     id: "amin",
-    title: "Amin",
-    description:
-      "A landing page that created by next v12 for Amin Integrated Circuit Nanosystems Research Center",
+    titleKey: "Projects.data.amin.title",
+    descriptionKey: "Projects.data.amin.description",
     thumbnailUrl: amin1,
     status: "launched",
     url: "https://www.aminsys.com/",
@@ -39,9 +38,8 @@ export const projectsData: Project[] = [
   },
   {
     id: "bluk",
-    title: "Bluk",
-    description:
-      "A landing page that created with react. This app create for buy/sale buildings",
+    titleKey: "Projects.data.bluk.title",
+    descriptionKey: "Projects.data.bluk.description",
     thumbnailUrl: bluk1,
     status: "launched",
     url: "https://bluk.ir/",
@@ -50,9 +48,8 @@ export const projectsData: Project[] = [
   },
   {
     id: "dorsa_dashboard",
-    title: "Dorsa cloud Dashboard",
-    description:
-      "A dashboard that created by react, mui, formik, rtkQuery and etc. This dashboard is a cloud base service provider",
+    titleKey: "Projects.data.dorsa_dashboard.title",
+    descriptionKey: "Projects.data.dorsa_dashboard.description",
     thumbnailUrl: dorsaDashboard1,
     status: "launched",
     url: "https://bluk.ir/",
@@ -61,9 +58,8 @@ export const projectsData: Project[] = [
   },
   {
     id: "dorsa_cloud",
-    title: "Dorsa cloud",
-    description:
-      "A website that created with next v12 and updated to next v15 (app router) that using from mui, formik, rtkQuery",
+    titleKey: "Projects.data.dorsa_cloud.title",
+    descriptionKey: "Projects.data.dorsa_cloud.description",
     thumbnailUrl: dorsa1,
     status: "launched",
     url: "https://dorsa.cloud/",
@@ -72,9 +68,8 @@ export const projectsData: Project[] = [
   },
   {
     id: "gcloud",
-    title: "Gcloud",
-    description:
-      "A dashboard that created by react, mui, formik, RtkQuery, axios and etc.",
+    titleKey: "Projects.data.gcloud.title",
+    descriptionKey: "Projects.data.gcloud.description",
     thumbnailUrl: gcloud1,
     status: "launched",
     url: "https://g.dctm.ir/",
@@ -83,9 +78,8 @@ export const projectsData: Project[] = [
   },
   {
     id: "lms",
-    title: "LMS",
-    description:
-      "A dashboard that created by react, mui, formik, rtkQuery and etc for online courses",
+    titleKey: "Projects.data.lms.title",
+    descriptionKey: "Projects.data.lms.description",
     thumbnailUrl: lms1,
     status: "launched",
     url: "https://bluk.ir/",
@@ -94,9 +88,8 @@ export const projectsData: Project[] = [
   },
   {
     id: "poseChecker",
-    title: "Position Checker",
-    description:
-      "A dashboard that created by react, mui, formik, rtkQuery and etc for online monitoring employees body position and rate them and suggest them best practices, base on manager demand",
+    titleKey: "Projects.data.poseChecker.title",
+    descriptionKey: "Projects.data.poseChecker.description",
     thumbnailUrl: posChecker1,
     status: "launched",
     url: "https://posechecker.com/",

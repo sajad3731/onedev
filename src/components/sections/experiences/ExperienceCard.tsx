@@ -23,15 +23,35 @@ export const ExperienceCard: FC<ExperienceCardProps> = ({
   isMobile = false,
 }) => {
   const {
-    companyName,
-    summary,
+    companyNameKey,
+    summaryKey,
     thumbnailUrl,
     url,
     startDate,
     endDate,
-    description,
+    descriptionKeys,
+    // Legacy fields for backward compatibility
+    companyName: legacyCompanyName,
+    summary: legacySummary,
+    description: legacyDescription,
   } = experience;
+
   const t = useTranslations("Experiences");
+  const experienceT = useTranslations();
+
+  // Get translated content or fall back to legacy content for backward compatibility
+  const companyName = companyNameKey
+    ? experienceT(companyNameKey)
+    : legacyCompanyName || "";
+  const summary = summaryKey ? experienceT(summaryKey) : legacySummary || "";
+
+  // Handle description - either from translation keys or legacy format
+  let description: string[] = [];
+  if (descriptionKeys && descriptionKeys.length > 0) {
+    description = descriptionKeys.map((key) => experienceT(key));
+  } else if (legacyDescription) {
+    description = legacyDescription;
+  }
 
   // Format date range
   const formatDateRange = () => {

@@ -24,7 +24,37 @@
     "coming-soon": "Coming Soon",
     "gallery": "Gallery",
     "close-gallery": "Close Gallery",
-    "no-images-available": "No images available"
+    "no-images-available": "No images available",
+    "data": {
+      "amin": {
+        "title": "Amin",
+        "description": "A landing page that created by next v12 for Amin Integrated Circuit Nanosystems Research Center"
+      },
+      "bluk": {
+        "title": "Bluk",
+        "description": "A landing page that created with react. This app create for buy/sale buildings"
+      },
+      "dorsa_dashboard": {
+        "title": "Dorsa cloud Dashboard",
+        "description": "A dashboard that created by react, mui, formik, rtkQuery and etc. This dashboard is a cloud base service provider"
+      },
+      "dorsa_cloud": {
+        "title": "Dorsa cloud",
+        "description": "A website that created with next v12 and updated to next v15 (app router) that using from mui, formik, rtkQuery"
+      },
+      "gcloud": {
+        "title": "Gcloud",
+        "description": "A dashboard that created by react, mui, formik, RtkQuery, axios and etc."
+      },
+      "lms": {
+        "title": "LMS",
+        "description": "A dashboard that created by react, mui, formik, rtkQuery and etc for online courses"
+      },
+      "poseChecker": {
+        "title": "Position Checker",
+        "description": "A dashboard that created by react, mui, formik, rtkQuery and etc for online monitoring employees body position and rate them and suggest them best practices, base on manager demand"
+      }
+    }
   },
   "Experiences": {
     "title": "Work Experience",
@@ -33,7 +63,44 @@
     "responsibilities": "Key Responsibilities",
     "present": "Present",
     "and-more": "+{count} more responsibilities",
-    "no-experiences-available": "No work experiences available"
+    "no-experiences-available": "No work experiences available",
+    "data": {
+      "amin_systems": {
+        "companyName": "Amin Integrated Circuit Nanosystems",
+        "summary": "Frontend Developer specializing in React-based web applications and dashboard development for nanosystems research center.",
+        "description": {
+          "0": "Developed and maintained the company's main website using Next.js 12",
+          "1": "Created responsive user interfaces for research project showcases",
+          "2": "Implemented modern web standards and optimized performance",
+          "3": "Collaborated with research teams to present complex technical information",
+          "4": "Ensured cross-browser compatibility and mobile responsiveness"
+        }
+      },
+      "dorsa_cloud": {
+        "companyName": "Dorsa Cloud Services",
+        "summary": "Senior Frontend Developer responsible for building cloud service dashboards and client-facing web applications.",
+        "description": {
+          "0": "Led frontend development of cloud service management dashboard",
+          "1": "Built customer portal using React, MUI, and RTK Query",
+          "2": "Migrated legacy applications from Next.js 12 to Next.js 15 App Router",
+          "3": "Implemented form handling with Formik and validation systems",
+          "4": "Developed real-time monitoring interfaces for cloud services",
+          "5": "Mentored junior developers and established coding standards"
+        }
+      },
+      "gcloud_systems": {
+        "companyName": "GCloud Systems",
+        "summary": "Frontend Developer focused on enterprise dashboard development and data visualization interfaces.",
+        "description": {
+          "0": "Developed complex data visualization dashboards using React and MUI",
+          "1": "Implemented state management with Redux Toolkit and RTK Query",
+          "2": "Created responsive layouts for various screen sizes and devices",
+          "3": "Built form handling systems with validation and error management",
+          "4": "Optimized application performance and loading times",
+          "5": "Collaborated with backend teams to integrate REST APIs"
+        }
+      }
+    }
   },
   "Contact": {
     "title": "Contact",
