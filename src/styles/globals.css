@@ -13,20 +13,51 @@ body {
   font-family: var(--font-iransans), var(--font-roboto), sans-serif;
 }
 
-/* First section (Introduce) fill screen height */
+/* First section (Introduce) now fills full screen height since header is transparent initially */
 #home {
-  min-height: calc(100vh - 64px);
-  height: calc(100vh - 64px);
+  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  /* Add padding top only when needed for scrolled state - handled by JS */
 }
 
 /* For mobile devices */
 @media (max-width: 600px) {
   #home {
-    min-height: calc(100vh - 64px);
-    height: calc(100vh - 64px);
-    /* Account for bottom nav on mobile */
-    /* padding-bottom: 64px; */
+    min-height: 100vh;
+    height: 100vh;
+    /* Account for bottom nav on mobile but not top since header is transparent */
+  }
+}
+
+/* Smooth transition for sections when header height changes */
+section {
+  scroll-margin-top: 80px; /* Account for larger initial header */
+  transition: scroll-margin-top 0.3s ease-in-out;
+}
+
+/* When header is in scrolled state, adjust scroll margins */
+.header-scrolled section {
+  scroll-margin-top: 64px;
+}
+
+/* Ensure proper contrast for content over background images in hero section */
+#home .content-overlay {
+  position: relative;
+  z-index: 10;
+}
+
+/* Background image overlay adjustment */
+#home .absolute.inset-0 {
+  z-index: 1;
+}
+
+/* Dark mode support for header blur effect */
+@media (prefers-color-scheme: dark) {
+  .header-scrolled {
+    background-color: rgba(30, 30, 30, 0.8) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
 }

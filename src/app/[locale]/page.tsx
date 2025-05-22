@@ -5,7 +5,7 @@ import { Introduce } from "@/components/sections/Introduce";
 import { Projects } from "@/components/sections/projects/Projects";
 import { ScrollIndicator } from "@/components/ui/ScrollIndicator";
 import { projectsData } from "@/data/projectsData";
-import { Box, Container, Toolbar } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import { getTranslations } from "next-intl/server";
 import { type FC } from "react";
 
@@ -31,21 +31,39 @@ const HomePage: FC = () => {
       }}
     >
       <Header />
-      <Toolbar className="!hidden sm:!block" />
+      {/* Remove the Toolbar spacer since header is now transparent initially */}
       <main>
         <section id="home">
           <div className="absolute inset-0 bg-[url('/images/common-bg.svg')] bg-repeat opacity-40 dark:opacity-20 z-0" />
-          <Container maxWidth="lg" className="h-full z-50">
-            <Introduce />
-            <ScrollIndicator targetSectionId="about" />
+          <Container maxWidth="lg" className="h-full z-50 relative">
+            <div className="content-overlay h-full">
+              <Introduce />
+              <ScrollIndicator targetSectionId="about" />
+            </div>
           </Container>
         </section>
 
-        <Container component="section" maxWidth="lg" id="about">
+        {/* Add padding top to subsequent sections to account for fixed header */}
+        <Container
+          component="section"
+          maxWidth="lg"
+          id="about"
+          sx={{
+            paddingTop: { xs: 2, sm: 4 }, // Add some padding for better spacing
+            marginTop: { xs: 0, sm: 2 }, // Additional margin for desktop
+          }}
+        >
           <About />
         </Container>
 
-        <Container component="section" maxWidth="lg" id="projects">
+        <Container
+          component="section"
+          maxWidth="lg"
+          id="projects"
+          sx={{
+            paddingTop: { xs: 2, sm: 4 },
+          }}
+        >
           <Projects projectsData={projectsData} />
         </Container>
 
@@ -54,6 +72,9 @@ const HomePage: FC = () => {
           maxWidth="lg"
           id="contact"
           className="mb-[100px]"
+          sx={{
+            paddingTop: { xs: 2, sm: 4 },
+          }}
         >
           <Contact />
         </Container>

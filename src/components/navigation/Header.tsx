@@ -15,18 +15,23 @@ import { FloatingActionButton } from "./FloatingActionButton";
 export const Header: FC = () => {
   const [mounted, setMounted] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  // Add useEffect to handle client-side mounting
+  // Add useEffect to handle client-side mounting and scroll detection
   useEffect(() => {
     setMounted(true);
 
-    // Track scroll position to update active section
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      const headerHeight = window.innerWidth <= 600 ? 56 : 64;
+      const scrollThreshold = 250; // Adjust this value as needed (200-300px)
 
-      // Find which section is currently in view
+      // Update scroll state for header styling
+      setIsScrolled(scrollPosition > scrollThreshold);
+
+      // Track active section
+      const headerHeight = isScrolled ? 64 : 80; // Adjust based on header height
       const sections = ["home", "projects", "about", "contact"];
+
       for (const sectionId of sections) {
         const section = document.getElementById(sectionId);
         if (!section) continue;
@@ -41,12 +46,15 @@ export const Header: FC = () => {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    // Initial call to set correct state
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [isScrolled]);
 
   const t = useTranslations("Header");
 
@@ -60,8 +68,47 @@ export const Header: FC = () => {
 
   return (
     <Box sx={{ display: "flex", direction: "ltr" }}>
-      <AppBar component="nav" className="!hidden sm:!block" elevation={0}>
-        <Toolbar className="px-4 !bg-transparent">
+      <AppBar
+        component="nav"
+        className="!hidden sm:!block"
+        elevation={isScrolled ? 5 : 0}
+        sx={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1200,
+          // Dynamic styling based on scroll state
+          backgroundColor: "transparent",
+          backdropFilter: isScrolled ? "blur(10px)" : "none",
+          WebkitBackdropFilter: isScrolled ? "blur(10px)" : "none", // Safari support
+          // boxShadow: isScrolled ? "0 2px 8px rgba(0, 0, 0, 0.1)" : "none",
+          transition: "all 0.3s ease-in-out",
+          // Dark mode support
+          ...(isScrolled && {
+            "@media (prefers-color-scheme: dark)": {
+              backgroundColor: "rgba(30, 30, 30, 0.8)",
+              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.3)",
+            },
+          }),
+          // MUI dark theme support
+          "&.MuiAppBar-root": {
+            backgroundColor: isScrolled
+              ? (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "rgba(30, 30, 30, 0.2)"
+                    : "rgba(255, 255, 255, 0.2)"
+              : "transparent",
+          },
+          height: isScrolled ? 64 : 100,
+        }}
+      >
+        <Toolbar
+          className="!h-full px-2 bg-transparent"
+          sx={{
+            transition: "all 0.3s ease-in-out",
+          }}
+        >
           <Container maxWidth="xl">
             <Stack
               direction="row"
@@ -78,8 +125,12 @@ export const Header: FC = () => {
                 }}
               >
                 <Typography
-                  variant="h6"
                   className="!font-extrabold cursor-default"
+                  sx={{
+                    color: "text.primary",
+                    transition: "all 0.3s ease-in-out",
+                    fontSize: isScrolled ? 20 : 30,
+                  }}
                 >
                   oneDev
                 </Typography>
@@ -94,8 +145,12 @@ export const Header: FC = () => {
               {/* Logo for desktop - centered */}
               <div className="absolute aspect-[3/1] hidden lg:inline-block left-1/2 top-1/2 -translate-1/2">
                 <Typography
-                  variant="h6"
                   className="!font-extrabold cursor-default"
+                  sx={{
+                    color: "text.primary",
+                    transition: "all 0.3s ease-in-out",
+                    fontSize: isScrolled ? 20 : 30,
+                  }}
                 >
                   oneDev
                 </Typography>
@@ -105,11 +160,20 @@ export const Header: FC = () => {
               <div className="hidden sm:inline-flex items-center gap-x-2">
                 {navItems.map((item) => (
                   <NavItem
-                    color="inherit"
                     key={item.label}
                     disableElevation
                     disableRipple
                     sectionId={item.sectionId}
+                    sx={{
+                      color: "text.primary",
+                      transition: "all 0.3s ease-in-out",
+                      "&:hover": {
+                        backgroundColor: isScrolled
+                          ? "rgba(0, 0, 0, 0.04)"
+                          : "rgba(255, 255, 255, 0.1)",
+                      },
+                      fontSize: isScrolled ? 16 : 18,
+                    }}
                   >
                     {item.label}
                   </NavItem>
