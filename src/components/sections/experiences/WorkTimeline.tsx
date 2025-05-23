@@ -55,15 +55,6 @@ export const WorkTimeline: FC<TimelineProps> = ({ experiences }) => {
                   size="small"
                   color="primary"
                   className="font-medium"
-                  sx={{
-                    fontWeight: "500",
-                    boxShadow: theme.shadows[1],
-                    transition: "all 0.3s ease",
-                    "&:hover": {
-                      transform: "translateY(-2px)",
-                      boxShadow: theme.shadows[2],
-                    },
-                  }}
                 />
               </TimelineOppositeContent>
             )}
