@@ -143,17 +143,8 @@
   },
   "Contact": {
     "title": "Contact",
-    "contact-me": "If you want to contact me, you can use the following methods.",
-    "send-direct-message": "If you would like to communicate directly from this site, you can also use the message section and send your message directly to me.",
-    "form": {
-      "name": "Name",
-      "phone-number": "Phone",
-      "email": "Email",
-      "message": "Message",
-      "send-message": "Send message",
-      "success": "Message sent successfully!",
-      "error": "Failed to send message. Please try again."
-    }
+    "contact-me": "If you would like to get in touch with me, feel free to use any of the following contact methods:",
+    "get-in-touch": "Connect With Me"
   },
   "Metadata": {
     "HomePage": {
