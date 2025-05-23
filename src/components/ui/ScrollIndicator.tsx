@@ -20,8 +20,6 @@ export const ScrollIndicator: FC<ScrollIndicatorProps> = ({
     if (targetSectionId && typeof window !== "undefined") {
       const targetSection = document.getElementById(targetSectionId);
 
-      console.log({ targetSection });
-
       if (targetSection) {
         // Get header height based on viewport
         const headerHeight = window.innerWidth <= 600 ? 56 : 64;

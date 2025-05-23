@@ -1,6 +1,5 @@
 "use client";
 
-import { Button, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { FC } from "react";
 import Image from "next/image";
@@ -14,9 +13,7 @@ export const Introduce: FC = () => {
     const targetSection = document.getElementById("about");
 
     if (targetSection) {
-      // Get header height based on viewport
       const headerHeight = window.innerWidth <= 600 ? 56 : 64;
-
       const sectionTop = targetSection.offsetTop;
       const offsetTop = sectionTop - headerHeight;
 
@@ -28,27 +25,28 @@ export const Introduce: FC = () => {
   };
 
   return (
-    <div className="px-5 flex flex-col gap-y-3 sm:!gap-y-5 justify-center items-center h-[calc(100%-100px)]">
+    <div className="px-5 flex flex-col gap-y-3 sm:gap-y-5 justify-center items-center h-[calc(100%-100px)]">
       <Image
+        priority
         src={myPicture}
         alt="sajad mahdian personal picture"
         className="w-[180px] sm:w-[250px] md:w-[300px] rounded-full"
       />
-      <Typography className="text-center text-[20px] sm:!text-[25px] md:!text-[30px]">
+      <div className="text-center text-[20px] sm:text-[25px] md:text-[30px]">
         {t("welcome")}
-      </Typography>
-      <Typography className="text-center text-[20px] sm:!text-[25px] md:!text-[30px]">
+      </div>
+      <div className="text-center text-[20px] sm:text-[25px] md:text-[30px]">
         {t("my-name")}
-      </Typography>
-      <Typography className="text-center text-[20px] sm:!text-[25px] md:!text-[30px]">
+      </div>
+      <div className="text-center text-[20px] sm:text-[25px] md:text-[30px]">
         {t("carrie")}
-      </Typography>
-      <Button
+      </div>
+      <button
         onClick={handleClick}
-        className="text-center !text-[13px] sm:!text-[14px] md:!text-[15px]"
+        className="text-center text-[13px] sm:text-[14px] md:text-[15px] px-4 py-2 rounded bg-primary-500 text-white hover:bg-primary-600 transition"
       >
         {t("know-more")}
-      </Button>
+      </button>
     </div>
   );
 };

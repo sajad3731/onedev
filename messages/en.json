@@ -7,8 +7,9 @@
   },
   "About": {
     "title": "About",
-    "description": "Hello again. I am Sajad Mahdian, born in 1994. After my bachelor's degree, I entered the professional field and have been developing web-based applications professionally since 2018. Most of my experience is in working with the React library. In fact, I have developed most of the different dashboards. But this book does not mean that I do not work with other libraries and do not have experience in using them, but rather that I have more experience in developing dashboards. I am interested in using new technologies in my field.",
-    "guiding-to-resume": "Below, to help you become more familiar with my skills, I have provided you with my resume for download. I tried to keep it concise so that it doesn't cause you too much headache.",
+    "description": "Hello again. I am Sajad Mahdian, a Front-End Developer with over 6 years of experience in web application development. My expertise lies in flexible and optimized programming using ReactJs and related technologies such as Redux and Next.js. My strong ability to understand UI/UX and user experience is among my outstanding qualities. I am ready to participate in a specialized and dynamic team and help advance complex projects.",
+    "skills-title": "Technical Skills",
+    "guiding-to-resume": "To help you become more familiar with my skills, I have provided my resume for download below. I've kept it concise to make it easier to review.",
     "download-resume": "Download Resume",
     "jobinja-link": "Jobinja Link",
     "jobvision-link": "Jobvision Link"
@@ -58,12 +59,17 @@
   },
   "Experiences": {
     "title": "Work Experience",
+    "view-timeline": "Timeline View",
+    "view-cards": "Cards View",
     "work-experience": "Work Experience",
     "visit-company": "Visit Company",
     "responsibilities": "Key Responsibilities",
     "present": "Present",
     "and-more": "+{count} more responsibilities",
     "no-experiences-available": "No work experiences available",
+    "scroll-left": "Scroll timeline left",
+    "scroll-right": "Scroll timeline right",
+    "swipe-hint": "Swipe to see more experiences",
     "data": {
       "amin_systems": {
         "companyName": "Amin Integrated Circuit Nanosystems",
@@ -98,6 +104,39 @@
           "3": "Built form handling systems with validation and error management",
           "4": "Optimized application performance and loading times",
           "5": "Collaborated with backend teams to integrate REST APIs"
+        }
+      },
+      "zaeim_electronics": {
+        "companyName": "Zaeim Electronics",
+        "summary": "Frontend Developer working on multiple dashboards using React, i18n, Redux Toolkit, RTK Query, React Hook Form, and Tailwind.",
+        "description": {
+          "0": "Developed multiple dashboards with modern React stack",
+          "1": "Implemented internationalization for multi-language support",
+          "2": "Created responsive and accessible user interfaces",
+          "3": "Optimized performance for complex data-heavy applications",
+          "4": "Collaborated with backend teams for API integration"
+        }
+      },
+      "freelance": {
+        "companyName": "Freelance Developer",
+        "summary": "Independent Frontend Developer working on various client projects.",
+        "description": {
+          "0": "Developed custom web applications for various clients",
+          "1": "Created responsive and accessible user interfaces",
+          "2": "Implemented modern React best practices",
+          "3": "Managed project timelines and client expectations",
+          "4": "Delivered high-quality code on tight deadlines"
+        }
+      },
+      "mobtaker_pars": {
+        "companyName": "Mobtaker Pars",
+        "summary": "Frontend Developer focused on React applications.",
+        "description": {
+          "0": "Developed React-based web applications",
+          "1": "Created responsive user interfaces",
+          "2": "Collaborated with design and backend teams",
+          "3": "Implemented state management solutions",
+          "4": "Ensured cross-browser compatibility"
         }
       }
     }
