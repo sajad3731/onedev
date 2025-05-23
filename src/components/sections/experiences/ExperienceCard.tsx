@@ -1,166 +1,143 @@
 import {
-  Button,
-  Typography,
+  CircleRounded,
+  ExpandMore as ExpandMoreIcon,
+} from "@mui/icons-material";
+import {
+  Avatar,
   Card,
+  CardActions,
   CardContent,
-  CardMedia,
-  Chip,
-  Box,
+  CardHeader,
+  Collapse,
+  IconButton,
+  IconButtonProps,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  styled,
+  Typography,
 } from "@mui/material";
 import { useTranslations } from "next-intl";
-import Image from "next/image";
-import Link from "next/link";
-import { FC } from "react";
-import { Launch, WorkOutline } from "@mui/icons-material";
+import { FC, useState } from "react";
+
+interface ExpandMoreProps extends IconButtonProps {
+  expand: "true" | "false";
+}
+
+const ExpandMore = styled((props: ExpandMoreProps) => {
+  return <IconButton {...props} />;
+})(({ theme }) => ({
+  marginLeft: "auto",
+  transition: theme.transitions.create("transform", {
+    duration: theme.transitions.duration.shortest,
+  }),
+  variants: [
+    {
+      props: ({ expand }) => expand === "false",
+      style: {
+        transform: "rotate(0deg)",
+      },
+    },
+    {
+      props: ({ expand }) => expand === "true",
+      style: {
+        transform: "rotate(180deg)",
+      },
+    },
+  ],
+}));
 
 interface ExperienceCardProps {
   experience: Experience;
-  isMobile?: boolean;
 }
 
-export const ExperienceCard: FC<ExperienceCardProps> = ({
-  experience,
-  isMobile = false,
-}) => {
-  const {
-    companyNameKey,
-    summaryKey,
-    thumbnailUrl,
-    url,
-    startDate,
-    endDate,
-    descriptionKeys,
-    // Legacy fields for backward compatibility
-    companyName: legacyCompanyName,
-    summary: legacySummary,
-    description: legacyDescription,
-  } = experience;
+export const ExperienceCard: FC<ExperienceCardProps> = ({ experience }) => {
+  const [expanded, setExpanded] = useState<"true" | "false">("false");
 
   const t = useTranslations("Experiences");
   const experienceT = useTranslations();
 
-  // Get translated content or fall back to legacy content for backward compatibility
-  const companyName = companyNameKey
-    ? experienceT(companyNameKey)
-    : legacyCompanyName || "";
-  const summary = summaryKey ? experienceT(summaryKey) : legacySummary || "";
-
-  // Handle description - either from translation keys or legacy format
-  let description: string[] = [];
-  if (descriptionKeys && descriptionKeys.length > 0) {
-    description = descriptionKeys.map((key) => experienceT(key));
-  } else if (legacyDescription) {
-    description = legacyDescription;
-  }
-
-  // Format date range
-  const formatDateRange = () => {
-    if (!startDate) return "";
-
-    const start = startDate;
-    const end = endDate || t("present");
-
-    return `${start} - ${end}`;
+  const handleExpandClick = () => {
+    setExpanded(expanded === "true" ? "false" : "true");
   };
 
-  // Shorter summary for mobile
-  const displaySummary =
-    isMobile && summary.length > 100
-      ? `${summary.substring(0, 100)}...`
-      : summary;
-
   return (
-    <Card className="h-full flex flex-col transition-transform hover:scale-102 hover:shadow-lg">
-      <div className="relative h-48 overflow-hidden">
-        <CardMedia component="div" className="relative h-full">
-          <Image
-            src={thumbnailUrl}
-            alt={companyName}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
-          <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-            {url && (
-              <Button
-                disableElevation
-                color="inherit"
-                variant="contained"
-                component={Link}
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                startIcon={<Launch />}
-              >
-                {t("visit-company")}
-              </Button>
-            )}
-          </div>
-        </CardMedia>
-      </div>
-
-      <CardContent className="flex-grow flex flex-col p-4">
-        <div className="flex items-center gap-2 mb-2">
-          <WorkOutline color="primary" fontSize="small" />
-          <Typography className="!text-xl !font-semibold text-justify">
-            {companyName}
+    <Card>
+      <CardHeader
+        avatar={
+          <Avatar src={experience.thumbnailUrl.src}>
+            {experienceT(experience?.companyNameKey).substring(0, 1)}
+          </Avatar>
+        }
+        title={
+          <Typography className="text-right">
+            {experienceT(experience?.companyNameKey)}
           </Typography>
-        </div>
-
-        {formatDateRange() && (
-          <Chip
-            label={formatDateRange()}
-            size="small"
-            variant="outlined"
-            className="!mb-3 !w-fit"
-          />
-        )}
-
-        {summary && (
-          <Typography className="!text-gray-600 !mb-3 text-justify">
-            {displaySummary}
-          </Typography>
-        )}
-
-        {description && description.length > 0 && (
-          <Box className="flex-grow">
-            <Typography variant="subtitle2" className="!font-semibold !mb-2">
-              {t("responsibilities")}:
-            </Typography>
-            <ul className="list-disc list-inside space-y-1 text-sm text-gray-600">
-              {description
-                .slice(0, isMobile ? 3 : description.length)
-                .map((item, index) => (
-                  <li key={index} className="text-justify">
-                    {item}
-                  </li>
-                ))}
-              {isMobile && description.length > 3 && (
-                <li className="text-blue-600 font-medium">
-                  {t("and-more", { count: description.length - 3 })}
-                </li>
-              )}
-            </ul>
-          </Box>
-        )}
-
-        {url && (
-          <Button
-            disableElevation
-            component={Link}
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-            variant="outlined"
-            fullWidth={isMobile}
-            size={isMobile ? "small" : "medium"}
-            startIcon={<Launch />}
-            className="!mt-4"
-          >
-            {t("visit-company")}
-          </Button>
-        )}
+        }
+      />
+      <CardContent>
+        <Typography
+          variant="body2"
+          sx={{ color: "text.secondary" }}
+          className="text-right"
+        >
+          {experienceT(experience?.summaryKey)}
+        </Typography>
       </CardContent>
+      <CardActions disableSpacing>
+        <ExpandMore
+          expand={expanded}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon />
+        </ExpandMore>
+      </CardActions>
+      <Collapse in={expanded === "true"} timeout="auto" unmountOnExit>
+        <CardContent>
+          {experience?.responsibilityKeys && (
+            <div className="flex flex-col gap-y-2 items-start">
+              <Typography variant="subtitle2">
+                {t("responsibilities")}:
+              </Typography>
+              <List>
+                {experience.responsibilityKeys.map((item, idx) => {
+                  return (
+                    <ListItem key={idx} disablePadding>
+                      <ListItemIcon className="!min-w-[20px]">
+                        <CircleRounded className="!text-[8px]" />
+                      </ListItemIcon>
+                      <ListItemText className="!my-0">
+                        <Typography variant="caption">
+                          {experienceT(item)}
+                        </Typography>
+                      </ListItemText>
+                    </ListItem>
+                  );
+                })}
+              </List>
+            </div>
+          )}
+          {experience?.descriptionKey && (
+            <div className="flex flex-col gap-y-2 items-start">
+              <Typography variant="subtitle2">
+                {t("responsibilities")}:
+              </Typography>
+              <List>
+                {experience.descriptionKey.map((item, idx) => {
+                  return (
+                    <Typography variant="subtitle1" key={idx}>
+                      {experienceT(item)}
+                    </Typography>
+                  );
+                })}
+              </List>
+            </div>
+          )}
+        </CardContent>
+      </Collapse>
     </Card>
   );
 };

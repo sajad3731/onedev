@@ -763,6 +763,37 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mui/lab@npm:^7.0.0-beta.12":
+  version: 7.0.0-beta.12
+  resolution: "@mui/lab@npm:7.0.0-beta.12"
+  dependencies:
+    "@babel/runtime": "npm:^7.27.1"
+    "@mui/system": "npm:^7.1.0"
+    "@mui/types": "npm:^7.4.2"
+    "@mui/utils": "npm:^7.1.0"
+    clsx: "npm:^2.1.1"
+    prop-types: "npm:^15.8.1"
+  peerDependencies:
+    "@emotion/react": ^11.5.0
+    "@emotion/styled": ^11.3.0
+    "@mui/material": ^7.1.0
+    "@mui/material-pigment-css": ^7.1.0
+    "@types/react": ^17.0.0 || ^18.0.0 || ^19.0.0
+    react: ^17.0.0 || ^18.0.0 || ^19.0.0
+    react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
+  peerDependenciesMeta:
+    "@emotion/react":
+      optional: true
+    "@emotion/styled":
+      optional: true
+    "@mui/material-pigment-css":
+      optional: true
+    "@types/react":
+      optional: true
+  checksum: 10c0/c40c01b8d7e85e0c1e1f8ddfa51fff70fd93b8e727996640d2da8a8265950dd11ab9bc263fd3644e80d63a145a209a9741119e55f847136e8c1e6252ca04d3c7
+  languageName: node
+  linkType: hard
+
 "@mui/material-nextjs@npm:^7.1.0":
   version: 7.1.0
   resolution: "@mui/material-nextjs@npm:7.1.0"
@@ -3811,6 +3842,7 @@ __metadata:
     "@fontsource/roboto": "npm:^5.2.5"
     "@hookform/resolvers": "npm:^5.0.1"
     "@mui/icons-material": "npm:^7.1.0"
+    "@mui/lab": "npm:^7.0.0-beta.12"
     "@mui/material": "npm:^7.1.0"
     "@mui/material-nextjs": "npm:^7.1.0"
     "@tailwindcss/postcss": "npm:^4"

@@ -4,12 +4,12 @@ import bluk2 from "~/public/images/projects/bluk/2.png";
 import dorsaDashboard1 from "~/public/images/projects/dorsa dashboard/1.png";
 import dorsaDashboard2 from "~/public/images/projects/dorsa dashboard/2.png";
 import dorsaDashboard3 from "~/public/images/projects/dorsa dashboard/3.png";
-import dorsa1 from "~/public/images/projects/dorsa.cloud/1.png";
-import dorsa2 from "~/public/images/projects/dorsa.cloud/2.png";
-import dorsa3 from "~/public/images/projects/dorsa.cloud/3.png";
-import dorsa4 from "~/public/images/projects/dorsa.cloud/4.png";
-import dorsa5 from "~/public/images/projects/dorsa.cloud/5.png";
-import dorsa6 from "~/public/images/projects/dorsa.cloud/6.png";
+import dorsa1 from "~/public/images/projects/dorsa cloud/1.png";
+import dorsa2 from "~/public/images/projects/dorsa cloud/2.png";
+import dorsa3 from "~/public/images/projects/dorsa cloud/3.png";
+import dorsa4 from "~/public/images/projects/dorsa cloud/4.png";
+import dorsa5 from "~/public/images/projects/dorsa cloud/5.png";
+import dorsa6 from "~/public/images/projects/dorsa cloud/6.png";
 import gcloud1 from "~/public/images/projects/gcloud/1.png";
 import gcloud2 from "~/public/images/projects/gcloud/2.png";
 import gcloud3 from "~/public/images/projects/gcloud/3.png";
@@ -62,7 +62,7 @@ export const projectsData: Project[] = [
     descriptionKey: "Projects.data.dorsa_cloud.description",
     thumbnailUrl: dorsa1,
     status: "launched",
-    url: "https://dorsa.cloud/",
+    url: "https://dorsa cloud/",
     images: [dorsa1, dorsa2, dorsa3, dorsa4, dorsa5, dorsa6],
     launchDate: "",
   },

@@ -3,9 +3,9 @@
 import { IconButton } from "@mui/material";
 import { useLocale } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
-export const LangSwitchBtn = () => {
+export const LangSwitchBtn: FC = () => {
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();

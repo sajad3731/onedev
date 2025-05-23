@@ -74,7 +74,7 @@
       "amin_systems": {
         "companyName": "Amin Integrated Circuit Nanosystems",
         "summary": "Frontend Developer specializing in React-based web applications and dashboard development for nanosystems research center.",
-        "description": {
+        "responsibility": {
           "0": "Developed and maintained the company's main website using Next.js 12",
           "1": "Created responsive user interfaces for research project showcases",
           "2": "Implemented modern web standards and optimized performance",
@@ -85,7 +85,7 @@
       "dorsa_cloud": {
         "companyName": "Dorsa Cloud Services",
         "summary": "Senior Frontend Developer responsible for building cloud service dashboards and client-facing web applications.",
-        "description": {
+        "responsibility": {
           "0": "Led frontend development of cloud service management dashboard",
           "1": "Built customer portal using React, MUI, and RTK Query",
           "2": "Migrated legacy applications from Next.js 12 to Next.js 15 App Router",
@@ -97,7 +97,7 @@
       "gcloud_systems": {
         "companyName": "GCloud Systems",
         "summary": "Frontend Developer focused on enterprise dashboard development and data visualization interfaces.",
-        "description": {
+        "responsibility": {
           "0": "Developed complex data visualization dashboards using React and MUI",
           "1": "Implemented state management with Redux Toolkit and RTK Query",
           "2": "Created responsive layouts for various screen sizes and devices",
@@ -109,7 +109,7 @@
       "zaeim_electronics": {
         "companyName": "Zaeim Electronics",
         "summary": "Frontend Developer working on multiple dashboards using React, i18n, Redux Toolkit, RTK Query, React Hook Form, and Tailwind.",
-        "description": {
+        "responsibility": {
           "0": "Developed multiple dashboards with modern React stack",
           "1": "Implemented internationalization for multi-language support",
           "2": "Created responsive and accessible user interfaces",
@@ -120,7 +120,7 @@
       "freelance": {
         "companyName": "Freelance Developer",
         "summary": "Independent Frontend Developer working on various client projects.",
-        "description": {
+        "responsibility": {
           "0": "Developed custom web applications for various clients",
           "1": "Created responsive and accessible user interfaces",
           "2": "Implemented modern React best practices",
@@ -131,7 +131,7 @@
       "mobtaker_pars": {
         "companyName": "Mobtaker Pars",
         "summary": "Frontend Developer focused on React applications.",
-        "description": {
+        "responsibility": {
           "0": "Developed React-based web applications",
           "1": "Created responsive user interfaces",
           "2": "Collaborated with design and backend teams",
