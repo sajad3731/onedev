@@ -48,7 +48,10 @@ export const ProjectCard: FC<ProjectCardProps> = ({
       : description;
 
   return (
-    <Card className="h-full flex flex-col transition-transform hover:scale-102 hover:shadow-lg">
+    <Card
+      elevation={3}
+      className="h-full flex flex-col transition-transform hover:scale-102 hover:shadow-lg"
+    >
       <div className="relative h-48 overflow-hidden">
         <CardMedia component="div" className="relative h-full">
           <Image

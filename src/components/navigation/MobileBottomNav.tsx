@@ -128,14 +128,29 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
 
   return (
     <Paper
-      elevation={3}
+      elevation={0}
       sx={{
         position: "fixed",
-        bottom: 0,
-        left: 0,
-        right: 0,
+        bottom: 12, // Add space from bottom
+        left: 12, // Add space from left
+        right: 12, // Add space from right
         zIndex: 1100,
         display: { xs: "block", sm: "none" }, // Only show on mobile
+        borderRadius: "50px", // More rounded for mobile
+        backgroundColor: (theme) =>
+          theme.palette.mode === "dark"
+            ? "rgba(30, 30, 30, 0.95)"
+            : "rgba(255, 255, 255, 0.7)",
+        backdropFilter: "blur(5px)",
+        WebkitBackdropFilter: "blur(5px)",
+        boxShadow: (theme) =>
+          theme.palette.mode === "dark"
+            ? "0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1)"
+            : "0 8px 32px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05)",
+        border: (theme) =>
+          theme.palette.mode === "dark"
+            ? "1px solid rgba(255, 255, 255, 0.1)"
+            : "1px solid rgba(0, 0, 0, 0.08)",
       }}
     >
       <BottomNavigation
@@ -143,10 +158,40 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
         value={value}
         onChange={handleChange}
         sx={{
-          height: "64px",
+          height: "72px", // Slightly taller for better touch targets
+          backgroundColor: "transparent",
+          borderRadius: "50px", // Match parent border radius
           "& .MuiBottomNavigationAction-root": {
-            padding: "6px 0",
+            padding: "8px 4px",
             minWidth: "auto",
+            borderRadius: "12px",
+            margin: "4px 2px",
+            transition: "all 0.2s ease-in-out",
+            "&:hover": {
+              backgroundColor: (theme) =>
+                theme.palette.mode === "dark"
+                  ? "rgba(255, 255, 255, 0.08)"
+                  : "rgba(0, 0, 0, 0.04)",
+              transform: "translateY(-1px)",
+            },
+            "&.Mui-selected": {
+              backgroundColor: (theme) =>
+                theme.palette.mode === "dark"
+                  ? "rgba(255, 255, 255, 0.12)"
+                  : "rgba(0, 0, 0, 0.06)",
+              "& .MuiBottomNavigationAction-label": {
+                fontSize: "12px",
+                fontWeight: 600,
+              },
+            },
+            "& .MuiBottomNavigationAction-label": {
+              fontSize: "11px",
+              fontWeight: 500,
+              marginTop: "4px",
+            },
+            "& .MuiSvgIcon-root": {
+              fontSize: "22px",
+            },
           },
         }}
       >
@@ -185,12 +230,40 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
         PaperProps={{
           sx: {
             width: "250px",
-            padding: "8px 0",
+            padding: "8px",
+            borderRadius: "16px",
+            backgroundColor: (theme) =>
+              theme.palette.mode === "dark"
+                ? "rgba(40, 40, 40, 0.95)"
+                : "rgba(255, 255, 255, 0.95)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            boxShadow: (theme) =>
+              theme.palette.mode === "dark"
+                ? "0 8px 32px rgba(0, 0, 0, 0.6)"
+                : "0 8px 32px rgba(0, 0, 0, 0.15)",
+            border: (theme) =>
+              theme.palette.mode === "dark"
+                ? "1px solid rgba(255, 255, 255, 0.1)"
+                : "1px solid rgba(0, 0, 0, 0.08)",
           },
         }}
       >
         {/* Theme Setting */}
-        <MenuItem onClick={handleThemeChange} sx={{ height: "48px" }}>
+        <MenuItem
+          onClick={handleThemeChange}
+          sx={{
+            height: "48px",
+            borderRadius: "12px",
+            marginBottom: "4px",
+            "&:hover": {
+              backgroundColor: (theme) =>
+                theme.palette.mode === "dark"
+                  ? "rgba(255, 255, 255, 0.08)"
+                  : "rgba(0, 0, 0, 0.04)",
+            },
+          }}
+        >
           <ListItemIcon>
             <ThemeIcon fontSize="small" />
           </ListItemIcon>
@@ -199,13 +272,13 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
           />
         </MenuItem>
 
-        <Divider />
+        <Divider sx={{ margin: "8px 0", borderRadius: "1px" }} />
 
         {/* Language Options */}
         <Typography
           variant="caption"
           color="text.secondary"
-          sx={{ px: 2, py: 1, display: "block" }}
+          sx={{ px: 2, py: 1, display: "block", fontWeight: 500 }}
         >
           {t("select-language")}
         </Typography>
@@ -213,7 +286,17 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
         <MenuItem
           onClick={() => handleLanguageChange("en")}
           selected={locale === "en"}
-          sx={{ height: "40px" }}
+          sx={{
+            height: "40px",
+            borderRadius: "12px",
+            marginBottom: "4px",
+            "&:hover": {
+              backgroundColor: (theme) =>
+                theme.palette.mode === "dark"
+                  ? "rgba(255, 255, 255, 0.08)"
+                  : "rgba(0, 0, 0, 0.04)",
+            },
+          }}
         >
           <ListItemIcon>
             {locale === "en" && (
@@ -226,7 +309,16 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
         <MenuItem
           onClick={() => handleLanguageChange("fa")}
           selected={locale === "fa"}
-          sx={{ height: "40px" }}
+          sx={{
+            height: "40px",
+            borderRadius: "12px",
+            "&:hover": {
+              backgroundColor: (theme) =>
+                theme.palette.mode === "dark"
+                  ? "rgba(255, 255, 255, 0.08)"
+                  : "rgba(0, 0, 0, 0.04)",
+            },
+          }}
         >
           <ListItemIcon>
             {locale === "fa" && (

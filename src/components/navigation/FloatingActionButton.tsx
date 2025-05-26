@@ -66,17 +66,43 @@ export const FloatingActionButton = () => {
   return (
     <Zoom in={isVisible}>
       <Fab
+        ref={buttonRef}
         color="primary"
         aria-label="contact"
         onClick={handleClick}
         sx={{
           position: "fixed",
-          bottom: { xs: 80, sm: 24 }, // Position above bottom navigation on mobile
-          right: 24,
+          // Adjusted positioning to work with rounded mobile nav
+          bottom: {
+            xs: 108, // Above the rounded mobile nav (72px height + 12px bottom spacing + 24px extra space)
+            sm: 24, // Normal position on desktop
+          },
+          right: {
+            xs: 24, // Consistent right spacing on mobile
+            sm: 24, // Same right spacing on desktop
+          },
           zIndex: 1100,
+          // Enhanced styling to match the rounded theme
+          backdropFilter: "blur(10px)",
+          WebkitBackdropFilter: "blur(10px)",
+          boxShadow: (theme) =>
+            theme.palette.mode === "dark"
+              ? "0 8px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1)"
+              : "0 8px 24px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05)",
+          transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+          "&:hover": {
+            transform: "translateY(-2px) scale(1.05)",
+            boxShadow: (theme) =>
+              theme.palette.mode === "dark"
+                ? "0 12px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.15)"
+                : "0 12px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08)",
+          },
+          "&:active": {
+            transform: "translateY(0px) scale(0.95)",
+          },
         }}
       >
-        <Tooltip title={t("contact")}>
+        <Tooltip title={t("contact")} placement="left">
           <EmailIcon />
         </Tooltip>
       </Fab>

@@ -22,24 +22,30 @@ body {
   /* Add padding top only when needed for scrolled state - handled by JS */
 }
 
-/* For mobile devices */
+/* For mobile devices - account for rounded mobile nav */
 @media (max-width: 600px) {
   #home {
     min-height: 100vh;
     height: 100vh;
-    /* Account for bottom nav on mobile but not top since header is transparent */
+    /* Account for rounded bottom nav on mobile with spacing */
+    padding-bottom: 96px; /* 72px nav height + 24px spacing */
+  }
+  
+  /* Adjust contact section margin for mobile to account for rounded nav */
+  #contact {
+    margin-bottom: 120px !important; /* Extra space for rounded nav */
   }
 }
 
 /* Smooth transition for sections when header height changes */
 section {
-  scroll-margin-top: 80px; /* Account for larger initial header */
+  scroll-margin-top: 96px; /* Account for rounded header with spacing */
   transition: scroll-margin-top 0.3s ease-in-out;
 }
 
 /* When header is in scrolled state, adjust scroll margins */
 .header-scrolled section {
-  scroll-margin-top: 64px;
+  scroll-margin-top: 80px; /* Smaller margin when header is compact */
 }
 
 /* Ensure proper contrast for content over background images in hero section */
@@ -53,11 +59,42 @@ section {
   z-index: 1;
 }
 
+/* Smooth animations for rounded elements */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+}
+
+/* Enhanced header blur effect with better backdrop support */
+.header-blur {
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
 /* Dark mode support for header blur effect */
 @media (prefers-color-scheme: dark) {
   .header-scrolled {
-    background-color: rgba(30, 30, 30, 0.8) !important;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background-color: rgba(30, 30, 30, 0.85) !important;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
+}
+
+/* Light mode header styling */
+@media (prefers-color-scheme: light) {
+  .header-scrolled {
+    background-color: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+}
+
+/* Enhance focus states for better accessibility */
+button:focus,
+a:focus {
+  outline: 2px solid #1976d2;
+  outline-offset: 2px;
+  border-radius: 8px;
 }

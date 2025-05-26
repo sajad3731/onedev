@@ -71,42 +71,49 @@ export const Header: FC = () => {
       <AppBar
         component="nav"
         className="!hidden sm:!block"
-        elevation={isScrolled ? 5 : 0}
+        elevation={0} // Always 0 elevation to maintain clean look
         sx={{
           position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
+          top: 12, // Add space from top
+          left: 20, // Add space from left
+          right: 20, // Add space from right
           zIndex: 1200,
+          borderRadius: "50px", // Rounded corners
           // Dynamic styling based on scroll state
-          backgroundColor: "transparent",
-          backdropFilter: isScrolled ? "blur(10px)" : "none",
-          WebkitBackdropFilter: isScrolled ? "blur(10px)" : "none", // Safari support
-          // boxShadow: isScrolled ? "0 2px 8px rgba(0, 0, 0, 0.1)" : "none",
-          transition: "all 0.3s ease-in-out",
-          // Dark mode support
-          ...(isScrolled && {
-            "@media (prefers-color-scheme: dark)": {
-              backgroundColor: "rgba(30, 30, 30, 0.8)",
-              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.3)",
-            },
-          }),
-          // MUI dark theme support
-          "&.MuiAppBar-root": {
-            backgroundColor: isScrolled
-              ? (theme) =>
-                  theme.palette.mode === "dark"
-                    ? "rgba(30, 30, 30, 0.2)"
-                    : "rgba(255, 255, 255, 0.2)"
-              : "transparent",
-          },
-          height: isScrolled ? 64 : 100,
+          backgroundColor: isScrolled
+            ? (theme) =>
+                theme.palette.mode === "dark"
+                  ? "rgba(30, 30, 30, 0.85)"
+                  : "rgba(255, 255, 255, 0.7)"
+            : "transparent",
+          backdropFilter: isScrolled ? "blur(5px)" : "none",
+          WebkitBackdropFilter: isScrolled ? "blur(5px)" : "none", // Safari support
+          boxShadow: isScrolled
+            ? (theme) =>
+                theme.palette.mode === "dark"
+                  ? "0 8px 32px rgba(0, 0, 0, 0.4)"
+                  : "0 8px 32px rgba(0, 0, 0, 0.4)"
+            : "none",
+          border: isScrolled
+            ? (theme) =>
+                theme.palette.mode === "dark"
+                  ? "1px solid rgba(255, 255, 255, 0.1)"
+                  : "1px solid rgba(0, 0, 0, 0.05)"
+            : "none",
+          transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+          height: isScrolled ? 64 : 80,
+          // Smooth width transition
+          width: "calc(100% - 40px)", // Account for left and right spacing
+          maxWidth: isScrolled ? 1200 : 1400,
+          margin: "0 auto",
         }}
       >
         <Toolbar
-          className="!h-full px-2 bg-transparent"
+          className="!h-full px-4 bg-transparent"
           sx={{
             transition: "all 0.3s ease-in-out",
+            borderRadius: "16px", // Match parent border radius
+            padding: { xs: "0 16px", sm: "0 24px" }, // Responsive padding
           }}
         >
           <Container maxWidth="xl">
@@ -129,7 +136,13 @@ export const Header: FC = () => {
                   sx={{
                     color: "text.primary",
                     transition: "all 0.3s ease-in-out",
-                    fontSize: isScrolled ? 20 : 30,
+                    fontSize: isScrolled ? 20 : 24,
+                    textShadow: !isScrolled
+                      ? (theme) =>
+                          theme.palette.mode === "dark"
+                            ? "0 2px 8px rgba(0, 0, 0, 0.8)"
+                            : "0 2px 8px rgba(0, 0, 0, 0.3)"
+                      : "none",
                   }}
                 >
                   oneDev
@@ -149,7 +162,13 @@ export const Header: FC = () => {
                   sx={{
                     color: "text.primary",
                     transition: "all 0.3s ease-in-out",
-                    fontSize: isScrolled ? 20 : 30,
+                    fontSize: isScrolled ? 20 : 28,
+                    textShadow: !isScrolled
+                      ? (theme) =>
+                          theme.palette.mode === "dark"
+                            ? "0 2px 8px rgba(0, 0, 0, 0.8)"
+                            : "0 2px 8px rgba(0, 0, 0, 0.3)"
+                      : "none",
                   }}
                 >
                   oneDev
@@ -167,12 +186,25 @@ export const Header: FC = () => {
                     sx={{
                       color: "text.primary",
                       transition: "all 0.3s ease-in-out",
+                      borderRadius: "12px",
+                      padding: "8px 16px",
                       "&:hover": {
                         backgroundColor: isScrolled
-                          ? "rgba(0, 0, 0, 0.04)"
-                          : "rgba(255, 255, 255, 0.1)",
+                          ? (theme) =>
+                              theme.palette.mode === "dark"
+                                ? "rgba(255, 255, 255, 0.1)"
+                                : "rgba(0, 0, 0, 0.05)"
+                          : "rgba(255, 255, 255, 0.15)",
+                        transform: "translateY(-1px)",
                       },
                       fontSize: isScrolled ? 16 : 18,
+                      fontWeight: 500,
+                      textShadow: !isScrolled
+                        ? (theme) =>
+                            theme.palette.mode === "dark"
+                              ? "0 1px 4px rgba(0, 0, 0, 0.6)"
+                              : "0 1px 4px rgba(0, 0, 0, 0.25)"
+                        : "none",
                     }}
                   >
                     {item.label}
