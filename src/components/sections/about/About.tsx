@@ -4,9 +4,6 @@ import { FC } from "react";
 import { DownloadResumeBtn } from "./DownloadResumeBtn";
 import { Skills } from "./Skills";
 
-// Import resume data to use for the description
-import resumeData from "~/public/my-resume.json";
-
 export const About: FC = () => {
   const t = useTranslations("About");
 
@@ -20,7 +17,7 @@ export const About: FC = () => {
 
       {/* Use description from resume data for Persian locale, fallback to translation for English */}
       <Typography className="text-justify !leading-[40px]">
-        {resumeData.basics.summary || t("description")}
+        {t("description")}
       </Typography>
 
       {/* Enhanced Skills Section */}

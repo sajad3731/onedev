@@ -12,7 +12,13 @@
     "guiding-to-resume": "To help you become more familiar with my skills, I have provided my resume for download below. I've kept it concise to make it easier to review.",
     "download-resume": "Download Resume",
     "jobinja-link": "Jobinja Link",
-    "jobvision-link": "Jobvision Link"
+    "jobvision-link": "Jobvision Link",
+    "Skills": {
+      "excellentProficiency": "Excellent proficiency",
+      "goodProficiency": "Good proficiency",
+      "partialProficiency": "Partial proficiency",
+      "noProficiency": "No proficiency"
+    }
   },
   "Projects": {
     "title": "Projects",

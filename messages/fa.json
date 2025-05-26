@@ -12,7 +12,13 @@
     "guiding-to-resume": "در ادامه برای آشنایی بیشتر شما عزیزان با ریز مهارت‌های خودم، رزومه خودم رو برای دانلود در اختیارتون گذاشتم. سعی کردم خلاصه طراحیش کنم که خیلی سرتون رو درد نیاره.",
     "download-resume": "دانلود رزومه",
     "jobinja-link": "صفحه من در جابینجا",
-    "jobvision-link": "صفحه من در جاب‌ویژن"
+    "jobvision-link": "صفحه من در جاب‌ویژن",
+    "Skills": {
+      "excellentProficiency": "تسلط عالی",
+      "goodProficiency": "تسلط خوب",
+      "partialProficiency": "تسلط نسبی",
+      "noProficiency": "بدون تسلط"
+    }
   },
   "Projects": {
     "title": "پروژه‌ها",
