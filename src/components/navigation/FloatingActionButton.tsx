@@ -15,9 +15,6 @@ import { FC, useEffect, useRef, useState } from "react";
 export const FloatingSettingsButton: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
@@ -30,30 +27,6 @@ export const FloatingSettingsButton: FC = () => {
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  // Handle scroll detection for hiding/showing button
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      const scrollDifference = Math.abs(currentScrollY - lastScrollY);
-
-      // Only trigger hide/show if scroll difference is significant
-      if (scrollDifference > 10) {
-        if (currentScrollY > lastScrollY && currentScrollY > 100) {
-          // Scrolling down & past initial threshold
-          setIsVisible(false);
-          setIsOpen(false); // Close menu when hiding
-        } else if (currentScrollY < lastScrollY) {
-          // Scrolling up
-          setIsVisible(true);
-        }
-        setLastScrollY(currentScrollY);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -104,26 +77,23 @@ export const FloatingSettingsButton: FC = () => {
   return (
     <Box
       ref={containerRef}
-      className={`
-        fixed bottom-[100px] z-[1200] sm:hidden
-        transition-all duration-300 ease-in-out
-        ${
-          isVisible ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
-        }
-        ${isRtl ? "left-4" : "right-4"}
-      `}
       sx={{
-        display: { xs: "flex", sm: "none" },
+        position: "fixed",
+        bottom: 108, // Above the mobile nav
+        right: isRtl ? undefined : 16,
+        left: isRtl ? 16 : undefined,
+        zIndex: 1200,
+        display: { xs: "flex", sm: "none" }, // Only show on mobile
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "flex-end",
         backgroundColor:
           muiTheme.palette.mode === "dark"
-            ? "rgba(25, 25, 25, 0.85)"
-            : "rgba(255, 255, 255, 0.85)",
-        backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blur(12px)",
-        borderRadius: "24px",
+            ? "rgba(25, 25, 25, 0.7)"
+            : "rgba(255, 255, 255, 0.7)",
+        backdropFilter: "blur(5px)",
+        WebkitBackdropFilter: "blur(5px)",
+        borderRadius: "33px",
         boxShadow:
           muiTheme.palette.mode === "dark"
             ? "0 12px 32px rgba(0, 0, 0, 0.6), 0 4px 12px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1)"
@@ -134,38 +104,39 @@ export const FloatingSettingsButton: FC = () => {
             : "1px solid rgba(0, 0, 0, 0.08)",
         transition: "all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
         overflow: "hidden",
-        width: "fit-content",
-        height: isOpen ? "auto" : "64px",
-        padding: isOpen ? "16px 16px 8px 16px" : "8px",
       }}
+      className={isOpen ? "expand-animation" : "contract-animation"}
     >
       {/* Settings Menu Items */}
       <Box
-        className={`
-          flex flex-col items-center gap-3 transition-all duration-300 ease-in-out
-          ${isOpen ? "opacity-100 visible" : "opacity-0 invisible"}
-        `}
         sx={{
-          paddingBottom: isOpen ? "12px" : 0,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 3,
+          paddingBottom: isOpen ? "20px" : 0,
+          opacity: isOpen ? 1 : 0,
+          visibility: isOpen ? "visible" : "hidden",
+          transition: "opacity 0.2s ease-in-out, visibility 0.2s ease-in-out",
         }}
       >
         {/* Language Button */}
         <Box
-          className={`
-            transition-all duration-300 ease-in-out
-            ${
-              isOpen
-                ? "transform translate-y-0 opacity-100"
-                : "transform translate-y-4 opacity-0"
-            }
-          `}
-          style={{ transitionDelay: isOpen ? "0.1s" : "0s" }}
+          className={
+            isOpen
+              ? "menu-item-enter menu-item-1"
+              : "menu-item-exit menu-item-1"
+          }
+          sx={{
+            opacity: 0,
+          }}
         >
           <IconButton
             size="medium"
             onClick={handleLanguageChange}
-            className="w-12 h-12 rounded-full transition-all duration-200 hover:scale-105 active:scale-95"
             sx={{
+              width: 48,
+              height: 48,
               backgroundColor:
                 muiTheme.palette.mode === "dark"
                   ? "rgba(255, 255, 255, 0.1)"
@@ -175,11 +146,13 @@ export const FloatingSettingsButton: FC = () => {
                 muiTheme.palette.mode === "dark"
                   ? "1px solid rgba(255, 255, 255, 0.15)"
                   : "1px solid rgba(0, 0, 0, 0.08)",
+              transition: "all 0.2s ease-in-out",
               "&:hover": {
                 backgroundColor:
                   muiTheme.palette.mode === "dark"
                     ? "rgba(255, 255, 255, 0.2)"
                     : "rgba(0, 0, 0, 0.1)",
+                transform: "scale(1.05)",
                 boxShadow:
                   muiTheme.palette.mode === "dark"
                     ? "0 8px 20px rgba(0, 0, 0, 0.4)"
@@ -198,21 +171,21 @@ export const FloatingSettingsButton: FC = () => {
 
         {/* Theme Button */}
         <Box
-          className={`
-            transition-all duration-300 ease-in-out
-            ${
-              isOpen
-                ? "transform translate-y-0 opacity-100"
-                : "transform translate-y-4 opacity-0"
-            }
-          `}
-          style={{ transitionDelay: isOpen ? "0.2s" : "0s" }}
+          className={
+            isOpen
+              ? "menu-item-enter menu-item-2"
+              : "menu-item-exit menu-item-2"
+          }
+          sx={{
+            opacity: 0,
+          }}
         >
           <IconButton
             size="medium"
             onClick={handleThemeChange}
-            className="w-12 h-12 rounded-full transition-all duration-200 hover:scale-105 active:scale-95"
             sx={{
+              width: 48,
+              height: 48,
               backgroundColor:
                 muiTheme.palette.mode === "dark"
                   ? "rgba(255, 255, 255, 0.1)"
@@ -222,11 +195,13 @@ export const FloatingSettingsButton: FC = () => {
                 muiTheme.palette.mode === "dark"
                   ? "1px solid rgba(255, 255, 255, 0.15)"
                   : "1px solid rgba(0, 0, 0, 0.08)",
+              transition: "all 0.2s ease-in-out",
               "&:hover": {
                 backgroundColor:
                   muiTheme.palette.mode === "dark"
                     ? "rgba(255, 255, 255, 0.2)"
                     : "rgba(0, 0, 0, 0.1)",
+                transform: "scale(1.05)",
                 boxShadow:
                   muiTheme.palette.mode === "dark"
                     ? "0 8px 20px rgba(0, 0, 0, 0.4)"
@@ -247,16 +222,40 @@ export const FloatingSettingsButton: FC = () => {
       {/* Main Floating Action Button */}
       <IconButton
         onClick={toggleMenu}
-        className="w-12 h-12 transition-all duration-300 hover:scale-105 active:scale-95"
         sx={{
-          transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+          width: 56,
+          height: 56,
+          transition: "all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+          "&:hover": {
+            transform: "scale(1.05)",
+          },
+          "&:active": {
+            transform: "scale(0.95)",
+          },
         }}
       >
-        {isOpen ? (
-          <CloseIcon sx={{ fontSize: 24 }} />
-        ) : (
-          <SettingsIcon sx={{ fontSize: 24 }} />
-        )}
+        <Box
+          className={isOpen ? "icon-rotate" : "icon-rotate-reverse"}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {isOpen ? (
+            <CloseIcon
+              sx={{
+                fontSize: 28,
+              }}
+            />
+          ) : (
+            <SettingsIcon
+              sx={{
+                fontSize: 28,
+              }}
+            />
+          )}
+        </Box>
       </IconButton>
     </Box>
   );

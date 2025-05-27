@@ -18,7 +18,9 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
 }) => {
   const [activeValue, setActiveValue] = useState(activeSection);
   const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const [scrollTimeout, setScrollTimeout] = useState<NodeJS.Timeout | null>(
+    null
+  );
 
   const t = useTranslations("Header");
 
@@ -50,23 +52,23 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
     }
   };
 
-  // Handle scroll detection for hiding/showing navigation
+  // Handle scroll detection - show when scrolling stops
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      const scrollDifference = Math.abs(currentScrollY - lastScrollY);
+      // Hide navigation when scrolling
+      setIsVisible(false);
 
-      // Only trigger hide/show if scroll difference is significant (prevents micro-scrolls)
-      if (scrollDifference > 10) {
-        if (currentScrollY > lastScrollY && currentScrollY > 100) {
-          // Scrolling down & past initial threshold
-          setIsVisible(false);
-        } else if (currentScrollY < lastScrollY) {
-          // Scrolling up
-          setIsVisible(true);
-        }
-        setLastScrollY(currentScrollY);
+      // Clear existing timeout
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
       }
+
+      // Set new timeout to show navigation when scrolling stops
+      const newTimeout = setTimeout(() => {
+        setIsVisible(true);
+      }, 150); // Show after 150ms of no scrolling
+
+      setScrollTimeout(newTimeout);
 
       // Update active section based on scroll position
       const headerHeight = window.innerWidth <= 600 ? 56 : 64;
@@ -79,7 +81,7 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
         const sectionTop = section.offsetTop - headerHeight;
         const sectionBottom = sectionTop + section.offsetHeight;
 
-        if (currentScrollY >= sectionTop && currentScrollY < sectionBottom) {
+        if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
           setActiveValue(sectionId);
           break;
         }
@@ -87,8 +89,14 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+    };
+  }, [scrollTimeout]);
 
   // Sync with prop changes
   useEffect(() => {
@@ -109,18 +117,30 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
         maxWidth: "calc(100vw - 24px)",
       }}
     >
-      {/* Navigation Container */}
+      {/* Navigation Container with light background */}
       <Box
         className="
           flex items-center gap-2 px-3 py-2 rounded-full
-          bg-white/80 dark:bg-gray-900/90 backdrop-blur-md
-          shadow-[0_8px_32px_rgba(0,0,0,0.15),0_0_0_1px_rgba(0,0,0,0.05)]
-          dark:shadow-[0_8px_32px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.1)]
-          border border-black/8 dark:border-white/10
+          bg-white/90 dark:bg-white/10 backdrop-blur-md
+          shadow-lg border border-gray-200/50 dark:border-white/20
         "
         sx={{
           minHeight: "64px",
           width: "fit-content",
+          // Light theme colors
+          backgroundColor: "rgba(255, 255, 255, 0.9)",
+          backdropFilter: "blur(12px)",
+          WebkitBackdropFilter: "blur(12px)",
+          boxShadow:
+            "0 8px 32px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05)",
+          border: "1px solid rgba(0, 0, 0, 0.08)",
+          // Dark theme overrides
+          ".dark &": {
+            backgroundColor: "rgba(255, 255, 255, 0.1)",
+            boxShadow:
+              "0 8px 32px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.2)",
+            border: "1px solid rgba(255, 255, 255, 0.2)",
+          },
         }}
       >
         {navItems.map((item) => {
@@ -131,27 +151,24 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
               key={item.value}
               onClick={() => handleNavClick(item.value)}
               className={`
-                transition-all duration-300 ease-in-out
+                w-12 h-12 rounded-full transition-all duration-300 ease-in-out
                 ${
                   isActive
-                    ? "bg-primary-100 dark:bg-primary-900/30 scale-110"
-                    : "hover:bg-black/5 dark:hover:bg-white/5 hover:scale-105"
+                    ? "bg-blue-500 text-white scale-110 shadow-lg"
+                    : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/10 hover:scale-105"
                 }
               `}
               sx={{
-                width: "48px",
-                height: "48px",
-                borderRadius: "50%",
                 position: "relative",
-                color: isActive ? "primary.main" : "text.secondary",
-                "&:hover": {
-                  transform: isActive ? "scale(1.1)" : "scale(1.05)",
-                },
                 "&:active": {
                   transform: "scale(0.95)",
                 },
-                // Add subtle pulse animation for active state
+                // Active state styling
                 ...(isActive && {
+                  backgroundColor: "#3b82f6 !important",
+                  color: "white !important",
+                  transform: "scale(1.1)",
+                  boxShadow: "0 4px 16px rgba(59, 130, 246, 0.3)",
                   "&::before": {
                     content: '""',
                     position: "absolute",
@@ -181,16 +198,7 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
 
               {/* Active indicator dot */}
               {isActive && (
-                <Box
-                  className="absolute -bottom-1 left-1/2 transform -translate-x-1/2"
-                  sx={{
-                    width: "4px",
-                    height: "4px",
-                    borderRadius: "50%",
-                    backgroundColor: "primary.main",
-                    animation: "fadeIn 0.3s ease-in-out",
-                  }}
-                />
+                <Box className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-white rounded-full animate-pulse" />
               )}
             </IconButton>
           );
