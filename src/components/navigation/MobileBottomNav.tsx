@@ -143,7 +143,7 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
       }}
     >
       {/* Navigation Container */}
-      <div className="flex items-center gap-2 px-3 py-2 rounded-full bg-white/90 dark:bg-white/10 backdrop-blur-md shadow-lg border border-gray-200/50 dark:border-white/20 min-h-[64px] w-fit">
+      <div className="flex items-center gap-2 px-3 py-2 rounded-full bg-white/90 dark:bg-white/10 backdrop-blur-sm shadow-lg border border-gray-200/50 dark:border-white/20 min-h-[64px] w-fit">
         {navItems.map((item) => {
           const isActive = activeValue === item.value;
 
@@ -151,29 +151,30 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
             <div key={item.value} className="relative">
               <IconButton
                 onClick={() => handleNavClick(item.value)}
-                className="!w-12 !h-12 !min-w-12 !rounded-full transition-all duration-300 ease-in-out !text-gray-700 dark:!text-gray-200 hover:!bg-gray-100/50 dark:hover:!bg-white/10 hover:!scale-105"
-                style={{
-                  borderRadius: "50%", // Force circular shape
-                }}
+                className="!w-12 !h-12 !min-w-12 !rounded-full !transition-all !duration-300 !ease-in-out hover:!scale-105"
                 aria-label={item.label}
+                sx={{
+                  color: ({ palette }) =>
+                    isActive ? palette.info.main : palette.action.active,
+                  backgroundColor: ({ palette }) =>
+                    isActive ? `${palette.info.main}15` : "transparent",
+                  "& .MuiSvgIcon-root": {
+                    fontSize: "22px",
+                    transition: "all 0.2s ease-in-out",
+                  },
+                }}
               >
-                {/* Icon with consistent styling */}
-                <Box
-                  className="transition-transform duration-200"
-                  sx={{
-                    "& .MuiSvgIcon-root": {
-                      fontSize: "22px",
-                      transition: "all 0.2s ease-in-out",
-                    },
-                  }}
-                >
-                  {item.icon}
-                </Box>
+                {item.icon}
               </IconButton>
 
               {/* Active indicator - small dot below the button */}
               {isActive && (
-                <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-blue-500 rounded-full animate-pulse shadow-sm" />
+                <Box
+                  className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full animate-pulse shadow-sm"
+                  sx={{
+                    backgroundColor: ({ palette }) => palette.primary.main,
+                  }}
+                />
               )}
             </div>
           );
