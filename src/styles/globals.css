@@ -219,3 +219,21 @@ a:focus {
 .menu-item-2 {
   animation-delay: 0.2s;
 }
+
+/* Add these lines to your existing globals.css */
+button:focus,
+button:focus-visible,
+.MuiButton-root:focus,
+.MuiButton-root:focus-visible,
+.MuiIconButton-root:focus,
+.MuiIconButton-root:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.MuiButton-root.Mui-focusVisible,
+.MuiIconButton-root.Mui-focusVisible {
+  background-color: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
