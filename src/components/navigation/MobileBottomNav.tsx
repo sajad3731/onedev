@@ -5,9 +5,9 @@ import {
   Work as WorkIcon,
   Timeline as ExperienceIcon,
 } from "@mui/icons-material";
-import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { FC, SyntheticEvent, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 interface MobileBottomNavProps {
   activeSection?: string;
@@ -16,7 +16,10 @@ interface MobileBottomNavProps {
 export const MobileBottomNav: FC<MobileBottomNavProps> = ({
   activeSection = "home",
 }) => {
-  const [value, setValue] = useState(activeSection);
+  const [activeValue, setActiveValue] = useState(activeSection);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
   const t = useTranslations("Header");
 
   // Main navigation items
@@ -28,13 +31,12 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
     { label: t("contact"), value: "contact", icon: <ContactMailIcon /> },
   ];
 
-  // Handle navigation change
-  const handleChange = (_event: SyntheticEvent, newValue: string) => {
-    setValue(newValue);
+  // Handle navigation click
+  const handleNavClick = (sectionId: string) => {
+    setActiveValue(sectionId);
 
-    // Handle navigation to section
     if (typeof window !== "undefined") {
-      const section = document.getElementById(newValue);
+      const section = document.getElementById(sectionId);
       if (section) {
         const headerHeight = window.innerWidth <= 600 ? 56 : 64;
         const sectionTop = section.offsetTop;
@@ -48,14 +50,28 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
     }
   };
 
-  // Update active section based on scroll position
+  // Handle scroll detection for hiding/showing navigation
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const headerHeight = window.innerWidth <= 600 ? 56 : 64;
+      const currentScrollY = window.scrollY;
+      const scrollDifference = Math.abs(currentScrollY - lastScrollY);
 
-      // Find which section is currently in view
+      // Only trigger hide/show if scroll difference is significant (prevents micro-scrolls)
+      if (scrollDifference > 10) {
+        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+          // Scrolling down & past initial threshold
+          setIsVisible(false);
+        } else if (currentScrollY < lastScrollY) {
+          // Scrolling up
+          setIsVisible(true);
+        }
+        setLastScrollY(currentScrollY);
+      }
+
+      // Update active section based on scroll position
+      const headerHeight = window.innerWidth <= 600 ? 56 : 64;
       const sections = ["home", "about", "experience", "projects", "contact"];
+
       for (const sectionId of sections) {
         const section = document.getElementById(sectionId);
         if (!section) continue;
@@ -63,103 +79,123 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
         const sectionTop = section.offsetTop - headerHeight;
         const sectionBottom = sectionTop + section.offsetHeight;
 
-        if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-          setValue(sectionId);
+        if (currentScrollY >= sectionTop && currentScrollY < sectionBottom) {
+          setActiveValue(sectionId);
           break;
         }
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  // Sync with prop changes
+  useEffect(() => {
+    setActiveValue(activeSection);
+  }, [activeSection]);
 
   return (
-    <Paper
-      elevation={0}
-      className="fixed bottom-3 left-3 right-3 z-[1100] sm:hidden rounded-full 
-                 bg-white/70 dark:bg-gray-900/95 backdrop-blur-md
-                 shadow-[0_8px_32px_rgba(0,0,0,0.15),0_0_0_1px_rgba(0,0,0,0.05)]
-                 dark:shadow-[0_8px_32px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.1)]
-                 border border-black/8 dark:border-white/10"
+    <Box
+      className={`
+        fixed bottom-3 left-1/2 transform -translate-x-1/2 z-[1100] 
+        sm:hidden transition-all duration-300 ease-in-out
+        ${
+          isVisible ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
+        }
+      `}
+      sx={{
+        width: "fit-content",
+        maxWidth: "calc(100vw - 24px)",
+      }}
     >
-      <BottomNavigation
-        showLabels={false} // Hide labels by default
-        value={value}
-        onChange={handleChange}
-        className="h-16 bg-transparent rounded-full min-w-fit"
+      {/* Navigation Container */}
+      <Box
+        className="
+          flex items-center gap-2 px-3 py-2 rounded-full
+          bg-white/80 dark:bg-gray-900/90 backdrop-blur-md
+          shadow-[0_8px_32px_rgba(0,0,0,0.15),0_0_0_1px_rgba(0,0,0,0.05)]
+          dark:shadow-[0_8px_32px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.1)]
+          border border-black/8 dark:border-white/10
+        "
         sx={{
-          "& .MuiBottomNavigationAction-root": {
-            minWidth: "auto",
-            padding: "6px 8px",
-            borderRadius: "24px",
-            margin: "4px 2px",
-            transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-            "&:hover": {
-              backgroundColor: (theme) =>
-                theme.palette.mode === "dark"
-                  ? "rgba(255, 255, 255, 0.08)"
-                  : "rgba(0, 0, 0, 0.04)",
-              transform: "translateY(-1px)",
-            },
-            "&.Mui-selected": {
-              backgroundColor: (theme) =>
-                theme.palette.mode === "dark"
-                  ? "rgba(255, 255, 255, 0.12)"
-                  : "rgba(0, 0, 0, 0.06)",
-              minWidth: "auto",
-              paddingLeft: "12px",
-              paddingRight: "12px",
-              "& .MuiBottomNavigationAction-label": {
-                fontSize: "11px",
-                fontWeight: 600,
-                opacity: 1,
-                transform: "scale(1)",
-              },
-              "& .MuiSvgIcon-root": {
-                fontSize: "20px",
-              },
-            },
-            // Center icons when not selected
-            "&:not(.Mui-selected)": {
-              "& .MuiBottomNavigationAction-wrapper": {
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-              },
-              "& .MuiSvgIcon-root": {
-                fontSize: "22px",
-                margin: "0",
-              },
-              "& .MuiBottomNavigationAction-label": {
-                display: "none", // Hide labels for non-selected items
-              },
-            },
-            "& .MuiBottomNavigationAction-label": {
-              fontSize: "10px",
-              fontWeight: 500,
-              marginTop: "2px",
-              transition: "all 0.2s ease-in-out",
-            },
-            "& .MuiSvgIcon-root": {
-              transition: "all 0.2s ease-in-out",
-            },
-          },
+          minHeight: "64px",
+          width: "fit-content",
         }}
       >
-        {navItems.map((item) => (
-          <BottomNavigationAction
-            key={item.value}
-            label={item.label}
-            value={item.value}
-            icon={item.icon}
-            showLabel={value === item.value} // Only show label for selected item
-          />
-        ))}
-      </BottomNavigation>
-    </Paper>
+        {navItems.map((item) => {
+          const isActive = activeValue === item.value;
+
+          return (
+            <IconButton
+              key={item.value}
+              onClick={() => handleNavClick(item.value)}
+              className={`
+                transition-all duration-300 ease-in-out
+                ${
+                  isActive
+                    ? "bg-primary-100 dark:bg-primary-900/30 scale-110"
+                    : "hover:bg-black/5 dark:hover:bg-white/5 hover:scale-105"
+                }
+              `}
+              sx={{
+                width: "48px",
+                height: "48px",
+                borderRadius: "50%",
+                position: "relative",
+                color: isActive ? "primary.main" : "text.secondary",
+                "&:hover": {
+                  transform: isActive ? "scale(1.1)" : "scale(1.05)",
+                },
+                "&:active": {
+                  transform: "scale(0.95)",
+                },
+                // Add subtle pulse animation for active state
+                ...(isActive && {
+                  "&::before": {
+                    content: '""',
+                    position: "absolute",
+                    inset: "-2px",
+                    borderRadius: "50%",
+                    background:
+                      "linear-gradient(45deg, transparent 30%, currentColor 50%, transparent 70%)",
+                    opacity: 0.1,
+                    animation: "pulse 2s ease-in-out infinite",
+                  },
+                }),
+              }}
+              aria-label={item.label}
+            >
+              {/* Icon with smooth transition */}
+              <Box
+                className="transition-transform duration-200"
+                sx={{
+                  "& .MuiSvgIcon-root": {
+                    fontSize: isActive ? "24px" : "22px",
+                    transition: "all 0.2s ease-in-out",
+                  },
+                }}
+              >
+                {item.icon}
+              </Box>
+
+              {/* Active indicator dot */}
+              {isActive && (
+                <Box
+                  className="absolute -bottom-1 left-1/2 transform -translate-x-1/2"
+                  sx={{
+                    width: "4px",
+                    height: "4px",
+                    borderRadius: "50%",
+                    backgroundColor: "primary.main",
+                    animation: "fadeIn 0.3s ease-in-out",
+                  }}
+                />
+              )}
+            </IconButton>
+          );
+        })}
+      </Box>
+    </Box>
   );
 };

@@ -76,6 +76,32 @@ section {
   }
 }
 
+/* Pulse animation for active navigation items */
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 0.1;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 /* Enhanced header blur effect with better backdrop support */
 .header-blur {
   backdrop-filter: blur(20px) saturate(180%);
@@ -110,6 +136,7 @@ a:focus {
   border-radius: 8px;
 }
 
+/* Legacy floating button animations (keeping for compatibility) */
 @keyframes expandBackground {
   0% {
     height: 58px;
@@ -220,7 +247,7 @@ a:focus {
   animation-delay: 0.2s;
 }
 
-/* Add these lines to your existing globals.css */
+/* Remove focus outlines for better mobile experience */
 button:focus,
 button:focus-visible,
 .MuiButton-root:focus,
@@ -236,4 +263,52 @@ button:focus-visible,
   background-color: transparent !important;
   outline: none !important;
   box-shadow: none !important;
+}
+
+/* Mobile navigation specific styles */
+.mobile-nav-container {
+  /* Smooth hide/show transitions */
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-nav-hidden {
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+.mobile-nav-visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Enhanced mobile navigation button styles */
+.nav-button-circular {
+  border-radius: 50% !important;
+  width: 48px !important;
+  height: 48px !important;
+  min-width: 48px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.nav-button-active {
+  background-color: var(--primary-color, #1976d2) !important;
+  color: white !important;
+  transform: scale(1.1);
+}
+
+.nav-button-inactive {
+  color: var(--text-secondary, #666) !important;
+}
+
+.nav-button-inactive:hover {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+  transform: scale(1.05);
+}
+
+/* Dark mode adjustments for navigation */
+@media (prefers-color-scheme: dark) {
+  .nav-button-inactive:hover {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+  }
 }
