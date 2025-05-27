@@ -28,24 +28,28 @@ body {
     min-height: 100vh;
     height: 100vh;
     /* Account for rounded bottom nav on mobile with spacing */
-    padding-bottom: 96px; /* 72px nav height + 24px spacing */
+    padding-bottom: 96px;
+    /* 72px nav height + 24px spacing */
   }
-  
+
   /* Adjust contact section margin for mobile to account for rounded nav */
   #contact {
-    margin-bottom: 120px !important; /* Extra space for rounded nav */
+    margin-bottom: 120px !important;
+    /* Extra space for rounded nav */
   }
 }
 
 /* Smooth transition for sections when header height changes */
 section {
-  scroll-margin-top: 96px; /* Account for rounded header with spacing */
+  scroll-margin-top: 96px;
+  /* Account for rounded header with spacing */
   transition: scroll-margin-top 0.3s ease-in-out;
 }
 
 /* When header is in scrolled state, adjust scroll margins */
 .header-scrolled section {
-  scroll-margin-top: 80px; /* Smaller margin when header is compact */
+  scroll-margin-top: 80px;
+  /* Smaller margin when header is compact */
 }
 
 /* Ensure proper contrast for content over background images in hero section */
@@ -61,8 +65,15 @@ section {
 
 /* Smooth animations for rounded elements */
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-4px); }
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
 }
 
 /* Enhanced header blur effect with better backdrop support */
@@ -97,4 +108,16 @@ a:focus {
   outline: 2px solid #1976d2;
   outline-offset: 2px;
   border-radius: 8px;
+}
+
+@keyframes slideInFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100px) scale(0.8);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
 }

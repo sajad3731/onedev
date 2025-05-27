@@ -10,7 +10,7 @@ import { LangSwitchBtn } from "./LangSwitchBtn";
 import { NavItem } from "./NavItems";
 import { ThemeModeSwitchBtn } from "./ThemeModeSwitchBtn";
 import { MobileBottomNav } from "./MobileBottomNav";
-import { FloatingActionButton } from "./FloatingActionButton";
+import { FloatingSettingsButton } from "./FloatingActionButton";
 
 export const Header: FC = () => {
   const [mounted, setMounted] = useState(false);
@@ -30,7 +30,7 @@ export const Header: FC = () => {
 
       // Track active section
       const headerHeight = isScrolled ? 64 : 80; // Adjust based on header height
-      const sections = ["home", "projects", "about", "contact"];
+      const sections = ["home", "about", "experience", "projects", "contact"];
 
       for (const sectionId of sections) {
         const section = document.getElementById(sectionId);
@@ -58,10 +58,11 @@ export const Header: FC = () => {
 
   const t = useTranslations("Header");
 
-  // Define navigation items with their corresponding section IDs
+  // Define navigation items with their corresponding section IDs (added experiences)
   const navItems = [
     { label: t("contact"), sectionId: "contact" },
     { label: t("projects"), sectionId: "projects" },
+    { label: t("experiences"), sectionId: "experience" },
     { label: t("about"), sectionId: "about" },
     { label: t("home"), sectionId: "home" },
   ];
@@ -218,7 +219,8 @@ export const Header: FC = () => {
 
       {/* Mobile Bottom Navigation */}
       {mounted && <MobileBottomNav activeSection={activeSection} />}
-      {mounted && <FloatingActionButton />}
+      {/* Mobile Floating Settings Button - only show on mobile */}
+      {mounted && <FloatingSettingsButton />}
     </Box>
   );
 };

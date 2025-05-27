@@ -1,99 +1,235 @@
 "use client";
 
-import { Fab, Tooltip, Zoom } from "@mui/material";
-import EmailIcon from "@mui/icons-material/Email";
-import { useTranslations } from "next-intl";
-import { useState, useEffect, useRef } from "react";
+import {
+  Settings as SettingsIcon,
+  Language as LanguageIcon,
+  Brightness4 as ThemeIcon,
+  Close as CloseIcon,
+} from "@mui/icons-material";
+import {
+  Fab,
+  IconButton,
+  Box,
+  Typography,
+  useTheme as useMuiTheme,
+} from "@mui/material";
+import { useTranslations, useLocale } from "next-intl";
+import { useTheme } from "next-themes";
+import { usePathname, useRouter } from "next/navigation";
+import { FC, useState, useEffect, useRef } from "react";
 
-export const FloatingActionButton = () => {
-  const [isVisible, setIsVisible] = useState(true);
+export const FloatingSettingsButton: FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const t = useTranslations("Header");
+  const locale = useLocale();
+  const pathname = usePathname();
+  const router = useRouter();
+  const { theme, setTheme } = useTheme();
+  const muiTheme = useMuiTheme();
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  // Use a ref to manage the button's focus
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const buttonRef = useRef<any | null>(null);
-
-  // Hide FAB when at contact section
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const contactSection = document.getElementById("contact");
-
-      if (contactSection) {
-        const headerHeight = window.innerWidth <= 600 ? 56 : 64;
-        const contactTop = contactSection.offsetTop - headerHeight;
-        const contactBottom = contactTop + contactSection.offsetHeight;
-
-        // Hide when in contact section
-        setIsVisible(
-          scrollPosition < contactTop || scrollPosition >= contactBottom
-        );
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    setMounted(true);
   }, []);
 
-  const handleClick = () => {
-    // Scroll to contact section
-    if (typeof window !== "undefined") {
-      const contactSection = document.getElementById("contact");
-      if (contactSection) {
-        const headerHeight = window.innerWidth <= 600 ? 56 : 64;
-        const contactTop = contactSection.offsetTop - headerHeight;
-
-        window.scrollTo({
-          top: contactTop,
-          behavior: "smooth",
-        });
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
       }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
     }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+
+  const handleLanguageChange = () => {
+    const currentLocale = pathname.split("/")[1];
+    const newLocale = locale === "en" ? "fa" : "en";
+    const newPathname = pathname.replace(`/${currentLocale}`, `/${newLocale}`);
+    router.push(newPathname);
+    setIsOpen(false);
   };
 
-  useEffect(() => {
-    // When hiding the button, make sure it can't receive focus
-    if (!isVisible && buttonRef.current) {
-      buttonRef.current.setAttribute("tabIndex", "-1");
-    } else if (isVisible && buttonRef.current) {
-      buttonRef.current.setAttribute("tabIndex", "0");
-    }
-  }, [isVisible]);
+  const handleThemeChange = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    document.cookie = `theme=${newTheme}; path=/; max-age=31536000`;
+    router.refresh();
+    setIsOpen(false);
+  };
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  if (!mounted) return null;
+
+  // Only show on mobile devices
+  const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
+  if (!isMobile) return null;
 
   return (
-    <Zoom in={isVisible}>
-      <Fab
-        ref={buttonRef}
-        color="primary"
-        aria-label="contact"
-        onClick={handleClick}
+    <Box
+      ref={containerRef}
+      sx={{
+        position: "fixed",
+        bottom: 108, // Above the mobile nav
+        right: 24,
+        zIndex: 1200,
+        display: { xs: "block", sm: "none" }, // Only show on mobile
+      }}
+    >
+      {/* Settings Menu Items */}
+      <Box
         sx={{
-          position: "fixed",
-          // Adjusted positioning to work with rounded mobile nav
-          bottom: {
-            xs: 108, // Above the rounded mobile nav (72px height + 12px bottom spacing + 24px extra space)
-            sm: 24, // Normal position on desktop
-          },
-          right: {
-            xs: 24, // Consistent right spacing on mobile
-            sm: 24, // Same right spacing on desktop
-          },
-          zIndex: 1100,
-          // Enhanced styling to match the rounded theme
-          backdropFilter: "blur(10px)",
-          WebkitBackdropFilter: "blur(10px)",
-          boxShadow: (theme) =>
-            theme.palette.mode === "dark"
+          position: "absolute",
+          bottom: isOpen ? 80 : 0,
+          right: 0,
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+          opacity: isOpen ? 1 : 0,
+          transform: isOpen ? "scale(1)" : "scale(0.8)",
+          transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
+          transformOrigin: "bottom right",
+          pointerEvents: isOpen ? "auto" : "none",
+        }}
+      >
+        {/* Language Toggle */}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+            backgroundColor:
+              muiTheme.palette.mode === "dark"
+                ? "rgba(40, 40, 40, 0.95)"
+                : "rgba(255, 255, 255, 0.95)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            borderRadius: "50px",
+            padding: "8px 16px",
+            boxShadow:
+              muiTheme.palette.mode === "dark"
+                ? "0 8px 24px rgba(0, 0, 0, 0.4)"
+                : "0 8px 24px rgba(0, 0, 0, 0.15)",
+            border:
+              muiTheme.palette.mode === "dark"
+                ? "1px solid rgba(255, 255, 255, 0.1)"
+                : "1px solid rgba(0, 0, 0, 0.08)",
+            animation: isOpen
+              ? "slideInFromRight 0.3s ease-out 0.1s both"
+              : "none",
+          }}
+        >
+          <Typography
+            variant="caption"
+            sx={{ fontSize: "12px", fontWeight: 500 }}
+          >
+            {locale === "en" ? "فارسی" : "English"}
+          </Typography>
+          <IconButton
+            size="small"
+            onClick={handleLanguageChange}
+            sx={{
+              width: 40,
+              height: 40,
+              backgroundColor: muiTheme.palette.primary.main,
+              color: "white",
+              "&:hover": {
+                backgroundColor: muiTheme.palette.primary.dark,
+                transform: "scale(1.1)",
+              },
+              transition: "all 0.2s ease-in-out",
+            }}
+          >
+            <LanguageIcon fontSize="small" />
+          </IconButton>
+        </Box>
+
+        {/* Theme Toggle */}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+            backgroundColor:
+              muiTheme.palette.mode === "dark"
+                ? "rgba(40, 40, 40, 0.95)"
+                : "rgba(255, 255, 255, 0.95)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            borderRadius: "50px",
+            padding: "8px 16px",
+            boxShadow:
+              muiTheme.palette.mode === "dark"
+                ? "0 8px 24px rgba(0, 0, 0, 0.4)"
+                : "0 8px 24px rgba(0, 0, 0, 0.15)",
+            border:
+              muiTheme.palette.mode === "dark"
+                ? "1px solid rgba(255, 255, 255, 0.1)"
+                : "1px solid rgba(0, 0, 0, 0.08)",
+            animation: isOpen
+              ? "slideInFromRight 0.3s ease-out 0.05s both"
+              : "none",
+          }}
+        >
+          <Typography
+            variant="caption"
+            sx={{ fontSize: "12px", fontWeight: 500 }}
+          >
+            {theme === "light" ? t("dark-mode") : t("light-mode")}
+          </Typography>
+          <IconButton
+            size="small"
+            onClick={handleThemeChange}
+            sx={{
+              width: 40,
+              height: 40,
+              backgroundColor: muiTheme.palette.primary.main,
+              color: "white",
+              "&:hover": {
+                backgroundColor: muiTheme.palette.primary.dark,
+                transform: "scale(1.1)",
+              },
+              transition: "all 0.2s ease-in-out",
+            }}
+          >
+            <ThemeIcon fontSize="small" />
+          </IconButton>
+        </Box>
+      </Box>
+
+      {/* Main Floating Action Button */}
+      <Fab
+        color="primary"
+        onClick={toggleMenu}
+        sx={{
+          width: 64,
+          height: 64,
+          backgroundColor: muiTheme.palette.primary.main,
+          boxShadow:
+            muiTheme.palette.mode === "dark"
               ? "0 8px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1)"
               : "0 8px 24px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05)",
           transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+          backdropFilter: "blur(10px)",
+          WebkitBackdropFilter: "blur(10px)",
           "&:hover": {
             transform: "translateY(-2px) scale(1.05)",
-            boxShadow: (theme) =>
-              theme.palette.mode === "dark"
+            boxShadow:
+              muiTheme.palette.mode === "dark"
                 ? "0 12px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.15)"
                 : "0 12px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08)",
           },
@@ -102,10 +238,24 @@ export const FloatingActionButton = () => {
           },
         }}
       >
-        <Tooltip title={t("contact")} placement="left">
-          <EmailIcon />
-        </Tooltip>
+        {isOpen ? (
+          <CloseIcon
+            sx={{
+              fontSize: 28,
+              transform: "rotate(90deg)",
+              transition: "transform 0.3s ease-in-out",
+            }}
+          />
+        ) : (
+          <SettingsIcon
+            sx={{
+              fontSize: 28,
+              transform: "rotate(0deg)",
+              transition: "transform 0.3s ease-in-out",
+            }}
+          />
+        )}
       </Fab>
-    </Zoom>
+    </Box>
   );
 };
