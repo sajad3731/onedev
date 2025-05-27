@@ -80,73 +80,182 @@ export const FloatingSettingsButton: FC = () => {
       sx={{
         position: "fixed",
         bottom: 108, // Above the mobile nav
-        right: isRtl ? undefined : 10,
-        left: isRtl ? 10 : undefined,
+        right: isRtl ? undefined : 16,
+        left: isRtl ? 16 : undefined,
         zIndex: 1200,
         display: { xs: "flex", sm: "none" }, // Only show on mobile
         flexDirection: "column",
         alignItems: "center",
+        justifyContent: "flex-end",
         backgroundColor:
           muiTheme.palette.mode === "dark"
-            ? "rgba(40, 40, 40, 0.3)"
-            : "rgba(255, 255, 255, 0.3)",
+            ? "rgba(25, 25, 25, 0.7)"
+            : "rgba(255, 255, 255, 0.7)",
         backdropFilter: "blur(5px)",
         WebkitBackdropFilter: "blur(5px)",
-        borderRadius: "50px",
-        padding: "8px",
+        borderRadius: "33px",
         boxShadow:
           muiTheme.palette.mode === "dark"
-            ? "0 8px 24px rgba(0, 0, 0, 0.4)"
-            : "0 8px 24px rgba(0, 0, 0, 0.15)",
+            ? "0 12px 32px rgba(0, 0, 0, 0.6), 0 4px 12px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1)"
+            : "0 12px 32px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8)",
         border:
           muiTheme.palette.mode === "dark"
-            ? "1px solid rgba(255, 255, 255, 0.1)"
+            ? "1px solid rgba(255, 255, 255, 0.15)"
             : "1px solid rgba(0, 0, 0, 0.08)",
+        transition: "all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+        overflow: "hidden",
       }}
+      className={isOpen ? "expand-animation" : "contract-animation"}
     >
       {/* Settings Menu Items */}
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
-          gap: 2,
-          animation: isOpen
-            ? "slideInBottomToTop 300ms cubic-bezier(0.34, 1.56, 0.64, 1) 1 normal"
-            : "slideInBottomToTop 300ms cubic-bezier(0.34, 1.56, 0.64, 1) 1 reverse",
+          alignItems: "center",
+          gap: 3,
+          paddingBottom: isOpen ? "20px" : 0,
+          opacity: isOpen ? 1 : 0,
+          visibility: isOpen ? "visible" : "hidden",
+          transition: "opacity 0.2s ease-in-out, visibility 0.2s ease-in-out",
         }}
       >
-        <IconButton size="small" onClick={handleLanguageChange}>
-          <LanguageIcon fontSize="small" />
-        </IconButton>
-        <IconButton size="small" onClick={handleThemeChange}>
-          <ThemeIcon fontSize="small" />
-        </IconButton>
+        {/* Language Button */}
+        <Box
+          className={
+            isOpen
+              ? "menu-item-enter menu-item-1"
+              : "menu-item-exit menu-item-1"
+          }
+          sx={{
+            opacity: 0,
+          }}
+        >
+          <IconButton
+            size="medium"
+            onClick={handleLanguageChange}
+            sx={{
+              width: 48,
+              height: 48,
+              backgroundColor:
+                muiTheme.palette.mode === "dark"
+                  ? "rgba(255, 255, 255, 0.1)"
+                  : "rgba(0, 0, 0, 0.05)",
+              backdropFilter: "blur(8px)",
+              border:
+                muiTheme.palette.mode === "dark"
+                  ? "1px solid rgba(255, 255, 255, 0.15)"
+                  : "1px solid rgba(0, 0, 0, 0.08)",
+              transition: "all 0.2s ease-in-out",
+              "&:hover": {
+                backgroundColor:
+                  muiTheme.palette.mode === "dark"
+                    ? "rgba(255, 255, 255, 0.2)"
+                    : "rgba(0, 0, 0, 0.1)",
+                transform: "scale(1.05)",
+                boxShadow:
+                  muiTheme.palette.mode === "dark"
+                    ? "0 8px 20px rgba(0, 0, 0, 0.4)"
+                    : "0 8px 20px rgba(0, 0, 0, 0.15)",
+              },
+            }}
+          >
+            <LanguageIcon
+              fontSize="small"
+              sx={{
+                color: muiTheme.palette.mode === "dark" ? "#ffffff" : "#333333",
+              }}
+            />
+          </IconButton>
+        </Box>
+
+        {/* Theme Button */}
+        <Box
+          className={
+            isOpen
+              ? "menu-item-enter menu-item-2"
+              : "menu-item-exit menu-item-2"
+          }
+          sx={{
+            opacity: 0,
+          }}
+        >
+          <IconButton
+            size="medium"
+            onClick={handleThemeChange}
+            sx={{
+              width: 48,
+              height: 48,
+              backgroundColor:
+                muiTheme.palette.mode === "dark"
+                  ? "rgba(255, 255, 255, 0.1)"
+                  : "rgba(0, 0, 0, 0.05)",
+              backdropFilter: "blur(8px)",
+              border:
+                muiTheme.palette.mode === "dark"
+                  ? "1px solid rgba(255, 255, 255, 0.15)"
+                  : "1px solid rgba(0, 0, 0, 0.08)",
+              transition: "all 0.2s ease-in-out",
+              "&:hover": {
+                backgroundColor:
+                  muiTheme.palette.mode === "dark"
+                    ? "rgba(255, 255, 255, 0.2)"
+                    : "rgba(0, 0, 0, 0.1)",
+                transform: "scale(1.05)",
+                boxShadow:
+                  muiTheme.palette.mode === "dark"
+                    ? "0 8px 20px rgba(0, 0, 0, 0.4)"
+                    : "0 8px 20px rgba(0, 0, 0, 0.15)",
+              },
+            }}
+          >
+            <ThemeIcon
+              fontSize="small"
+              sx={{
+                color: muiTheme.palette.mode === "dark" ? "#ffffff" : "#333333",
+              }}
+            />
+          </IconButton>
+        </Box>
       </Box>
 
       {/* Main Floating Action Button */}
       <IconButton
-        color="primary"
         onClick={toggleMenu}
         sx={{
-          width: 50,
-          height: 50,
+          width: 56,
+          height: 56,
+          transition: "all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+          "&:hover": {
+            transform: "scale(1.05)",
+          },
+          "&:active": {
+            transform: "scale(0.95)",
+          },
         }}
       >
-        {isOpen ? (
-          <CloseIcon
-            sx={{
-              fontSize: 28,
-              transition: "transform 0.3s ease-in-out",
-            }}
-          />
-        ) : (
-          <SettingsIcon
-            sx={{
-              fontSize: 28,
-              transition: "transform 0.3s ease-in-out",
-            }}
-          />
-        )}
+        <Box
+          className={isOpen ? "icon-rotate" : "icon-rotate-reverse"}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {isOpen ? (
+            <CloseIcon
+              sx={{
+                fontSize: 28,
+              }}
+            />
+          ) : (
+            <SettingsIcon
+              sx={{
+                fontSize: 28,
+              }}
+            />
+          )}
+        </Box>
       </IconButton>
     </Box>
   );
