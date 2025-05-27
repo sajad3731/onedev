@@ -1,33 +1,28 @@
 "use client";
 
 import {
-  Settings as SettingsIcon,
-  Language as LanguageIcon,
-  Brightness4 as ThemeIcon,
   Close as CloseIcon,
+  Language as LanguageIcon,
+  Settings as SettingsIcon,
+  Brightness4 as ThemeIcon,
 } from "@mui/icons-material";
-import {
-  Fab,
-  IconButton,
-  Box,
-  Typography,
-  useTheme as useMuiTheme,
-} from "@mui/material";
-import { useTranslations, useLocale } from "next-intl";
+import { Box, IconButton, useTheme as useMuiTheme } from "@mui/material";
+import { useLocale } from "next-intl";
 import { useTheme } from "next-themes";
 import { usePathname, useRouter } from "next/navigation";
-import { FC, useState, useEffect, useRef } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 
 export const FloatingSettingsButton: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const t = useTranslations("Header");
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
   const { theme, setTheme } = useTheme();
   const muiTheme = useMuiTheme();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const isRtl = locale === "fa";
 
   useEffect(() => {
     setMounted(true);
@@ -85,164 +80,62 @@ export const FloatingSettingsButton: FC = () => {
       sx={{
         position: "fixed",
         bottom: 108, // Above the mobile nav
-        right: 24,
+        right: isRtl ? undefined : 10,
+        left: isRtl ? 10 : undefined,
         zIndex: 1200,
-        display: { xs: "block", sm: "none" }, // Only show on mobile
+        display: { xs: "flex", sm: "none" }, // Only show on mobile
+        flexDirection: "column",
+        alignItems: "center",
+        backgroundColor:
+          muiTheme.palette.mode === "dark"
+            ? "rgba(40, 40, 40, 0.3)"
+            : "rgba(255, 255, 255, 0.3)",
+        backdropFilter: "blur(5px)",
+        WebkitBackdropFilter: "blur(5px)",
+        borderRadius: "50px",
+        padding: "8px",
+        boxShadow:
+          muiTheme.palette.mode === "dark"
+            ? "0 8px 24px rgba(0, 0, 0, 0.4)"
+            : "0 8px 24px rgba(0, 0, 0, 0.15)",
+        border:
+          muiTheme.palette.mode === "dark"
+            ? "1px solid rgba(255, 255, 255, 0.1)"
+            : "1px solid rgba(0, 0, 0, 0.08)",
       }}
     >
       {/* Settings Menu Items */}
       <Box
         sx={{
-          position: "absolute",
-          bottom: isOpen ? 80 : 0,
-          right: 0,
           display: "flex",
           flexDirection: "column",
           gap: 2,
-          opacity: isOpen ? 1 : 0,
-          transform: isOpen ? "scale(1)" : "scale(0.8)",
-          transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
-          transformOrigin: "bottom right",
-          pointerEvents: isOpen ? "auto" : "none",
+          animation: isOpen
+            ? "slideInBottomToTop 300ms cubic-bezier(0.34, 1.56, 0.64, 1) 1 normal"
+            : "slideInBottomToTop 300ms cubic-bezier(0.34, 1.56, 0.64, 1) 1 reverse",
         }}
       >
-        {/* Language Toggle */}
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: 1,
-            backgroundColor:
-              muiTheme.palette.mode === "dark"
-                ? "rgba(40, 40, 40, 0.95)"
-                : "rgba(255, 255, 255, 0.95)",
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
-            borderRadius: "50px",
-            padding: "8px 16px",
-            boxShadow:
-              muiTheme.palette.mode === "dark"
-                ? "0 8px 24px rgba(0, 0, 0, 0.4)"
-                : "0 8px 24px rgba(0, 0, 0, 0.15)",
-            border:
-              muiTheme.palette.mode === "dark"
-                ? "1px solid rgba(255, 255, 255, 0.1)"
-                : "1px solid rgba(0, 0, 0, 0.08)",
-            animation: isOpen
-              ? "slideInFromRight 0.3s ease-out 0.1s both"
-              : "none",
-          }}
-        >
-          <Typography
-            variant="caption"
-            sx={{ fontSize: "12px", fontWeight: 500 }}
-          >
-            {locale === "en" ? "فارسی" : "English"}
-          </Typography>
-          <IconButton
-            size="small"
-            onClick={handleLanguageChange}
-            sx={{
-              width: 40,
-              height: 40,
-              backgroundColor: muiTheme.palette.primary.main,
-              color: "white",
-              "&:hover": {
-                backgroundColor: muiTheme.palette.primary.dark,
-                transform: "scale(1.1)",
-              },
-              transition: "all 0.2s ease-in-out",
-            }}
-          >
-            <LanguageIcon fontSize="small" />
-          </IconButton>
-        </Box>
-
-        {/* Theme Toggle */}
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: 1,
-            backgroundColor:
-              muiTheme.palette.mode === "dark"
-                ? "rgba(40, 40, 40, 0.95)"
-                : "rgba(255, 255, 255, 0.95)",
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
-            borderRadius: "50px",
-            padding: "8px 16px",
-            boxShadow:
-              muiTheme.palette.mode === "dark"
-                ? "0 8px 24px rgba(0, 0, 0, 0.4)"
-                : "0 8px 24px rgba(0, 0, 0, 0.15)",
-            border:
-              muiTheme.palette.mode === "dark"
-                ? "1px solid rgba(255, 255, 255, 0.1)"
-                : "1px solid rgba(0, 0, 0, 0.08)",
-            animation: isOpen
-              ? "slideInFromRight 0.3s ease-out 0.05s both"
-              : "none",
-          }}
-        >
-          <Typography
-            variant="caption"
-            sx={{ fontSize: "12px", fontWeight: 500 }}
-          >
-            {theme === "light" ? t("dark-mode") : t("light-mode")}
-          </Typography>
-          <IconButton
-            size="small"
-            onClick={handleThemeChange}
-            sx={{
-              width: 40,
-              height: 40,
-              backgroundColor: muiTheme.palette.primary.main,
-              color: "white",
-              "&:hover": {
-                backgroundColor: muiTheme.palette.primary.dark,
-                transform: "scale(1.1)",
-              },
-              transition: "all 0.2s ease-in-out",
-            }}
-          >
-            <ThemeIcon fontSize="small" />
-          </IconButton>
-        </Box>
+        <IconButton size="small" onClick={handleLanguageChange}>
+          <LanguageIcon fontSize="small" />
+        </IconButton>
+        <IconButton size="small" onClick={handleThemeChange}>
+          <ThemeIcon fontSize="small" />
+        </IconButton>
       </Box>
 
       {/* Main Floating Action Button */}
-      <Fab
+      <IconButton
         color="primary"
         onClick={toggleMenu}
         sx={{
-          width: 64,
-          height: 64,
-          backgroundColor: muiTheme.palette.primary.main,
-          boxShadow:
-            muiTheme.palette.mode === "dark"
-              ? "0 8px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1)"
-              : "0 8px 24px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05)",
-          transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-          backdropFilter: "blur(10px)",
-          WebkitBackdropFilter: "blur(10px)",
-          "&:hover": {
-            transform: "translateY(-2px) scale(1.05)",
-            boxShadow:
-              muiTheme.palette.mode === "dark"
-                ? "0 12px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.15)"
-                : "0 12px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08)",
-          },
-          "&:active": {
-            transform: "translateY(0px) scale(0.95)",
-          },
+          width: 50,
+          height: 50,
         }}
       >
         {isOpen ? (
           <CloseIcon
             sx={{
               fontSize: 28,
-              transform: "rotate(90deg)",
               transition: "transform 0.3s ease-in-out",
             }}
           />
@@ -250,12 +143,11 @@ export const FloatingSettingsButton: FC = () => {
           <SettingsIcon
             sx={{
               fontSize: 28,
-              transform: "rotate(0deg)",
               transition: "transform 0.3s ease-in-out",
             }}
           />
         )}
-      </Fab>
+      </IconButton>
     </Box>
   );
 };

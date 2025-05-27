@@ -110,14 +110,19 @@ a:focus {
   border-radius: 8px;
 }
 
-@keyframes slideInFromRight {
+@keyframes slideInBottomToTop {
   0% {
     opacity: 0;
-    transform: translateX(100px) scale(0.8);
+    transform: translateY(50px) scale(0.8);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: translateY(10px) scale(0.9);
   }
 
   100% {
     opacity: 1;
-    transform: translateX(0) scale(1);
+    transform: translateY(0) scale(1);
   }
 }
