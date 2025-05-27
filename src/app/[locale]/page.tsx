@@ -50,10 +50,7 @@ const HomePage: FC = () => {
           component="section"
           maxWidth="lg"
           id="about"
-          sx={{
-            paddingTop: { xs: 2, sm: 4 }, // Add some padding for better spacing
-            marginTop: { xs: 0, sm: 2 }, // Additional margin for desktop
-          }}
+          className="!pt-4 sm:!pt-8 !mt-0 sm:!mt-4"
         >
           <About />
         </Container>
@@ -62,9 +59,7 @@ const HomePage: FC = () => {
           component="section"
           maxWidth="lg"
           id="experience"
-          sx={{
-            paddingTop: { xs: 2, sm: 4 },
-          }}
+          className="!pt-4 sm:!pt-8"
         >
           <Experiences experiencesData={experiencesData} />
         </Container>
@@ -73,9 +68,7 @@ const HomePage: FC = () => {
           component="section"
           maxWidth="lg"
           id="projects"
-          sx={{
-            paddingTop: { xs: 2, sm: 4 },
-          }}
+          className="!pt-4 sm:!pt-8"
         >
           <Projects projectsData={projectsData} />
         </Container>
@@ -84,10 +77,7 @@ const HomePage: FC = () => {
           component="section"
           maxWidth="lg"
           id="contact"
-          className="mb-[100px]"
-          sx={{
-            paddingTop: { xs: 2, sm: 4 },
-          }}
+          className="pb-[100px] !pt-4 sm:!pt-8"
         >
           <Contact />
         </Container>
