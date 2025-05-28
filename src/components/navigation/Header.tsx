@@ -1,6 +1,6 @@
 "use client";
 
-import { Container, Stack, Typography } from "@mui/material";
+import { Container, Stack } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -75,16 +75,16 @@ export const Header: FC = () => {
         elevation={0} // Always 0 elevation to maintain clean look
         sx={{
           position: "fixed",
-          top: 12, // Add space from top
-          left: 20, // Add space from left
-          right: 20, // Add space from right
+          top: 12,
+          left: 20,
+          right: 20,
           zIndex: 1200,
-          borderRadius: "50px", // Rounded corners
+          borderRadius: "50px",
           // Dynamic styling based on scroll state
           backgroundColor: isScrolled
             ? (theme) =>
                 theme.palette.mode === "dark"
-                  ? "rgba(30, 30, 30, 0.85)"
+                  ? "rgba(30, 30, 30, 0.7)"
                   : "rgba(255, 255, 255, 0.7)"
             : "transparent",
           backdropFilter: isScrolled ? "blur(5px)" : "none",
@@ -123,33 +123,6 @@ export const Header: FC = () => {
               justifyContent="space-between"
               className="w-full relative"
             >
-              {/* Logo for mobile - centered */}
-              <Box
-                sx={{
-                  display: { xs: "flex", sm: "none" },
-                  position: "absolute",
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                }}
-              >
-                <Typography
-                  className="!font-extrabold cursor-default"
-                  sx={{
-                    color: "text.primary",
-                    transition: "all 0.3s ease-in-out",
-                    fontSize: isScrolled ? 20 : 24,
-                    textShadow: !isScrolled
-                      ? (theme) =>
-                          theme.palette.mode === "dark"
-                            ? "0 2px 8px rgba(0, 0, 0, 0.8)"
-                            : "0 2px 8px rgba(0, 0, 0, 0.3)"
-                      : "none",
-                  }}
-                >
-                  oneDev
-                </Typography>
-              </Box>
-
               {/* Settings group (language & theme) */}
               <Stack direction="row" alignItems="center" gap={1}>
                 <LangSwitchBtn />
@@ -198,9 +171,12 @@ export const Header: FC = () => {
       </AppBar>
 
       {/* Mobile Bottom Navigation */}
-      {mounted && <MobileBottomNav activeSection={activeSection} />}
-      {/* Mobile Floating Settings Button - only show on mobile */}
-      {mounted && <FloatingSettingsButton />}
+      {mounted && (
+        <>
+          <MobileBottomNav activeSection={activeSection} />
+          <FloatingSettingsButton />
+        </>
+      )}
     </Box>
   );
 };

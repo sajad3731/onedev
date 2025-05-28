@@ -137,15 +137,15 @@ export const FloatingSettingsButton: FC = () => {
             sx={{
               width: 48,
               height: 48,
-              backgroundColor:
-                muiTheme.palette.mode === "dark"
-                  ? "rgba(255, 255, 255, 0.1)"
-                  : "rgba(0, 0, 0, 0.05)",
-              backdropFilter: "blur(8px)",
-              border:
-                muiTheme.palette.mode === "dark"
-                  ? "1px solid rgba(255, 255, 255, 0.15)"
-                  : "1px solid rgba(0, 0, 0, 0.08)",
+              // backgroundColor:
+              //   muiTheme.palette.mode === "dark"
+              //     ? "rgba(255, 255, 255, 0.1)"
+              //     : "rgba(0, 0, 0, 0.05)",
+              // backdropFilter: "blur(8px)",
+              // border:
+              //   muiTheme.palette.mode === "dark"
+              //     ? "1px solid rgba(255, 255, 255, 0.15)"
+              //     : "1px solid rgba(0, 0, 0, 0.08)",
               transition: "all 0.2s ease-in-out",
               "&:hover": {
                 backgroundColor:
@@ -186,15 +186,15 @@ export const FloatingSettingsButton: FC = () => {
             sx={{
               width: 48,
               height: 48,
-              backgroundColor:
-                muiTheme.palette.mode === "dark"
-                  ? "rgba(255, 255, 255, 0.1)"
-                  : "rgba(0, 0, 0, 0.05)",
-              backdropFilter: "blur(8px)",
-              border:
-                muiTheme.palette.mode === "dark"
-                  ? "1px solid rgba(255, 255, 255, 0.15)"
-                  : "1px solid rgba(0, 0, 0, 0.08)",
+              // backgroundColor:
+              //   muiTheme.palette.mode === "dark"
+              //     ? "rgba(255, 255, 255, 0.1)"
+              //     : "rgba(0, 0, 0, 0.05)",
+              // backdropFilter: "blur(8px)",
+              // border:
+              //   muiTheme.palette.mode === "dark"
+              //     ? "1px solid rgba(255, 255, 255, 0.15)"
+              //     : "1px solid rgba(0, 0, 0, 0.08)",
               transition: "all 0.2s ease-in-out",
               "&:hover": {
                 backgroundColor:
@@ -222,6 +222,7 @@ export const FloatingSettingsButton: FC = () => {
       {/* Main Floating Action Button */}
       <IconButton
         onClick={toggleMenu}
+        className="!rounded-full"
         sx={{
           width: 56,
           height: 56,

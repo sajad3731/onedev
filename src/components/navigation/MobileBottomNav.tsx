@@ -130,7 +130,7 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
 
   return (
     <Box
-      className={`
+      className={`rounded-full
         fixed bottom-3 left-1/2 -translate-x-1/2 z-[1100] 
         sm:hidden transition-all duration-300 ease-in-out
         ${
@@ -143,7 +143,15 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
       }}
     >
       {/* Navigation Container */}
-      <div className="flex items-center gap-2 px-3 py-2 rounded-full bg-white/90 dark:bg-white/10 backdrop-blur-sm shadow-lg border border-gray-200/50 dark:border-white/20 min-h-[64px] w-fit">
+      <Box
+        sx={{
+          backgroundColor: (theme) =>
+            theme.palette.mode === "dark"
+              ? "rgba(30, 30, 30, 0.7)"
+              : "rgba(255, 255, 255, 0.7)",
+        }}
+        className="flex items-center gap-2 px-3 py-2 rounded-full backdrop-blur-sm shadow-lg border border-gray-200/50 dark:border-white/20 min-h-[64px] w-fit"
+      >
         {navItems.map((item) => {
           const isActive = activeValue === item.value;
 
@@ -179,7 +187,7 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
             </div>
           );
         })}
-      </div>
+      </Box>
     </Box>
   );
 };
