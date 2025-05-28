@@ -2,7 +2,7 @@ import { Header } from "@/components/navigation/Header";
 import { About } from "@/components/sections/about/About";
 import { Contact } from "@/components/sections/contact/Contact";
 import { Experiences } from "@/components/sections/experiences/Experiences";
-import { Introduce } from "@/components/sections/Introduce";
+import { Introduce } from "@/components/sections/introduce/Introduce";
 import { Projects } from "@/components/sections/projects/Projects";
 import { ScrollIndicator } from "@/components/ui/ScrollIndicator";
 import { experiencesData } from "@/data/experiencesData";

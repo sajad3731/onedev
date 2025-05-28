@@ -156,26 +156,6 @@ export const Header: FC = () => {
                 <ThemeModeSwitchBtn />
               </Stack>
 
-              {/* Logo for desktop - centered */}
-              <div className="absolute aspect-[3/1] hidden lg:inline-block left-1/2 top-1/2 -translate-1/2">
-                <Typography
-                  className="!font-extrabold cursor-default"
-                  sx={{
-                    color: "text.primary",
-                    transition: "all 0.3s ease-in-out",
-                    fontSize: isScrolled ? 20 : 28,
-                    textShadow: !isScrolled
-                      ? (theme) =>
-                          theme.palette.mode === "dark"
-                            ? "0 2px 8px rgba(0, 0, 0, 0.8)"
-                            : "0 2px 8px rgba(0, 0, 0, 0.3)"
-                      : "none",
-                  }}
-                >
-                  oneDev
-                </Typography>
-              </div>
-
               {/* Desktop navigation */}
               <div className="hidden sm:inline-flex items-center gap-x-2">
                 {navItems.map((item) => (
