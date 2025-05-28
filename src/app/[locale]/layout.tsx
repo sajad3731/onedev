@@ -1,4 +1,5 @@
 import { AppProvider } from "@/app/AppProvider";
+import { HideAddressBar } from "@/components/ui/HideAddressBar";
 import { routing } from "@/i18n/routing";
 import { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
@@ -53,8 +54,9 @@ const iransans = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "oneDev",
-  description: "سایت شخصی سجاد مهدیان",
+  title: "oneDev - Sajad Mahdian",
+  description: "سایت شخصی سجاد مهدیان - Frontend Developer",
+  manifest: "/site.webmanifest",
   icons: {
     icon: [
       { url: "../favicon.ico" },
@@ -72,7 +74,15 @@ export const metadata: Metadata = {
     shortcut: "../favicon.ico",
     apple: "/apple-touch-icon.png",
   },
-  manifest: "/site.webmanifest",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "oneDev",
+  },
+  other: {
+    "mobile-web-app-capable": "yes",
+    "msapplication-TileColor": "#1976d2",
+  },
 };
 
 export const viewport: Viewport = {
@@ -121,8 +131,19 @@ export default async function RootLayout({
       dir={locale === "fa" ? "rtl" : "ltr"}
       suppressHydrationWarning
     >
+      <head>
+        {/* Additional PWA meta tags */}
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta
+          name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent"
+        />
+        <meta name="apple-mobile-web-app-title" content="oneDev" />
+        <meta name="msapplication-TileColor" content="#1976d2" />
+      </head>
       <body
-        className={`${fontFace} antialiased min-h-screen bg-white text-black dark:bg-gray-900 dark:text-gray-100"`}
+        className={`${fontFace} antialiased min-h-screen bg-white text-black dark:bg-gray-900 dark:text-gray-100`}
       >
         <NextIntlClientProvider messages={messages}>
           <NextThemesProvider
@@ -131,6 +152,7 @@ export default async function RootLayout({
             attribute="class"
           >
             <AppProvider params={{ locale, themeCookie }}>
+              <HideAddressBar />
               {children}
             </AppProvider>
           </NextThemesProvider>

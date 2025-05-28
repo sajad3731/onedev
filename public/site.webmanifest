@@ -1,7 +1,12 @@
 {
-  "name": "onedev.ir",
+  "name": "Sajad Mahdian - oneDev",
   "short_name": "oneDev",
   "description": "This is the Sajad Mahdian portfolio web application.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#1e1e1e",
+  "theme_color": "#1976d2",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -14,7 +19,8 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#3f50b5",
-  "background_color": "#3f50b5",
-  "display": "standalone"
+  "categories": ["portfolio", "developer", "frontend"],
+  "lang": "en",
+  "scope": "/",
+  "display_override": ["standalone", "fullscreen"]
 }

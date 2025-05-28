@@ -312,3 +312,79 @@ button:focus-visible,
     background-color: rgba(255, 255, 255, 0.08) !important;
   }
 }
+
+/* ========================================================================== */
+
+/* Add these styles to your globals.css */
+
+/* Better mobile viewport handling */
+html {
+  /* Use dynamic viewport height for better mobile support */
+  min-height: 100dvh;
+  /* Fallback to regular vh if dvh not supported */
+  min-height: 100vh;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100dvh;
+  min-height: 100vh;
+  font-family: var(--font-iransans), var(--font-roboto), sans-serif;
+}
+
+/* First section adjustments for address bar hiding */
+#home {
+  min-height: 100dvh;
+  /* Dynamic viewport height - adjusts when address bar hides */
+  min-height: 100vh;
+  /* Fallback */
+  height: 100dvh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure minimum height for address bar scroll trick */
+@supports not (height: 100dvh) {
+
+  /* For browsers that don't support dvh, add minimum height to allow scrolling */
+  body {
+    min-height: calc(100vh + 1px);
+  }
+
+  #home {
+    min-height: calc(100vh + 1px);
+  }
+}
+
+/* Enhanced mobile-specific styles */
+@media (max-width: 600px) {
+  #home {
+    /* Account for potential address bar on mobile */
+    min-height: 100dvh;
+    min-height: 100vh;
+    padding-bottom: env(safe-area-inset-bottom, 96px);
+  }
+
+  /* Adjust for iOS safe areas when in standalone mode */
+  @supports (padding: max(0px)) {
+    #home {
+      padding-top: max(env(safe-area-inset-top), 0px);
+      padding-bottom: max(env(safe-area-inset-bottom), 96px);
+    }
+  }
+}
+
+/* PWA standalone mode detection */
+@media (display-mode: standalone) {
+  body {
+    /* Remove the extra height when in standalone PWA mode */
+    min-height: 100vh;
+  }
+
+  #home {
+    min-height: 100vh;
+    height: 100vh;
+  }
+}
