@@ -26,7 +26,7 @@ export const experiencesData: Experience[] = [
     companyNameKey: "Experiences.data.dorsa_cloud.companyName",
     summaryKey: "Experiences.data.dorsa_cloud.summary",
     thumbnailUrl: dorsaThumbnail,
-    url: "https://dorsa cloud/",
+    url: "https://dorsa.cloud/",
     startDate: "2023",
     endDate: "2024",
     responsibilityKeys: [

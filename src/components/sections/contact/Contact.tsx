@@ -99,7 +99,7 @@ export const Contact: FC = () => {
             },
           }}
         >
-          {phoneNumber}
+          {phoneNumber.replace("+", "")}
         </Button>
       </div>
     </div>

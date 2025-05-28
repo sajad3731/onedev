@@ -62,7 +62,7 @@ export const projectsData: Project[] = [
     descriptionKey: "Projects.data.dorsa_cloud.description",
     thumbnailUrl: dorsa1,
     status: "launched",
-    url: "https://dorsa cloud/",
+    url: "https://dorsa.cloud/",
     images: [dorsa1, dorsa2, dorsa3, dorsa4, dorsa5, dorsa6],
     launchDate: "",
   },
