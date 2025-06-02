@@ -10,60 +10,42 @@ import {
   CardHeader,
   Collapse,
   IconButton,
-  IconButtonProps,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  styled,
   Typography,
 } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { FC, useState } from "react";
-
-interface ExpandMoreProps extends IconButtonProps {
-  expand: "true" | "false";
-}
-
-const ExpandMore = styled((props: ExpandMoreProps) => {
-  return <IconButton {...props} />;
-})(({ theme }) => ({
-  marginLeft: "auto",
-  transition: theme.transitions.create("transform", {
-    duration: theme.transitions.duration.shortest,
-  }),
-  variants: [
-    {
-      props: ({ expand }) => expand === "false",
-      style: {
-        transform: "rotate(0deg)",
-      },
-    },
-    {
-      props: ({ expand }) => expand === "true",
-      style: {
-        transform: "rotate(180deg)",
-      },
-    },
-  ],
-}));
 
 interface ExperienceCardProps {
   experience: Experience;
 }
 
 export const ExperienceCard: FC<ExperienceCardProps> = ({ experience }) => {
-  const [expanded, setExpanded] = useState<"true" | "false">("false");
+  const [expanded, setExpanded] = useState(false);
 
   const t = useTranslations("Experiences");
   const experienceT = useTranslations();
 
   const handleExpandClick = () => {
-    setExpanded(expanded === "true" ? "false" : "true");
+    setExpanded(!expanded);
   };
 
   return (
-    <Card>
+    <Card
+      elevation={0}
+      sx={{
+        border: 0.5,
+        borderColor: ({ palette }) => palette.action.disabledBackground,
+        transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+        "&:hover": {
+          boxShadow: `0 5px 10px #eee`,
+          transform: "translateY(-2px)",
+        },
+      }}
+    >
       <CardHeader
         avatar={
           <Avatar src={experience.thumbnailUrl.src}>
@@ -85,17 +67,24 @@ export const ExperienceCard: FC<ExperienceCardProps> = ({ experience }) => {
           {experienceT(experience?.summaryKey)}
         </Typography>
       </CardContent>
-      <CardActions disableSpacing>
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
+      <CardActions disableSpacing className="w-full !rounded-xs">
+        <IconButton
           aria-label="show more"
+          className="w-full !rounded-xs"
+          onClick={handleExpandClick}
         >
-          <ExpandMoreIcon />
-        </ExpandMore>
+          <ExpandMoreIcon
+            sx={{
+              transition: ({ transitions }) =>
+                transitions.create("transform", {
+                  duration: transitions.duration.shortest,
+                }),
+              transform: expanded ? "rotate(180deg)" : "rotate(0)",
+            }}
+          />
+        </IconButton>
       </CardActions>
-      <Collapse in={expanded === "true"} timeout="auto" unmountOnExit>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           {experience?.responsibilityKeys && (
             <div className="flex flex-col gap-y-2 items-start">

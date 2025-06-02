@@ -15,12 +15,10 @@ export const About: FC = () => {
         </Typography>
       </Divider>
 
-      {/* Use description from resume data for Persian locale, fallback to translation for English */}
       <Typography className="text-justify !leading-[40px]">
         {t("description")}
       </Typography>
 
-      {/* Enhanced Skills Section */}
       <Skills />
 
       <Typography className="text-justify !leading-[40px]">

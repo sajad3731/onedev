@@ -1,4 +1,4 @@
-import { Box, Chip, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { FC } from "react";
 
@@ -10,21 +10,18 @@ const skillLevelMap = {
   استادی: {
     level: "Skills.excellentProficiency",
     color: "#4caf50",
-    dots: 3,
     bgColor: "#4caf5015",
     borderColor: "#4caf5030",
   },
   ماهر: {
     level: "Skills.goodProficiency",
     color: "#2196f3",
-    dots: 2,
     bgColor: "#2196f315",
     borderColor: "#2196f330",
   },
   کارآمد: {
     level: "Skills.partialProficiency",
     color: "#ff9800",
-    dots: 1,
     bgColor: "#ff980015",
     borderColor: "#ff980030",
   },
@@ -54,24 +51,6 @@ interface SkillItemProps {
   skill: { name: string; level: string };
 }
 
-const SkillDots: FC<{ count: number; color: string }> = ({ count, color }) => (
-  <Box display="flex" gap={0.5} alignItems="center">
-    {Array.from({ length: 3 }, (_, i) => (
-      <Box
-        key={i}
-        sx={{
-          width: 8,
-          height: 8,
-          borderRadius: "50%",
-          backgroundColor: i < count ? color : "rgba(158, 158, 158, 0.4)",
-          transition: "all 0.3s ease",
-          border: i < count ? "none" : "1px solid rgba(158, 158, 158, 0.3)",
-        }}
-      />
-    ))}
-  </Box>
-);
-
 const SkillItem: FC<SkillItemProps> = ({ skill }) => {
   const skillLevel = skillLevelMap[skill.level as keyof typeof skillLevelMap];
   const icon = techIcons[skill.name] || "💻";
@@ -89,7 +68,7 @@ const SkillItem: FC<SkillItemProps> = ({ skill }) => {
         transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
         "&:hover": {
           transform: "translateY(-2px)",
-          boxShadow: `0 8px 24px ${skillLevel.color}20`,
+          boxShadow: `0 1px 5px ${skillLevel.color}20`,
           border: `1px solid ${skillLevel.color}50`,
         },
       }}
@@ -122,9 +101,6 @@ const SkillItem: FC<SkillItemProps> = ({ skill }) => {
       >
         {skill.name}
       </Typography>
-
-      {/* Skill Level Dots */}
-      <SkillDots count={skillLevel.dots} color={skillLevel.color} />
     </Box>
   );
 };
@@ -161,7 +137,7 @@ export const Skills: FC = () => {
         const levelConfig = skillLevelMap[level as keyof typeof skillLevelMap];
 
         return (
-          <Box key={level} mb={3}>
+          <div key={level} className="mb-6 sm:px-6">
             {/* Level Header */}
             <Box
               display="flex"
@@ -185,38 +161,16 @@ export const Skills: FC = () => {
               >
                 {t(`${levelConfig.level}`)}
               </Typography>
-              <Chip
-                label={`${levelSkills.length}`}
-                size="small"
-                sx={{
-                  backgroundColor: `${levelConfig.color}25`,
-                  color: levelConfig.color,
-                  fontSize: "11px",
-                  height: "22px",
-                  "& .MuiChip-label": {
-                    px: 1.2,
-                  },
-                }}
-              />
               <Box sx={{ flex: 1 }} />
             </Box>
 
             {/* Skills Grid */}
-            <Box
-              display="grid"
-              gridTemplateColumns={{
-                xs: "1fr",
-                sm: "repeat(2, 1fr)",
-                md: "repeat(3, 1fr)",
-                lg: "repeat(2, 1fr)",
-              }}
-              gap={1.5}
-            >
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
               {levelSkills.map((skill) => (
                 <SkillItem key={skill.name} skill={skill} />
               ))}
-            </Box>
-          </Box>
+            </div>
+          </div>
         );
       })}
     </Box>

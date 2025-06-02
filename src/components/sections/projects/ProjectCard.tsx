@@ -4,12 +4,12 @@ import {
   Card,
   CardContent,
   CardMedia,
+  CardActions,
 } from "@mui/material";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
-import { PhotoLibrary } from "@mui/icons-material";
 
 interface ProjectCardProps {
   project: Project;
@@ -26,9 +26,7 @@ export const ProjectCard: FC<ProjectCardProps> = ({
     titleKey,
     descriptionKey,
     thumbnailUrl,
-    status,
     url,
-    launchDate,
     title: legacyTitle,
     description: legacyDescription,
   } = project;
@@ -49,86 +47,59 @@ export const ProjectCard: FC<ProjectCardProps> = ({
 
   return (
     <Card
-      elevation={3}
-      className="h-full flex flex-col transition-transform hover:scale-102 hover:shadow-lg"
+      elevation={0}
+      sx={{
+        transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+        "&:hover": {
+          boxShadow: `0 5px 10px #eee`,
+          transform: "translateY(-2px)",
+        },
+        border: 0.5,
+        borderColor: ({ palette }) => palette.action.disabledBackground,
+      }}
     >
-      <div className="relative h-48 overflow-hidden">
-        <CardMedia component="div" className="relative h-full">
-          <Image
-            src={thumbnailUrl}
-            alt={title}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
-          <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-            <Button
-              disableElevation
-              color="inherit"
-              variant="contained"
-              onClick={() => onOpenGallery(project)}
-              startIcon={<PhotoLibrary />}
-            >
-              {status === "launched" ? t("view-images") : t("view-concept")}
-            </Button>
-          </div>
-        </CardMedia>
-      </div>
+      <CardMedia className="h-48 relative">
+        <Image
+          src={thumbnailUrl}
+          alt={title}
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        />
+      </CardMedia>
 
-      <CardContent className="flex-grow flex flex-col p-4">
+      <CardContent className="flex-grow flex flex-col p-4 h-[180px]">
         <Typography className="!text-xl !font-semibold !mb-2 text-justify">
           {title}
         </Typography>
         <Typography className="!text-gray-600 !mb-4 flex-grow text-justify">
           {displayDescription}
         </Typography>
-
-        {status === "launched" && url ? (
-          <Button
-            disableElevation
-            component={Link}
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-            variant="contained"
-            fullWidth={isMobile}
-            size={isMobile ? "small" : "medium"}
-          >
-            {t("visit-project")}
-          </Button>
-        ) : status === "launched" ? (
-          <Button
-            disableElevation
-            color="secondary"
-            onClick={() => onOpenGallery(project)}
-            variant="contained"
-            fullWidth={isMobile}
-            size={isMobile ? "small" : "medium"}
-          >
-            {t("view-gallery")}
-          </Button>
-        ) : (
-          <div className="flex flex-row gap-x-1 items-center text-amber-600">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4 mr-2"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-            <Typography variant="caption">
-              {t("launching")} {launchDate}
-            </Typography>
-          </div>
-        )}
       </CardContent>
+      <CardActions>
+        <Button
+          disableElevation
+          component={Link}
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          variant="contained"
+          fullWidth={isMobile}
+          size="small"
+        >
+          {t("visit-project")}
+        </Button>
+        <Button
+          disableElevation
+          color="info"
+          onClick={() => onOpenGallery(project)}
+          variant="outlined"
+          fullWidth={isMobile}
+          size="small"
+        >
+          {t("view-gallery")}
+        </Button>
+      </CardActions>
     </Card>
   );
 };
