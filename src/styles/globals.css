@@ -31,12 +31,6 @@ body {
     padding-bottom: 96px;
     /* 72px nav height + 24px spacing */
   }
-
-  /* Adjust contact section margin for mobile to account for rounded nav */
-  #contact {
-    margin-bottom: 120px !important;
-    /* Extra space for rounded nav */
-  }
 }
 
 /* Smooth transition for sections when header height changes */

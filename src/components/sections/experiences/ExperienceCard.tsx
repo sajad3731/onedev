@@ -41,7 +41,8 @@ export const ExperienceCard: FC<ExperienceCardProps> = ({ experience }) => {
         borderColor: ({ palette }) => palette.action.disabledBackground,
         transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
         "&:hover": {
-          boxShadow: `0 5px 10px #eee`,
+          boxShadow: ({ palette }) =>
+            palette.mode === "dark" ? `0 5px 10px #000` : `0 5px 10px #eee`,
           transform: "translateY(-2px)",
         },
       }}
