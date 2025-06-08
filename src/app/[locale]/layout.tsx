@@ -1,5 +1,6 @@
 import { AppProvider } from "@/app/AppProvider";
 import { HideAddressBar } from "@/components/ui/HideAddressBar";
+import { ErrorBoundary } from "@/components/common/ErrorBoundary";
 import { routing } from "@/i18n/routing";
 import { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
@@ -132,7 +133,6 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        {/* Additional PWA meta tags */}
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta
@@ -145,18 +145,20 @@ export default async function RootLayout({
       <body
         className={`${fontFace} antialiased min-h-screen bg-white text-black dark:bg-gray-900 dark:text-gray-100`}
       >
-        <NextIntlClientProvider messages={messages}>
-          <NextThemesProvider
-            defaultTheme="light"
-            enableSystem={false}
-            attribute="class"
-          >
-            <AppProvider params={{ locale, themeCookie }}>
-              <HideAddressBar />
-              {children}
-            </AppProvider>
-          </NextThemesProvider>
-        </NextIntlClientProvider>
+        <ErrorBoundary>
+          <NextIntlClientProvider messages={messages}>
+            <NextThemesProvider
+              defaultTheme="light"
+              enableSystem={false}
+              attribute="class"
+            >
+              <AppProvider params={{ locale, themeCookie }}>
+                <HideAddressBar />
+                <ErrorBoundary>{children}</ErrorBoundary>
+              </AppProvider>
+            </NextThemesProvider>
+          </NextIntlClientProvider>
+        </ErrorBoundary>
       </body>
     </html>
   );

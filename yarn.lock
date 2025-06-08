@@ -3867,6 +3867,7 @@ __metadata:
     "@types/react": "npm:^19"
     "@types/react-dom": "npm:^19"
     "@types/stylis": "npm:^4.2.7"
+    clsx: "npm:^2.1.1"
     eslint: "npm:^9"
     eslint-config-next: "npm:15.3.3"
     next: "npm:15.3.3"
@@ -3877,6 +3878,7 @@ __metadata:
     stylis: "npm:^4.3.6"
     stylis-plugin-rtl: "npm:^2.1.1"
     swiper: "npm:^11.2.8"
+    tailwind-merge: "npm:^3.3.0"
     tailwindcss: "npm:^4"
     typescript: "npm:^5"
   languageName: unknown
@@ -4652,6 +4654,13 @@ __metadata:
   version: 11.2.8
   resolution: "swiper@npm:11.2.8"
   checksum: 10c0/1f20611434ae9659a62da3efc220043c52135e9377c95c359f2baa4852deaeb52c9580e14e4d1b6c3f1a27ff118bbd3b9e13f14c8ca99e0ee7f63b17ec94f6dc
+  languageName: node
+  linkType: hard
+
+"tailwind-merge@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "tailwind-merge@npm:3.3.0"
+  checksum: 10c0/a50cd141100486f98541dfab3705712af5860556689b7496dc6b0284374f02d12d5471f0f40035f6bb8b1c749c422060a1f3e5f8900057d8a7786b111c8472e6
   languageName: node
   linkType: hard
 

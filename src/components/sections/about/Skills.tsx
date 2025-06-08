@@ -1,9 +1,29 @@
 import { Box, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { FC } from "react";
+import { FC, memo, useMemo } from "react";
 
-// Import resume data
-import resumeData from "~/public/my-resume.json";
+// Import resume data directly - no async needed
+import resumeData from "@/data/my-resume.json";
+
+// Technology icons mapping
+const techIcons: Record<string, string> = {
+  React: "⚛️",
+  Redux: "🔄",
+  TypeScript: "📘",
+  Next: "▲",
+  JavaScript: "📜",
+  "HTML/CSS": "🎨",
+  Git: "🌿",
+  Tailwind: "🎭",
+  "material UI": "🎨",
+  i18n: "🌍",
+  formik: "📝",
+  "responsive design": "📱",
+  Axios: "🌐",
+  reachart: "📊",
+  "react hook form": "📋",
+  yup: "✅",
+};
 
 // Skill level mappings with qualitative indicators
 const skillLevelMap = {
@@ -27,31 +47,11 @@ const skillLevelMap = {
   },
 };
 
-// Technology icons mapping
-const techIcons: Record<string, string> = {
-  React: "⚛️",
-  Redux: "🔄",
-  TypeScript: "📘",
-  Next: "▲",
-  JavaScript: "📜",
-  "HTML/CSS": "🎨",
-  Git: "🌿",
-  Tailwind: "🎭",
-  "material UI": "🎨",
-  i18n: "🌍",
-  formik: "📝",
-  "responsive design": "📱",
-  Axios: "🌐",
-  reachart: "📊",
-  "react hook form": "📋",
-  yup: "✅",
-};
-
 interface SkillItemProps {
   skill: { name: string; level: string };
 }
 
-const SkillItem: FC<SkillItemProps> = ({ skill }) => {
+const SkillItem: FC<SkillItemProps> = memo(({ skill }) => {
   const skillLevel = skillLevelMap[skill.level as keyof typeof skillLevelMap];
   const icon = techIcons[skill.name] || "💻";
 
@@ -73,7 +73,6 @@ const SkillItem: FC<SkillItemProps> = ({ skill }) => {
         },
       }}
     >
-      {/* Icon */}
       <Box
         sx={{
           fontSize: "18px",
@@ -90,43 +89,45 @@ const SkillItem: FC<SkillItemProps> = ({ skill }) => {
         {icon}
       </Box>
 
-      {/* Skill Name */}
       <Typography
         variant="body2"
         fontWeight="500"
         sx={{
           flex: 1,
-          minWidth: 0, // Allow text truncation
+          minWidth: 0,
         }}
       >
         {skill.name}
       </Typography>
     </Box>
   );
-};
+});
 
-export const Skills: FC = () => {
+SkillItem.displayName = "SkillItem";
+
+export const Skills: FC = memo(() => {
   const t = useTranslations("About");
 
-  // Use skills from resume data
-  const skills = resumeData.skills;
+  // Group skills by level directly from imported data - no async needed
+  const skillsByLevel = useMemo(() => {
+    const skills = resumeData.skills || [];
 
-  // Group skills by level for display
-  const skillsByLevel = skills.reduce((acc, skill) => {
-    const level = skill.level;
-    if (!acc[level]) {
-      acc[level] = [];
-    }
-    acc[level].push(skill);
-    return acc;
-  }, {} as Record<string, typeof skills>);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return skills.reduce((acc: Record<string, any[]>, skill: any) => {
+      const level = skill.level;
+      if (!acc[level]) {
+        acc[level] = [];
+      }
+      acc[level].push(skill);
+      return acc;
+    }, {});
+  }, []); // Empty dependency array since resumeData is static
 
-  // Define order of skill levels
-  const levelOrder = ["استادی", "ماهر", "کارآمد"];
+  const levelOrder = useMemo(() => ["استادی", "ماهر", "کارآمد"], []);
 
   return (
     <Box sx={{ mt: 3, mb: 3 }}>
-      <Typography variant="h5" fontWeight="600" className="" gutterBottom>
+      <Typography variant="h5" fontWeight="600" gutterBottom>
         {t("skills-title")}
       </Typography>
 
@@ -138,7 +139,6 @@ export const Skills: FC = () => {
 
         return (
           <div key={level} className="mb-6 sm:px-6">
-            {/* Level Header */}
             <Box
               display="flex"
               alignItems="center"
@@ -164,9 +164,8 @@ export const Skills: FC = () => {
               <Box sx={{ flex: 1 }} />
             </Box>
 
-            {/* Skills Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
-              {levelSkills.map((skill) => (
+              {levelSkills.map((skill: { name: string; level: string }) => (
                 <SkillItem key={skill.name} skill={skill} />
               ))}
             </div>
@@ -175,4 +174,6 @@ export const Skills: FC = () => {
       })}
     </Box>
   );
-};
+});
+
+Skills.displayName = "Skills";

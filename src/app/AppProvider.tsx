@@ -16,7 +16,6 @@ import { prefixer } from "stylis";
 import rtlPlugin from "stylis-plugin-rtl";
 import "@/styles/globals.css";
 
-// 1) Add "themeCookie" to our type so we know which theme to pick
 interface ThemeRegistryProps {
   children: React.ReactNode;
   params: {
@@ -25,10 +24,9 @@ interface ThemeRegistryProps {
   };
 }
 
-// Create an Emotion cache instance
 const createEmotionCache = () => {
   const cache = createCache({ key: "mui" });
-  cache.compat = true; // For MUI SSR compatibility
+  cache.compat = true;
   return cache;
 };
 
@@ -43,19 +41,17 @@ const createRtlEmotionCache = () => {
 
 export const AppProvider: FC<ThemeRegistryProps> = ({ children, params }) => {
   const { locale, themeCookie } = params;
-
+  const [mounted, setMounted] = useState(false);
   const isRtl = locale === "fa";
 
-  const [cache, setCache] = useState(
-    isRtl ? createRtlEmotionCache : createEmotionCache
-  );
-
-  useEffect(() => {
-    if (!isRtl) return;
-    setCache(isRtl ? createRtlEmotionCache : createEmotionCache);
+  const cache = useMemo(() => {
+    return isRtl ? createRtlEmotionCache() : createEmotionCache();
   }, [isRtl]);
 
-  // Inject styles in SSR
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   useServerInsertedHTML(() => {
     const styles = cache.inserted;
     if (!styles) return null;
@@ -73,15 +69,18 @@ export const AppProvider: FC<ThemeRegistryProps> = ({ children, params }) => {
     );
   });
 
-  // 2) Compute the final MUI theme
   const currentTheme = useMemo(() => {
-    const isRtl = locale === "fa";
     if (themeCookie === "dark") {
       return isRtl ? darkThemeRTL : darkTheme;
     } else {
       return isRtl ? lightThemeRTL : lightTheme;
     }
-  }, [locale, themeCookie]);
+  }, [themeCookie, isRtl]);
+
+  // Prevent hydration mismatch by not rendering until mounted
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <AppRouterCacheProvider options={{ enableCssLayer: true }}>

@@ -1,14 +1,21 @@
 import { tokens } from "@/styles/tokens";
 
-/** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: "class", // This enables class-based dark mode toggling
+  darkMode: "class",
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   corePlugins: {
-    preflight: false, // Disable Tailwind base styles (use MUI CssBaseline instead)&#8203;:contentReference[oaicite:14]{index=14}
+    preflight: false,
   },
   theme: {
     extend: {
+      colors: {
+        primary: {
+          DEFAULT: tokens.colors.primary.DEFAULT,
+          light: tokens.colors.primary.light,
+          dark: tokens.colors.primary.dark,
+        },
+        neutral: tokens.colors.neutral,
+      },
       spacing: tokens.spacing,
     },
     screens: Object.fromEntries(

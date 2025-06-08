@@ -8,12 +8,13 @@ import {
 import { Box, IconButton } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { FC, useEffect, useState, useRef } from "react";
+import { FloatingSettingsButton } from "./FloatingSettingsButton";
 
-interface MobileBottomNavProps {
+interface MobileNavigationBarProps {
   activeSection?: string;
 }
 
-export const MobileBottomNav: FC<MobileBottomNavProps> = ({
+export const MobileNavigationBar: FC<MobileNavigationBarProps> = ({
   activeSection = "home",
 }) => {
   const [activeValue, setActiveValue] = useState(activeSection);
@@ -129,65 +130,66 @@ export const MobileBottomNav: FC<MobileBottomNavProps> = ({
   }, [activeSection]);
 
   return (
-    <Box
-      className={`rounded-full
-        fixed bottom-3 left-1/2 -translate-x-1/2 z-[1100] 
-        sm:hidden transition-all duration-300 ease-in-out
-        ${
-          isVisible ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
-        }
-      `}
-      style={{
-        width: "fit-content",
-        maxWidth: "calc(100vw - 24px)",
-      }}
-    >
-      {/* Navigation Container */}
+    <>
       <Box
-        sx={{
-          backgroundColor: (theme) =>
-            theme.palette.mode === "dark"
-              ? "rgba(30, 30, 30, 0.7)"
-              : "rgba(255, 255, 255, 0.7)",
+        className={`rounded-full
+      fixed bottom-3 left-1/2 -translate-x-1/2 z-[1100] 
+      sm:hidden transition-all duration-300 ease-in-out
+      ${isVisible ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"}
+    `}
+        style={{
+          width: "fit-content",
+          maxWidth: "calc(100vw - 24px)",
         }}
-        className="flex items-center gap-2 px-3 py-2 rounded-full backdrop-blur-sm shadow-lg border border-gray-200/50 dark:border-white/20 min-h-[64px] w-fit"
       >
-        {navItems.map((item) => {
-          const isActive = activeValue === item.value;
+        {/* Navigation Container */}
+        <Box
+          sx={{
+            backgroundColor: (theme) =>
+              theme.palette.mode === "dark"
+                ? "rgba(30, 30, 30, 0.7)"
+                : "rgba(255, 255, 255, 0.7)",
+          }}
+          className="flex items-center gap-2 px-3 py-2 rounded-full backdrop-blur-sm shadow-lg border border-gray-200/50 dark:border-white/20 min-h-[64px] w-fit"
+        >
+          {navItems.map((item) => {
+            const isActive = activeValue === item.value;
 
-          return (
-            <div key={item.value} className="relative">
-              <IconButton
-                onClick={() => handleNavClick(item.value)}
-                className="!w-12 !h-12 !min-w-12 !rounded-full !transition-all !duration-300 !ease-in-out hover:!scale-105"
-                aria-label={item.label}
-                sx={{
-                  color: ({ palette }) =>
-                    isActive ? palette.info.main : palette.action.active,
-                  backgroundColor: ({ palette }) =>
-                    isActive ? `${palette.info.main}15` : "transparent",
-                  "& .MuiSvgIcon-root": {
-                    fontSize: "22px",
-                    transition: "all 0.2s ease-in-out",
-                  },
-                }}
-              >
-                {item.icon}
-              </IconButton>
-
-              {/* Active indicator - small dot below the button */}
-              {isActive && (
-                <Box
-                  className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full animate-pulse shadow-sm"
+            return (
+              <div key={item.value} className="relative">
+                <IconButton
+                  onClick={() => handleNavClick(item.value)}
+                  className="!w-12 !h-12 !min-w-12 !rounded-full !transition-all !duration-300 !ease-in-out hover:!scale-105"
+                  aria-label={item.label}
                   sx={{
-                    backgroundColor: ({ palette }) => palette.primary.main,
+                    color: ({ palette }) =>
+                      isActive ? palette.info.main : palette.action.active,
+                    backgroundColor: ({ palette }) =>
+                      isActive ? `${palette.info.main}15` : "transparent",
+                    "& .MuiSvgIcon-root": {
+                      fontSize: "22px",
+                      transition: "all 0.2s ease-in-out",
+                    },
                   }}
-                />
-              )}
-            </div>
-          );
-        })}
+                >
+                  {item.icon}
+                </IconButton>
+
+                {/* Active indicator - small dot below the button */}
+                {isActive && (
+                  <Box
+                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full animate-pulse shadow-sm"
+                    sx={{
+                      backgroundColor: ({ palette }) => palette.primary.main,
+                    }}
+                  />
+                )}
+              </div>
+            );
+          })}
+        </Box>
       </Box>
-    </Box>
+      <FloatingSettingsButton />
+    </>
   );
 };
