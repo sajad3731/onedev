@@ -13,7 +13,7 @@ import { forwardRef } from "react";
 import { cn } from "@/lib/utils";
 
 // ========================================================================================
-// Enhanced Button component - Fix TypeScript conflicts
+// Enhanced Button component
 // ========================================================================================
 
 type CustomButtonVariant = "primary" | "secondary" | "outline" | "ghost";
