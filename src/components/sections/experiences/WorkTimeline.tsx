@@ -55,6 +55,8 @@ export const WorkTimeline: FC<TimelineProps> = ({ experiences }) => {
                   size="small"
                   color="primary"
                   className="font-medium"
+                  onClick={() => {}}
+                  clickable={false}
                 />
               </TimelineOppositeContent>
             )}
@@ -70,6 +72,8 @@ export const WorkTimeline: FC<TimelineProps> = ({ experiences }) => {
                   size="small"
                   color="primary"
                   className="font-medium mb-2"
+                  onClick={() => {}}
+                  clickable={false}
                   sx={{
                     fontWeight: "500",
                     boxShadow: theme.shadows[1],
