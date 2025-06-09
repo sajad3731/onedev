@@ -180,5 +180,17 @@
     "is-required": "تکمیل فیلد {fieldName} الزامی می‌باشد",
     "invalid-type": "{fieldName} باید {fieldType} باشد",
     "invalid-email": "لطفاً آدرس پست الکترونیکی را درست وارد کنید"
+  },
+  "Common": {
+    "loading": "در حال بارگذاری...",
+    "loading-experiences": "در حال بارگذاری تجربیات...",
+    "failed-to-load-experiences": "مشکلی در بارگذاری تجربیات وجود دارد",
+    "loading-projects": "در حال بارگذاری پروژه‌ها...",
+    "failed-to-load-projects": "مشکلی در بارگذاری پروژه‌ها وجود دارد",
+    "failed-to-load-skills": "مشکلی در بارگذاری مهارت‌ها وجود دارد",
+    "failed-to-load-about": "مشکلی در بارگذاری اطلاعات درباره من وجود دارد",
+    "error": "خطا",
+    "not-found": "صفحه مورد نظر یافت نشد",
+    "go-back-home": "بازگشت به خانه"
   }
 }

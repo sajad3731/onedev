@@ -1,9 +1,15 @@
-import { Typography, CardContent, CardMedia, CardActions } from "@mui/material";
+import {
+  Typography,
+  CardContent,
+  CardMedia,
+  CardActions,
+  Card,
+  Button,
+} from "@mui/material";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { FC, memo } from "react";
-import { StyledCard, StyledButton } from "@/components/common/StyledComponents";
 import type { Project } from "@/types";
 
 interface ProjectCardProps {
@@ -36,11 +42,7 @@ export const ProjectCard: FC<ProjectCardProps> = memo(
         : description;
 
     return (
-      <StyledCard
-        variant="outlined"
-        interactive
-        className="h-full flex flex-col"
-      >
+      <Card variant="outlined" className="h-full flex flex-col">
         <CardMedia className="h-48 relative">
           <Image
             src={thumbnailUrl}
@@ -61,9 +63,9 @@ export const ProjectCard: FC<ProjectCardProps> = memo(
         </CardContent>
 
         <CardActions className="p-4 pt-0 gap-2">
-          <StyledButton
-            variant="primary"
-            size="sm"
+          <Button
+            variant="contained"
+            size="small"
             component={Link}
             href={url || "#"}
             // target="_blank"
@@ -71,17 +73,17 @@ export const ProjectCard: FC<ProjectCardProps> = memo(
             className={isMobile ? "flex-1" : ""}
           >
             {t("visit-project")}
-          </StyledButton>
-          <StyledButton
-            variant="outline"
-            size="sm"
+          </Button>
+          <Button
+            variant="outlined"
+            size="small"
             onClick={() => onOpenGallery(project)}
             className={isMobile ? "flex-1" : ""}
           >
             {t("view-gallery")}
-          </StyledButton>
+          </Button>
         </CardActions>
-      </StyledCard>
+      </Card>
     );
   }
 );

@@ -1,4 +1,5 @@
 import { Box, CircularProgress, Typography } from "@mui/material";
+import { useTranslations } from "next-intl";
 import { FC } from "react";
 
 interface LoadingSpinnerProps {
@@ -8,10 +9,14 @@ interface LoadingSpinnerProps {
 }
 
 export const LoadingSpinner: FC<LoadingSpinnerProps> = ({
-  message = "Loading...",
+  message,
   size = 40,
   fullPage = false,
 }) => {
+  const t = useTranslations("Common");
+
+  message = message || t("loading");
+
   const content = (
     <Box
       display="flex"

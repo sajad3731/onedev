@@ -11,6 +11,7 @@ import { LoadingSpinner } from "@/components/common/LoadingSpinner";
 export const Experiences: FC = memo(() => {
   const { experiences, loading, error } = useExperiences();
   const t = useTranslations("Experiences");
+  const common_t = useTranslations("Common");
 
   if (loading) {
     return (
@@ -20,7 +21,7 @@ export const Experiences: FC = memo(() => {
             {t("title")}
           </Typography>
         </Divider>
-        <LoadingSpinner message="Loading experiences..." />
+        <LoadingSpinner message={common_t("loading-experiences")} />
       </div>
     );
   }

@@ -180,5 +180,17 @@
     "is-required": "{fieldName} is required",
     "invalid-type": "{fieldName} must be a {fieldType}",
     "invalid-email": "Please enter a valid email address"
+  },
+  "Common": {
+    "loading": "Loading...",
+    "loading-experiences": "Loading experiences...",
+    "failed-to-load-experiences": "Failed to load experiences",
+    "loading-projects": "Loading projects...",
+    "failed-to-load-projects": "Failed to load projects",
+    "failed-to-load-skills": "Failed to load skills",
+    "failed-to-load-about": "Failed to load about information",
+    "error": "Error",
+    "not-found": "Not found",
+    "go-back-home": "Back to home"
   }
 }

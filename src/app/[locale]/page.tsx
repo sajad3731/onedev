@@ -10,6 +10,7 @@ import { getTranslations } from "next-intl/server";
 import { type FC, Suspense } from "react";
 import { LoadingSpinner } from "@/components/common/LoadingSpinner";
 import { NavigationBar } from "@/components/navigation/NavigationBar";
+import { useTranslations } from "next-intl";
 
 export async function generateMetadata({
   params,
@@ -25,6 +26,8 @@ export async function generateMetadata({
 }
 
 const HomePage: FC = () => {
+  const t = useTranslations("Common");
+
   return (
     <ErrorBoundary>
       <Box
@@ -54,7 +57,7 @@ const HomePage: FC = () => {
             id="about"
             className="!pt-4 sm:!pt-8 !mt-0 sm:!mt-4"
           >
-            <ErrorBoundary fallback={<div>Failed to load About section</div>}>
+            <ErrorBoundary fallback={<div>{t("failed-to-load-about")}</div>}>
               <About />
             </ErrorBoundary>
           </Container>
@@ -67,10 +70,10 @@ const HomePage: FC = () => {
             className="!pt-4 sm:!pt-8"
           >
             <ErrorBoundary
-              fallback={<div>Failed to load Experiences section</div>}
+              fallback={<div>{t("failed-to-load-experiences")}</div>}
             >
               <Suspense
-                fallback={<LoadingSpinner message="Loading experiences..." />}
+                fallback={<LoadingSpinner message={t("loading-experiences")} />}
               >
                 <Experiences />
               </Suspense>
@@ -84,11 +87,9 @@ const HomePage: FC = () => {
             id="projects"
             className="!pt-4 sm:!pt-8"
           >
-            <ErrorBoundary
-              fallback={<div>Failed to load Projects section</div>}
-            >
+            <ErrorBoundary fallback={<div>{t("failed-to-load-projects")}</div>}>
               <Suspense
-                fallback={<LoadingSpinner message="Loading projects..." />}
+                fallback={<LoadingSpinner message={t("loading-projects")} />}
               >
                 <Projects />
               </Suspense>
@@ -102,7 +103,7 @@ const HomePage: FC = () => {
             id="contact"
             className="pb-[100px] !pt-4 sm:!pt-8"
           >
-            <ErrorBoundary fallback={<div>Failed to load Contact section</div>}>
+            <ErrorBoundary fallback={<div>{t("failed-to-load-skills")}</div>}>
               <Contact />
             </ErrorBoundary>
           </Container>

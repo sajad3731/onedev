@@ -16,6 +16,7 @@ export const Projects: FC = memo(() => {
   const isMobile = useMobileDetection();
   const { projects, loading, error, refetch } = useProjects();
   const t = useTranslations("Projects");
+  const common_t = useTranslations("Common");
 
   const handleOpenModal = (project: Project) => {
     setSelectedProject(project);
@@ -37,7 +38,7 @@ export const Projects: FC = memo(() => {
             {t("title")}
           </Typography>
         </Divider>
-        <LoadingSpinner message="Loading projects..." />
+        <LoadingSpinner message={common_t("loading-projects")} />
       </div>
     );
   }
