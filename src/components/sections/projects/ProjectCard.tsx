@@ -42,7 +42,17 @@ export const ProjectCard: FC<ProjectCardProps> = memo(
         : description;
 
     return (
-      <Card variant="outlined" className="h-full flex flex-col">
+      <Card
+        variant="outlined"
+        sx={{
+          transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+          "&:hover": {
+            boxShadow: ({ palette }) =>
+              palette.mode === "dark" ? `0 5px 10px #000` : `0 5px 10px #eee`,
+            transform: "translateY(-2px)",
+          },
+        }}
+      >
         <CardMedia className="h-48 relative">
           <Image
             src={thumbnailUrl}

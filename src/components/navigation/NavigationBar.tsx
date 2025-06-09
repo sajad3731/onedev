@@ -1,6 +1,5 @@
 "use client";
 
-import { Box } from "@mui/material";
 import { FC, useEffect, useState } from "react";
 import { useScrollVisibility } from "@/hooks/useScrollVisibility";
 import { useActiveSection } from "@/hooks/useActiveSection";
@@ -17,12 +16,12 @@ export const NavigationBar: FC = () => {
   }, []);
 
   return (
-    <Box sx={{ display: "flex", direction: "ltr" }}>
+    <>
       <DesktopNavigationBar
         isScrolled={isScrolled}
         activeSection={activeSection}
       />
       {mounted && <MobileNavigationBar activeSection={activeSection} />}
-    </Box>
+    </>
   );
 };

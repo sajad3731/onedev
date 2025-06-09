@@ -56,6 +56,7 @@ export const DesktopNavigationBar: FC<DesktopNavigationBarProps> = memo(
               direction="row"
               justifyContent="space-between"
               className="w-full relative"
+              sx={{ direction: "rtl" }}
             >
               <Stack direction="row" alignItems="center" gap={1}>
                 <LangSwitchBtn />

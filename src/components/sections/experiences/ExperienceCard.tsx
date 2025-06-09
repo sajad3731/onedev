@@ -35,10 +35,8 @@ export const ExperienceCard: FC<ExperienceCardProps> = ({ experience }) => {
 
   return (
     <Card
-      elevation={0}
+      variant="outlined"
       sx={{
-        border: 0.5,
-        borderColor: ({ palette }) => palette.action.disabledBackground,
         transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
         "&:hover": {
           boxShadow: ({ palette }) =>
