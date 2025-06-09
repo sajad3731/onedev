@@ -1,15 +1,19 @@
-// ecosystem.config.ts
+// ecosystem.config.js
 module.exports = {
   apps: [
     {
-      name: 'portfolio-app',
-      script: 'yarn',
-      args: 'start',
-      interpreter: 'node', // Force PM2 to use Node instead of Bun
+      name: "portfolio-app",
+      script: "yarn",
+      args: "start",
+      interpreter: "node",
       instances: 1,
-      exec_mode: 'fork',
+      exec_mode: "fork",
       env: {
-        NODE_ENV: 'production',
+        NODE_ENV: "development",
+        PORT: 3000,
+      },
+      env_production: {
+        NODE_ENV: "production",
         PORT: 3000,
       },
     },
