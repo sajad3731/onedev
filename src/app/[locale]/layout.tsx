@@ -104,7 +104,7 @@ const VALID_LOCALES = ["en", "fa"];
 
 type RootLayoutPropsType = Readonly<{
   children: React.ReactNode;
-  params: Promise<{ locale: "fa" | "en" }>;
+  params: Promise<{ locale: string }>;
 }>;
 
 export default async function RootLayout({
@@ -115,12 +115,13 @@ export default async function RootLayout({
   if (!VALID_LOCALES.includes(locale)) {
     notFound();
   }
+  const typedLocale = locale as "en" | "fa";
 
-  const fontFace = locale === "fa" ? iransans.variable : roboto.variable;
+  const fontFace = typedLocale === "fa" ? iransans.variable : roboto.variable;
 
-  setRequestLocale(locale);
+  setRequestLocale(typedLocale);
 
-  const messages = await getMessages({ locale });
+  const messages = await getMessages({ locale: typedLocale });
 
   const cookieStore = await cookies();
   const themeCookie =
@@ -128,8 +129,8 @@ export default async function RootLayout({
 
   return (
     <html
-      lang={locale}
-      dir={locale === "fa" ? "rtl" : "ltr"}
+      lang={typedLocale}
+      dir={typedLocale === "fa" ? "rtl" : "ltr"}
       suppressHydrationWarning
     >
       <head>
@@ -152,7 +153,7 @@ export default async function RootLayout({
               enableSystem={false}
               attribute="class"
             >
-              <AppProvider params={{ locale, themeCookie }}>
+              <AppProvider params={{ locale: typedLocale, themeCookie }}>
                 <HideAddressBar />
                 <ErrorBoundary>{children}</ErrorBoundary>
               </AppProvider>

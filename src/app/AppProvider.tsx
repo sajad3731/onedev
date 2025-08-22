@@ -4,7 +4,7 @@ import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
-import { FC, useEffect, useMemo, useState } from "react";
+import { type FC, type ReactNode, useEffect, useMemo, useState } from "react";
 import { useServerInsertedHTML } from "next/navigation";
 import {
   lightTheme,
@@ -17,7 +17,7 @@ import rtlPlugin from "stylis-plugin-rtl";
 import "@/styles/globals.css";
 
 interface ThemeRegistryProps {
-  children: React.ReactNode;
+  children: ReactNode;
   params: {
     locale: "fa" | "en";
     themeCookie: "light" | "dark";
