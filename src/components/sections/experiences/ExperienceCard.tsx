@@ -3,7 +3,7 @@ import {
   ExpandMore as ExpandMoreIcon,
 } from "@mui/icons-material";
 import {
-  Avatar,
+  Box,
   Card,
   CardActions,
   CardContent,
@@ -17,6 +17,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { FC, useState } from "react";
 
 interface ExperienceCardProps {
@@ -47,9 +48,21 @@ export const ExperienceCard: FC<ExperienceCardProps> = ({ experience }) => {
     >
       <CardHeader
         avatar={
-          <Avatar src={experience.thumbnailUrl.src}>
-            {experienceT(experience?.companyNameKey).substring(0, 1)}
-          </Avatar>
+          <Box
+            className="w-[40px] h-[40px]"
+            sx={{
+              width: 40,
+              height: 40,
+            }}
+          >
+            <Image
+              src={experience.thumbnailUrl.src}
+              alt={experienceT(experience?.companyNameKey)}
+              width={40}
+              height={40}
+              className="object-contain"
+            />
+          </Box>
         }
         title={
           <Typography className="text-right">

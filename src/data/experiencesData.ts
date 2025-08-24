@@ -1,15 +1,18 @@
-import aminThumbnail from "~/public/images/projects/amin/1.png";
-import dorsaThumbnail from "~/public/images/projects/dorsa cloud/1.png";
-import gcloudThumbnail from "~/public/images/projects/gcloud/1.png";
-// You may need to add company images for the new companies
-import sampleThumbnail from "~/public/images/company.png"; // Create this company image
+import sampleThumbnail from "~/public/images/company.png";
+import {
+  default as dorsaThumbnail,
+  default as gcloudThumbnail,
+} from "~/public/images/dorsa-cloud.svg";
+import aminThumbnail from "~/public/images/nano-system.png";
+import mobtakerThumbnail from "~/public/images/mobtaker.png";
+import zaeimThumbnail from "~/public/images/zaeim.png";
 
 export const experiencesData: Experience[] = [
   {
     id: "zaeim_electronics",
     companyNameKey: "Experiences.data.zaeim_electronics.companyName",
     summaryKey: "Experiences.data.zaeim_electronics.summary",
-    thumbnailUrl: sampleThumbnail, // Replace with actual image when available
+    thumbnailUrl: zaeimThumbnail,
     url: "",
     startDate: "2024",
     endDate: "Present",
@@ -91,7 +94,7 @@ export const experiencesData: Experience[] = [
     id: "mobtaker_pars",
     companyNameKey: "Experiences.data.mobtaker_pars.companyName",
     summaryKey: "Experiences.data.mobtaker_pars.summary",
-    thumbnailUrl: sampleThumbnail, // Replace with actual image when available
+    thumbnailUrl: mobtakerThumbnail,
     url: "",
     startDate: "2018",
     endDate: "2019",
