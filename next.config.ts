@@ -5,6 +5,7 @@ const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  outputFileTracingRoot: __dirname,
 };
 
 export default withNextIntl(nextConfig);
